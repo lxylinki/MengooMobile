@@ -13,7 +13,6 @@ export default class LoginInput extends Component {
 				<TextInput 
 					style={styles.input}
 					placeholder={this.props.placeholder}
-					password={true}
 					onChangeText={
 						(text)=>{
 							this.setState({text});
