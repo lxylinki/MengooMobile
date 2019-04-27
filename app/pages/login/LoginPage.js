@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {Button, StyleSheet, View, Text} from 'react-native';
 import LoginInput from '../../components/input/LoginInput';
 
 export default class LoginPage extends Component {
@@ -12,12 +12,13 @@ export default class LoginPage extends Component {
 	render(){
 		return(
 			<View style={styles.loginView}>
-				<LoginInput placeholder='Enter your ID' onChangeText={(text)=>{
+				<LoginInput password={false} placeholder='Enter your ID' onChangeText={(text)=>{
 					this.username = text;
 				}}/>
-				<LoginInput placeholder='Enter your password' onChangeText={(text)=>{
+				<LoginInput password={true} placeholder='Enter your password' onChangeText={(text)=>{
 					this.password = text;
 				}}/>
+				<Button title='Log In' onPress={()=>{this.props.navigation.navigate('Details')}} />
 			</View>
 		);
 	}
