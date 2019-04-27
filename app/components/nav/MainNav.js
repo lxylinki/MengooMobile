@@ -13,7 +13,8 @@ const AppNavigator = createStackNavigator(
 		Details: CourseDetail
 	},
 	{
-		initialRouteName: 'Login'
+		initialRouteName: 'Login',
+		headerMode: 'none'
 	}
 );
 
