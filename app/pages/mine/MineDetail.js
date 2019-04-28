@@ -8,7 +8,7 @@ export default class DetailsScreen extends Component {
 				<Text>Mine Detail Screen</Text>
 				<Button
 					title='Go to Mine Home'
-					onPress={()=>{this.props.navigation.navigate('Home')}} 
+					onPress={()=>{this.props.navigation.navigate('MineHome')}} 
 				/>
 			</View>			
 		);

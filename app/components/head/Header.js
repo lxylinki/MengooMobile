@@ -13,7 +13,7 @@ export default class Header extends Component {
 
 let styles = StyleSheet.create({
 	headerbar: {
-		backgroundColor: 'yellowgreen',
+		backgroundColor: '#e42417',
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
