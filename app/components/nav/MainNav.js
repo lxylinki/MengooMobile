@@ -5,7 +5,7 @@ import {
 	createSwitchNavigator,
 	createBottomTabNavigator, 
 	createAppContainer} from 'react-navigation';
-	
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LoginPage from '../../pages/login/LoginPage';
@@ -49,7 +49,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 		// We want to add badges to home tab icon
 		//IconComponent = HomeIconWithBadge;
 	} else if (routeName === 'mine') {
-		iconName = `ios-options${focused ? '' : '-outline'}`;
+		iconName = `ios-options${focused ? '' : ''}`;
 	}
 
 	// You can return any component that you like here!
@@ -77,7 +77,7 @@ const tabStack = createBottomTabNavigator(
 const AppNavigator = createSwitchNavigator(
 	{
 		Login: LoginPage,
-		tab: tabStack
+		Tab: tabStack
 	},
 	{
 		initialRouteName: 'Login',

@@ -4,6 +4,7 @@ import LoginInput from '../../components/input/LoginInput';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
 
+
 export default class LoginPage extends Component {
 	constructor(props) {
 		super(props);
@@ -45,7 +46,7 @@ export default class LoginPage extends Component {
 
 			).then((respJson)=>{
 				console.log(api, respJson);
-				this.props.navigation.navigate('Home');
+				this.props.navigation.navigate('Tab');
 
 			}).catch((err)=>{
 				console.error(err);
