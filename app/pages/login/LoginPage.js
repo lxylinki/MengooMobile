@@ -18,7 +18,7 @@ export default class LoginPage extends Component {
 				<LoginInput password={true} placeholder='Enter your password' onChangeText={(text)=>{
 					this.password = text;
 				}}/>
-				<Button title='Log In' onPress={()=>{this.props.navigation.navigate('Details')}} />
+				<Button style={styles.button} title='Log In' onPress={()=>{this.props.navigation.navigate('study')}} />
 			</View>
 		);
 	}
@@ -29,5 +29,9 @@ let styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: 'white',
 		alignItems: 'center'
+	},
+
+	button: {
+		marginTop: 20
 	}
 });

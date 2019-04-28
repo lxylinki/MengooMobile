@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
 import Header from './app/components/head/Header';
-import Footer from './app/components/foot/Footer';
 import MainNav from './app/components/nav/MainNav';
 
 export default class App extends Component {
@@ -29,7 +28,6 @@ export default class App extends Component {
                 <View style={this.state.screenStyle.mainView}>
                     <MainNav />
                 </View>
-                <Footer style={this.state.screenStyle.footerView} title='2019'/>
             </View>
         );
     }
@@ -48,14 +46,6 @@ let styles = StyleSheet.create({
     mainView: {
         flex: 8,
         backgroundColor: '#ddd'
-    },
-
-    mainContent: {
-        backgroundColor: '#333'
-    },
-
-    footerView: {
-        flex: 1
     }
 });
 
@@ -72,13 +62,5 @@ let horizontal_styles = StyleSheet.create({
     mainView: {
         flex: 6,
         backgroundColor: '#333',
-    },
-
-    mainContent: {
-        backgroundColor: '#ddd',
-    },
-
-    footerView: {
-        flex: 1
     }
 });
