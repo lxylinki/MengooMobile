@@ -1,4 +1,5 @@
-const url_prefix = 'http://mengoo.doctor-u.cn/mengoo/';
+//const url_prefix = 'http://mengoo.doctor-u.cn/mengoo/';
+const url_prefix = 'http://192.168.199.165/mengoo/';
 
 const mengoo_encrypt = url_prefix + 'site/pk';
 const mengoo_login = url_prefix + 'site/login';

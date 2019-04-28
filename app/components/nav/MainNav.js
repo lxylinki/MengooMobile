@@ -5,6 +5,7 @@ import {
 	createSwitchNavigator,
 	createBottomTabNavigator, 
 	createAppContainer} from 'react-navigation';
+	
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LoginPage from '../../pages/login/LoginPage';
