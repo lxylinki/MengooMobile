@@ -62,6 +62,7 @@ const tabStack = createBottomTabNavigator(
 		mine: mineStack
 	},
 	{
+		initialRouteName: 'study',
 		defaultNavigationOptions: ({ navigation }) => ({
 			tabBarIcon: ({ focused, tintColor }) =>
 				getTabBarIcon(navigation, focused, tintColor),

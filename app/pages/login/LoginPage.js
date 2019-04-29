@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet, View, Text} from 'react-native';
+import {Alert, Button, StyleSheet, View, Text} from 'react-native';
 import LoginInput from '../../components/input/LoginInput';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
@@ -19,10 +19,7 @@ export default class LoginPage extends Component {
 	login(){
 		asyncReq.call(this);
 		async function asyncReq(){
-			// this.epassword = await this.utils.encrypt(this.password);
-			// console.log(this.epassword);
-
-			this.epassword = '123456';
+			this.epassword = await this.utils.encrypt(this.password);
 			let api = global_.mengoo_login;
 			let data = {
 				school_alias: 'zy',
@@ -31,7 +28,7 @@ export default class LoginPage extends Component {
 				remember: 0					
 			};
 
-			fetch(
+			let resp = await fetch(
 				api,
 				{
 					method: 'POST',
@@ -39,18 +36,21 @@ export default class LoginPage extends Component {
 						'Accept': 'application/json',
 						'Content-Type': 'application/json'
 					},
-					body: JSON.stringify(data)
+					body: JSON.stringify(data),
+					credentials:'include',
+					mode: 'cors'					
 				}
-			).then((resp)=> 
-				resp.json()
+			);
 
-			).then((respJson)=>{
-				console.log(api, respJson);
+			if(resp.status===200||resp.status===201||resp.status===204) {
+				// let respJson = await resp.json();
+				// console.log(respJson);
 				this.props.navigation.navigate('Tab');
 
-			}).catch((err)=>{
-				console.error(err);
-			});
+			} else {
+				Alert.alert('登录失败');
+				return;
+			}
 		}
 	}
 
@@ -73,6 +73,7 @@ let styles = StyleSheet.create({
 	loginView: {
 		flex: 1,
 		backgroundColor: 'white',
-		alignItems: 'center'
+		alignItems: 'center',
+		paddingTop: 100
 	}
 });

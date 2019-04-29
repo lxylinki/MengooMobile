@@ -28,11 +28,12 @@ export default class LoginInput extends Component {
 
 let styles = StyleSheet.create({
 	inputView: {
-	    marginTop: 20,
+	    marginTop: 10,
+	    marginBottom: 10,
 	    height:50,
 	    width: 300,
 	    backgroundColor: '#ffffff',
-	    borderRadius:50,
+	    //borderRadius:50,
 	    borderWidth:0.3,
 	    borderColor:'#000000',
 	    flexDirection: 'column',

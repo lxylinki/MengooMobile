@@ -16,7 +16,9 @@ export default class Utils {
 						'Accept': 'application/json',
 						'Content-Type': 'application/json'
 					},
-					body:JSON.stringify({})
+					body: JSON.stringify({}),
+					credentials:'include',
+					mode: 'cors'
 				}
 			).then((resp)=>
 				resp.json()
@@ -36,6 +38,7 @@ export default class Utils {
 			async function asyncReq(){
 				let nonce, pk, ts;
 				let pkObj = await this.getPk(pswd);
+				console.log(pkObj);
 
 				nonce = pkObj.nonce;
 				pk = pkObj.pk;
