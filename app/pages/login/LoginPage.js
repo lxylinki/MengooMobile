@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Alert, Button, StyleSheet, View, Text} from 'react-native';
 import LoginInput from '../../components/input/LoginInput';
-import LoginBtn from '../../components/button/LoginBtn';
+import RegularBtn from '../../components/button/RegularBtn';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
 //import {BoxShadow} from 'react-native-shadow';
@@ -90,7 +90,7 @@ export default class LoginPage extends Component {
 
 				<View style={styles.buttonDiv}>
 					{/*<BoxShadow setting={shadowOpt}>*/}
-					<LoginBtn style={styles.button} text='登录' action={this.login}/>
+					<RegularBtn style={styles.button} text='登录' action={this.login}/>
 					{/*</BoxShadow>*/}
 				</View>
 			</View>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 
-export default class LoginBtn extends Component {
+export default class BadgeBtn extends Component {
 	render(){
 		return(
 			<TouchableOpacity style={[styles.button, this.props.style]} onPress={this.props.action}>
@@ -13,17 +13,17 @@ export default class LoginBtn extends Component {
 
 let styles = StyleSheet.create({
 	button: {
-		height: 50,
-		width: 360,
-		backgroundColor: '#3296fa',
+		height: 30,
+		width: 70,
+		backgroundColor: 'white',
 		justifyContent: 'center',
 		borderRadius: 25,
-		margin: 10
+		margin: 5
 	},
 
 	buttonText: {
 		textAlign: 'center',
-		color: 'white',
-		fontSize: 18
+		color: '#999',
+		fontSize: 12
 	}
 });
