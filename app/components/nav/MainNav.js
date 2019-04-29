@@ -129,7 +129,7 @@ const tabStack = createBottomTabNavigator(
 		}),
 		
 		tabBarOptions: {
-			activeTintColor: '#e42417',
+			activeTintColor: '#3296fa',
 			inactiveTintColor: 'gray',
 		},
 	}
@@ -141,7 +141,8 @@ const AppNavigator = createSwitchNavigator(
 		Tab: tabStack
 	},
 	{
-		initialRouteName: 'Login',
+		//initialRouteName: 'Login',
+		initialRouteName: 'Tab',
 		headerMode: 'none'
 	}
 );
