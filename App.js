@@ -9,19 +9,10 @@ export default class App extends Component {
             screenStyle: styles
         }
     }
-  
-    _onlayout=()=>{
-        let {width, height} = Dimensions.get('window');
-        if(width > height) {
-            this.setState({screenStyle: horizontal_styles});
-        } else {
-            this.setState({screenStyle: styles});
-        }
-    }
 
     render() {
         return (
-            <View style={this.state.screenStyle.rootView} onLayout={this._onlayout}>
+            <View style={this.state.screenStyle.rootView}>
                 <MainNav />
             </View>
         );
@@ -30,13 +21,6 @@ export default class App extends Component {
 
 
 let styles = StyleSheet.create({
-    rootView: {
-        flex: 1
-    }
-});
-
-
-let horizontal_styles = StyleSheet.create({
     rootView: {
         flex: 1
     }

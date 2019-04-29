@@ -9,7 +9,7 @@ export default class LoginInput extends Component {
 
 	render(){
 		return(
-			<View style={[this.props.style, styles.inputView]}>
+			<View style={[styles.inputView, this.props.style]}>
 				<TextInput 
 					style={styles.input}
 					placeholder={this.props.placeholder}
@@ -28,21 +28,16 @@ export default class LoginInput extends Component {
 
 let styles = StyleSheet.create({
 	inputView: {
-	    marginTop: 10,
+	    marginTop: 20,
 	    marginBottom: 10,
 	    height:50,
-	    width: 300,
-	    backgroundColor: '#ffffff',
-	    //borderRadius:50,
-	    borderWidth:0.3,
-	    borderColor:'#000000',
-	    flexDirection: 'column',
-	    justifyContent: 'center',		
+	    width: 360
 	},
 
 	input: {
-	    backgroundColor: '#ffffff',
 	    height:45,
-	    margin:18,
+	    width: 360,
+	    margin:0,
+	    borderBottomWidth: 0.3,
 	}
 });

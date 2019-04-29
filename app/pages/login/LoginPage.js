@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Alert, Button, StyleSheet, View, Text} from 'react-native';
+import {TouchableOpacity, Alert, Button, StyleSheet, View, Text} from 'react-native';
 import LoginInput from '../../components/input/LoginInput';
+import LoginBtn from '../../components/button/LoginBtn';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
 
@@ -57,31 +58,75 @@ export default class LoginPage extends Component {
 	render(){
 		return(
 			<View style={styles.loginView}>
-				<LoginInput style={styles.usernameInp} password={false} placeholder='Enter your ID' onChangeText={(text)=>{
-					this.username = text;
-				}}/>
-				<LoginInput style={styles.passwordInp} password={true} placeholder='Enter your password' onChangeText={(text)=>{
-					this.password = text;
-				}}/>
-				<Button style={styles.loginBtn} title='Log In' onPress={this.login} />
+				<View style={styles.pageTitleDiv}>
+					<Text style={styles.pageTitle}>账号密码登陆</Text>
+				</View>
+
+				<View style={styles.usernameDiv}>
+					<Text style={styles.usernameLabel}>账号</Text>
+					<LoginInput style={styles.usernameInp} password={false} placeholder='请输入您的账号' onChangeText={(text)=>{
+						this.username = text;
+					}}/>
+				</View>
+
+				<View style={styles.passwordDiv}>
+					<Text style={styles.passwordLabel}>密码</Text>
+					<LoginInput style={styles.passwordInp} password={true} placeholder='请输入您的密码' onChangeText={(text)=>{
+						this.password = text;
+					}}/>
+				</View>
+
+				<View style={styles.buttonDiv}>
+					<LoginBtn style={styles.button} text='登录' action={this.login}/>
+				</View>
 			</View>
 		);
 	}
 }
 
 let styles = StyleSheet.create({
+	pageTitleDiv: {
+		flex: 1,
+		paddingTop: 100,
+		paddingLeft: 20,
+		justifyContent: 'center',
+	},
+
+	pageTitle: {
+		fontSize: 28,
+		fontWeight: 'bold'
+	},
+
+	usernameDiv: {
+		flex: 2,
+		padding: 20,
+		flexDirection: 'column',
+		marginBottom: -20
+	},
+
+	usernameLabel: {
+		fontSize: 16,
+		marginBottom: -20
+	},
+
+	passwordDiv: {
+		flex: 2,
+		marginBottom: 30,
+		padding: 20,
+	},
+
+	passwordLabel: {
+		fontSize: 16,
+		marginBottom: -20
+	},
+
 	loginView: {
 		flex: 1,
-		backgroundColor: 'white',
-		alignItems: 'center',
-		paddingTop: 100
+		backgroundColor: 'white'
 	},
 
-	usernameInp: {
-		borderRadius: 50
-	},
-
-	passwordInp: {
-		borderRadius: 50
-	},
+	buttonDiv: {
+		flex: 3,
+		alignItems: 'center'
+	}
 });
