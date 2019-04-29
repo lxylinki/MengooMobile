@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-
-import Header from './app/components/head/Header';
 import MainNav from './app/components/nav/MainNav';
 
 export default class App extends Component {
@@ -24,10 +22,7 @@ export default class App extends Component {
     render() {
         return (
             <View style={this.state.screenStyle.rootView} onLayout={this._onlayout}>
-                <Header style={this.state.screenStyle.headerView} title='MY FIRST APP' />
-                <View style={this.state.screenStyle.mainView}>
-                    <MainNav />
-                </View>
+                <MainNav />
             </View>
         );
     }
@@ -37,15 +32,6 @@ export default class App extends Component {
 let styles = StyleSheet.create({
     rootView: {
         flex: 1
-    },
-
-    headerView: {
-        flex: 1
-    },
-
-    mainView: {
-        flex: 8,
-        backgroundColor: '#ddd'
     }
 });
 
@@ -53,14 +39,5 @@ let styles = StyleSheet.create({
 let horizontal_styles = StyleSheet.create({
     rootView: {
         flex: 1
-    },
-
-    headerView: {
-        flex: 1
-    },
-
-    mainView: {
-        flex: 6,
-        backgroundColor: '#333',
     }
 });

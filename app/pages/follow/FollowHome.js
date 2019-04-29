@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, View, Text} from 'react-native';
 
-export default class CourseDetail extends Component {
+export default class FollowHome extends Component {
 	render(){
 		return(
 			<View style={styles.rootView}>
-				<Text>Course Detail</Text>
+				<Text>Follow</Text>
 				<Button
-					title='Go to Course Home'
-					onPress={()=>{this.props.navigation.navigate('CourseHome')}} 
+					title='Go to Follow Details'
+					onPress={()=>{this.props.navigation.navigate('FollowDetail')}} 
 				/>
-			</View>			
+			</View>
 		);
 	}
 }
@@ -19,6 +19,6 @@ let styles = StyleSheet.create({
 	rootView: { 
 		flex: 1, 
 		alignItems: 'center', 
-		justifyContent: 'center' 
+		justifyContent: 'center'
 	}
 });

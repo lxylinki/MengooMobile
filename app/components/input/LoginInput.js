@@ -9,7 +9,7 @@ export default class LoginInput extends Component {
 
 	render(){
 		return(
-			<View style={styles.inputView}>
+			<View style={[this.props.style, styles.inputView]}>
 				<TextInput 
 					style={styles.input}
 					placeholder={this.props.placeholder}

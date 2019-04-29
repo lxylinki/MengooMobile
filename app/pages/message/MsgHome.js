@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, View, Text} from 'react-native';
 
-export default class HomePage extends Component {
+export default class MsgHome extends Component {
 	render(){
 		return(
 			<View style={styles.rootView}>
-				<Text>Home Screen</Text>
+				<Text>Message</Text>
 				<Button
-					title='Go to Details'
-					onPress={()=>{this.props.navigation.navigate('Details')}} 
-				/>
-				<Button
-					title='Go to Mine'
-					onPress={()=>{this.props.navigation.navigate('MineHome')}} 
+					title='Go to Message Details'
+					onPress={()=>{this.props.navigation.navigate('MsgDetail')}} 
 				/>
 			</View>
 		);
