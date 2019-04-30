@@ -15,6 +15,8 @@ const student_group = 3;
 
 
 export default {
+	url_prefix,
+	
 	super_admin_group,
 	school_admin_group,
 	teacher_group,

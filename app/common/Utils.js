@@ -7,7 +7,7 @@ export default class Utils {
 	getPk(pswd) {
 		return new Promise((resolve, reject)=>{
 			let nonce, pk, ts, encrypt, epassword;
-			var encryptapi = global_.mengoo_encrypt;
+			let encryptapi = global_.mengoo_encrypt;
 			fetch(
 				encryptapi,
 				{
@@ -38,7 +38,7 @@ export default class Utils {
 			async function asyncReq(){
 				let nonce, pk, ts;
 				let pkObj = await this.getPk(pswd);
-				console.log(pkObj);
+				//console.log(pkObj);
 
 				nonce = pkObj.nonce;
 				pk = pkObj.pk;
@@ -50,5 +50,40 @@ export default class Utils {
 				resolve(epassword);
 			}
 		});		
+	}
+
+
+	getCourseList(page, pageSize, dataProc){
+		let api = global_.course_list
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+
+		let data = {
+			status: [0, 1, 2, 4]
+		};
+
+		fetch(
+			api,
+			{
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data),
+				credentials:'include',
+				mode: 'cors'
+			}
+		).then((resp)=>
+			resp.json()
+			
+		).then((respJson)=>{
+			dataProc(respJson);
+
+		}).catch((err)=>{
+			console.error(err);
+		});
 	}
 }

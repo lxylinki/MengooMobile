@@ -2,10 +2,34 @@ import React, {Component} from 'react';
 import {Alert, Dimensions, Image, StyleSheet, Button, View, Text} from 'react-native';
 import Header from '../../components/head/Header';
 import SearchInput from '../../components/input/SearchInput';
+import RegularBtn from '../../components/button/RegularBtn';
 import BadgeBtn from '../../components/button/BadgeBtn';
 import HomeSwiper from '../../components/swiper/HomeSwiper';
+import CourseView from '../../components/list/CourseView';
+import Utils from '../../common/Utils';
+
 
 export default class CourseHome extends Component {
+	constructor(props) {
+		super(props);
+		this.page = 1;
+		this.pageSize = 10;
+		this.utils = new Utils();
+		this.state = {
+			data: new Array()
+		}
+		this.getData();
+	}
+
+	getData(){
+		this.utils.getCourseList(this.page, this.pageSize, (resp)=>{
+			console.log(resp);
+			this.setState({
+				data: resp._list
+			});			
+		})
+	}
+
 	render(){
 		return(
 			<View style={styles.rootView}>
@@ -24,7 +48,9 @@ export default class CourseHome extends Component {
 				<HomeSwiper />
 				
 				<View style={styles.bottomView}>
-					
+					<View>
+						<CourseView data={this.state.data} /> 
+					</View>
 				</View>
 
 			</View>
