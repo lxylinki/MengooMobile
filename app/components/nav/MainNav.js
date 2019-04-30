@@ -20,6 +20,7 @@ import FollowDetail from '../../pages/follow/FollowDetail';
 
 import CourseHome from '../../pages/study/CourseHome';
 import CourseDetail from '../../pages/study/CourseDetail';
+import CourseSearch from '../../pages/study/CourseSearch';
 
 import MineHome from '../../pages/mine/MineHome';
 import MineDetail from '../../pages/mine/MineDetail';
@@ -51,7 +52,8 @@ const followStack = createStackNavigator(
 const studyStack = createStackNavigator(
 	{
 		CourseHome: CourseHome,
-		CourseDetail: CourseDetail
+		CourseDetail: CourseDetail,
+		CourseSearch: CourseSearch
 	},
 	{
 		initialRouteName: 'CourseHome',
