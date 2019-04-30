@@ -36,7 +36,7 @@ export default class CourseHome extends Component {
 				<Header style={styles.headerView} title='MY FIRST APP' />
 
 				<View style={styles.upperView}>
-					<SearchInput placeholder='搜索课程'/>
+					<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
 					<View style={styles.searchBadges}>
 						<Text>热搜</Text>
 						<BadgeBtn text={'抑郁症'} action={()=>{Alert.alert('pressed')}}/>

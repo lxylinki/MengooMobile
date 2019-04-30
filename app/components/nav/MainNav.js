@@ -117,7 +117,8 @@ const tabStack = createBottomTabNavigator(
 		mine: {
 			screen: mineStack,
 			navigationOptions: {
-				title: '我的'
+				title: '我的',
+				//tabBarVisible: false,
 			}
 		}
 	},
