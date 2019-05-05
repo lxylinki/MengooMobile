@@ -79,20 +79,26 @@ export default class CourseHome extends Component {
 						<RegularBtn 
 							style={styles.indexBtn} 
 							text={'推荐课程'}
+							ref={'courseBtn'}
 							action={()=>{
+								this.refs.courseBtn.setState({active: true});
+								this.refs.catagBtn.setState({active: false});
 								this.refs.pageScroll.scrollTo({x:0*width, animated:true});
 							}}/>
 							
 						<RegularBtn 
 							style={styles.indexBtn} 
 							text={'课程分类'}
+							ref={'catagBtn'}
 							action={()=>{
-								//this.getCatagData();
+								this.refs.courseBtn.setState({active: false});
+								this.refs.catagBtn.setState({active: true});
 								this.refs.pageScroll.scrollTo({x:1*width, animated:true});
 							}}/>
 					</View>
 
 					<ScrollView 
+						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>

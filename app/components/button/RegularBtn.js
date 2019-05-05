@@ -11,8 +11,10 @@ export default class RegularBtn extends Component {
 
 	render(){
 		return(
-			<TouchableOpacity style={[styles.button, this.props.style]} onPress={this.props.action}>
-				<Text style={[styles.buttonText, this.props.style]}>{this.props.text}</Text>
+			<TouchableOpacity 
+				style={this.state.active? [styles.button, this.props.style] : [styles.inactive, this.props.style]} 
+				onPress={this.props.action}>
+				<Text style={this.state.active? [styles.buttonText, this.props.style] : [styles.inactiveText, this.props.style]}>{this.props.text}</Text>
 			</TouchableOpacity>			
 		);
 	}
@@ -31,6 +33,20 @@ let styles = StyleSheet.create({
 
 	buttonText: {
 		color: 'white',
+		fontSize: 18,
+		alignSelf: 'center'
+	},
+
+	inactive: {
+		height: 50,
+		width: 360,
+		justifyContent: 'center',
+		alignItems: 'center',
+		margin: 10
+	},
+
+	inactiveText: {
+		color: '#333',
 		fontSize: 18,
 		alignSelf: 'center'
 	}
