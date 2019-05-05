@@ -5,16 +5,16 @@ export default class RegularBtn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			active: false
+			active: true
 		}
 	}
 
 	render(){
 		return(
 			<TouchableOpacity 
-				style={this.state.active? [styles.button, this.props.style] : [styles.inactive, this.props.style]} 
+				style={ [this.state.active? styles.button : styles.inactive, this.props.style]} 
 				onPress={this.props.action}>
-				<Text style={this.state.active? [styles.buttonText, this.props.style] : [styles.inactiveText, this.props.style]}>{this.props.text}</Text>
+				<Text style={[this.state.active? styles.buttonText : styles.inactiveText, this.props.style]}>{this.props.text}</Text>
 			</TouchableOpacity>			
 		);
 	}
