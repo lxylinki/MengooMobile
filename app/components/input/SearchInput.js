@@ -6,27 +6,33 @@ export default class SearchInput extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			text: ''
+			text: '',
+			smaller: false
 		}
 	}
 
 	onFocusChange = () => {
-	    this.props.navigation.navigate('MineHome');
+	    this.props.navigation.navigate('CourseSearch');
 	};	
 
 	render(){
 		return(
-			<View style={[styles.inputView, this.props.style]}>
-				<AntDesign style={styles.icon} name={'search1'} size={20} color={'#ddd'} />
+			<View style={[this.props.smaller?styles.smallInputView:styles.inputView, this.props.style]}>
+				<AntDesign 
+					style={[this.props.smaller?styles.smallIcon:styles.icon, this.state.text.length>0?{opacity: 0}:{}]} 
+					name={'search1'} 
+					size={20} 
+					color={'#ddd'} />
 				<TextInput 
-					style={styles.input} 
+					style={this.props.smaller?styles.smallInput:styles.input} 
 					placeholder={this.props.placeholder}
 					onChangeText={
 						(text)=>{
 							this.setState({text});
-							this.props.onChangeText(text);
+							//this.props.onChangeText(text);
 						}
 					}
+					autoFocus={this.props.autoFocus}
 					onFocus={this.onFocusChange}
 					>
 				</TextInput>
@@ -53,5 +59,24 @@ let styles = StyleSheet.create({
 
 	icon: {
 		left: 140
+	},
+
+	smallInputView: {
+		width: 340,
+		height: 40,
+		borderRadius: 25,
+		backgroundColor: 'white',
+		flexDirection: 'row',
+		alignItems: 'center',
+		margin: 10,
+	},
+
+	smallInput: {
+		flex: 1,
+		textAlign: 'center'
+	},
+
+	smallIcon: {
+		left: 120
 	}
 });

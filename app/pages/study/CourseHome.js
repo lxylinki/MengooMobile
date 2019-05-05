@@ -117,12 +117,8 @@ export default class CourseHome extends Component {
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
-						
 						<CourseView data={this.state.courseData} /> 
 						<CatagView data={this.state.catagData}/>
-						{/*
-						<View style={{width: width, backgroundColor: 'powderblue'}}></View>
-						<View style={{width: width, backgroundColor: 'steelblue'}}></View>*/}
 					</ScrollView>
 				</View>
 
