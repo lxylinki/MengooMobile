@@ -9,12 +9,18 @@ export default class RegularBtn extends Component {
 		}
 	}
 
+	componentDidMount(){
+		if(Object.keys(this.props).includes('if_active')) {
+			this.setState({active: this.props.if_active});
+		}
+	}
+
 	render(){
 		return(
 			<TouchableOpacity 
-				style={ [this.state.active? styles.button : styles.inactive, this.props.style]} 
+				style={[this.state.active? styles.button : styles.inactive, this.props.style]} 
 				onPress={this.props.action}>
-				<Text style={[this.state.active? styles.buttonText : styles.inactiveText, this.props.style]}>{this.props.text}</Text>
+				<Text style={[this.state.active? styles.buttonText : styles.inactiveText, this.props.textStyle]}>{this.props.text}</Text>
 			</TouchableOpacity>			
 		);
 	}
@@ -28,13 +34,12 @@ let styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 25,
-		margin: 10
+		margin: 10,
 	},
 
 	buttonText: {
 		color: 'white',
 		fontSize: 18,
-		alignSelf: 'center'
 	},
 
 	inactive: {
@@ -42,6 +47,7 @@ let styles = StyleSheet.create({
 		width: 360,
 		justifyContent: 'center',
 		alignItems: 'center',
+		borderRadius: 25,
 		margin: 10
 	},
 

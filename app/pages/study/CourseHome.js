@@ -37,7 +37,7 @@ export default class CourseHome extends Component {
 
 	getCourseData(){
 		this.utils.getCourseList(this.page, this.pageSize, (resp)=>{
-			console.log(resp);
+			//console.log(resp);
 			this.setState({
 				courseData: resp._list
 			});			
@@ -46,16 +46,26 @@ export default class CourseHome extends Component {
 
 	getCatagData(){
 		this.utils.getCatagList((resp)=>{
-			console.log(resp);
+			//console.log(resp);
 			this.setState({
 				catagData: resp
 			});			
 		})
 	}
 
-	scrollEnd(){
-		console.log('scrollEnd');
-	}
+	scrollEnd = (param)=> {
+		let index = Math.round(param.nativeEvent.contentOffset.x/width);
+		switch(index) {
+			case 0:
+				this.refs.courseBtn.setState({active: true});
+				this.refs.catagBtn.setState({active: false});
+				break;
+			case 1:
+				this.refs.courseBtn.setState({active: false});
+				this.refs.catagBtn.setState({active: true});
+				break;
+		}
+	};
 
 	render(){
 		return(
@@ -78,8 +88,10 @@ export default class CourseHome extends Component {
 					<View style={styles.indexBtns}>
 						<RegularBtn 
 							style={styles.indexBtn} 
+							textStyle={styles.indexBtnText}
 							text={'推荐课程'}
 							ref={'courseBtn'}
+							if_active={true}
 							action={()=>{
 								this.refs.courseBtn.setState({active: true});
 								this.refs.catagBtn.setState({active: false});
@@ -88,8 +100,10 @@ export default class CourseHome extends Component {
 							
 						<RegularBtn 
 							style={styles.indexBtn} 
+							textStyle={styles.indexBtnText}
 							text={'课程分类'}
 							ref={'catagBtn'}
+							if_active={false}
 							action={()=>{
 								this.refs.courseBtn.setState({active: false});
 								this.refs.catagBtn.setState({active: true});
@@ -98,12 +112,17 @@ export default class CourseHome extends Component {
 					</View>
 
 					<ScrollView 
+						style={styles.scroll}
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
+						
 						<CourseView data={this.state.courseData} /> 
 						<CatagView data={this.state.catagData}/>
+						{/*
+						<View style={{width: width, backgroundColor: 'powderblue'}}></View>
+						<View style={{width: width, backgroundColor: 'steelblue'}}></View>*/}
 					</ScrollView>
 				</View>
 
@@ -123,13 +142,13 @@ let styles = StyleSheet.create({
 	},
 
 	upperView: {
-		height: 110,
+		height: 100,
 		alignItems: 'center',
 		flexDirection: 'column'
 	},
 
 	bottomView: {
-		flex: 2
+		flex: 2.5
 	},
 
 	searchBadges: {
@@ -140,18 +159,22 @@ let styles = StyleSheet.create({
 	},
 
 	indexBtns: {
+		height: 55,
 		flexDirection: 'row',
 		alignItems: 'baseline',
+		paddingLeft: 10
+	},
+
+	scroll: {
 	},
 
 	indexBtn: {
-		fontSize: 16,
-		paddingTop: 4,
-		textAlign: 'center',
 		width: 100,
 		height: 34,
-		borderRadius: 20,
-		marginTop: 20,
-		marginBottom: 20,
+	},
+
+	indexBtnText: {
+		fontSize: 16
 	}
+
 });

@@ -13,7 +13,7 @@ export default class BadgeBtn extends Component {
 
 let styles = StyleSheet.create({
 	button: {
-		height: 30,
+		height: 25,
 		width: 70,
 		backgroundColor: 'white',
 		justifyContent: 'center',

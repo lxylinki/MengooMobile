@@ -37,13 +37,13 @@ export default class SearchInput extends Component {
 
 let styles = StyleSheet.create({
 	inputView: {
-		width: 360,
+		width: 380,
 		height: 40,
 		borderRadius: 25,
 		backgroundColor: 'white',
 		flexDirection: 'row',
 		alignItems: 'center',
-		margin: 10
+		margin: 10,
 	},
 
 	input: {
