@@ -8,12 +8,11 @@ import {
 	Dimensions 
 } from 'react-native';
 
-import CourseItem from './CourseItem';
-
+import CatagItem from './CatagItem';
 
 var {height, width} = Dimensions.get('window');
 
-export default class CourseView extends Component {
+export default class CatagView extends Component {
 	render(){
 		let key = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
@@ -23,7 +22,7 @@ export default class CourseView extends Component {
 			 style={styles.list}
 			 data = {this.props.data}
 			 renderItem = {({item})=>{
-			 	return(<CourseItem data={item} clickItem={()=>{Alert.alert('Course Item Clicked')}}/>);
+			 	return(<CatagItem data={item} clickItem={()=>{Alert.alert('Course Item Clicked')}}/>);
 			 }}
 			 ItemSeparatorComponent = {()=>{
 			 	return(<View style={styles.separatorLine}></View>);

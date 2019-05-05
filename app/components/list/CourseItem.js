@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { 
+	StyleSheet, 
+	View, 
+	Text, 
+	Image, 
+	TouchableOpacity 
+} from 'react-native';
+
 import global_ from '../../common/Global';
 
 export default class CourseItem extends Component {

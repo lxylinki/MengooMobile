@@ -22,9 +22,11 @@ export default class Utils {
 				}
 			).then((resp)=>
 				resp.json()
+				//resp.text()
 				
 			).then((respJson)=>{
 				resolve(respJson);
+				//console.log(respJson);
 
 			}).catch((err)=>{
 				console.error(err);
@@ -62,6 +64,36 @@ export default class Utils {
 
 		let data = {
 			status: [0, 1, 2, 4]
+		};
+
+		fetch(
+			api,
+			{
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data),
+				credentials:'include',
+				mode: 'cors'
+			}
+		).then((resp)=>
+			resp.json()
+			
+		).then((respJson)=>{
+			dataProc(respJson);
+
+		}).catch((err)=>{
+			console.error(err);
+		});
+	}
+
+	getCatagList(dataProc){
+		let api = global_.course_catag_list;
+
+		let data = {
+			all: 1
 		};
 
 		fetch(
