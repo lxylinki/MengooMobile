@@ -38,9 +38,16 @@ export default class CourseHome extends Component {
 	getCourseData(){
 		this.utils.getCourseList(this.page, this.pageSize, (resp)=>{
 			//console.log(resp);
-			this.setState({
-				courseData: resp._list
-			});			
+			if(this.page === 1) {
+				this.setState({
+					courseData: resp._list
+				});	
+			} else {
+				this.setState({
+					courseData: this.state.courseData.concat(resp._list)
+				})
+			}
+		
 		})
 	}
 
@@ -117,7 +124,16 @@ export default class CourseHome extends Component {
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
-						<CourseView data={this.state.courseData} /> 
+						<CourseView 
+							data={this.state.courseData} 
+							onEndReached={()=>{
+								this.page += 1;
+								this.getCourseData();
+							}} 
+							onRefresh={()=>{
+								this.page = 1;
+								this.getCourseData();
+							}}/>
 						<CatagView data={this.state.catagData}/>
 					</ScrollView>
 				</View>
