@@ -25,7 +25,7 @@ export default class CommentView extends Component {
 		this.props.data.forEach(function(item){item.key = String(key++);});
 		return (
 			<FlatList
-			 style={styles.list}
+			 style={[styles.list, this.props.style]}
 			 data = {this.props.data}
 			 renderItem = {({item})=>{
 			 	return(

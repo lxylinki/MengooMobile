@@ -54,6 +54,7 @@ export default class CourseDetail extends Component {
 	getComments(){
 		this.utils.getCommentList(this.courseId, this.page, this.pageSize, (resp)=>{
 			console.log('comments:', resp)
+
 			if(this.page === 1) {
 				this.setState({
 					commentData: resp._list
@@ -136,8 +137,10 @@ export default class CourseDetail extends Component {
 						<View style={styles.titlePanel}></View>
 						<View style={styles.introPanel}></View>
 					</View>
-
-					<CommentView data={this.state.commentData}/>
+					<View style={styles.commentPanel}>
+						<View style={styles.commentTitle}></View>
+						<CommentView data={this.state.commentData}/>
+					</View>
 				</ScrollView>
 
 				<View style={styles.studyBtnView}>
@@ -189,6 +192,15 @@ let styles = StyleSheet.create({
 
 	detailPanel: {
 		width: width
+	},
+
+	commentPanel: {
+		width: width
+	},
+
+	commentTitle: {
+		height: 100, 
+		backgroundColor: 'yellowgreen'
 	},
 
 	titlePanel: {
