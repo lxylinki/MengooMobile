@@ -29,8 +29,8 @@ export default class CourseHome extends Component {
 		this.pageSize = 5;
 		this.utils = new Utils();
 		this.state = {
-			courseData: new Array(),
-			catagData: new Array()
+			courseData: [],
+			catagData: []
 		}
 		this.getCourseData();
 		this.getCatagData();
@@ -85,12 +85,12 @@ export default class CourseHome extends Component {
 					<View style={styles.searchBadges}>
 						<Text>热搜</Text>
 						<BadgeBtn 
-							text={'抑郁症'} 
+							text={'1'} 
 							action={()=>{
 								this.props.navigation.navigate('CourseSearch');
 							}}/>
-						<BadgeBtn text={'休克'}/>
-						<BadgeBtn text={'抗肿瘤'}/>
+						<BadgeBtn text={'2'}/>
+						<BadgeBtn text={'3'}/>
 					</View>
 				</View>
 
@@ -130,6 +130,7 @@ export default class CourseHome extends Component {
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
 						<CourseView 
+							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{
 								if(this.state.courseData.length>=this.pageSize) {

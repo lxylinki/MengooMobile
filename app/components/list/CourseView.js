@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { 
-	Alert, 
 	FlatList, 
 	StyleSheet, 
 	View, 
@@ -24,13 +23,19 @@ export default class CourseView extends Component {
 	render(){
 		let key = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
-		
 		return (
 			<FlatList
 			 style={styles.list}
 			 data = {this.props.data}
 			 renderItem = {({item})=>{
-			 	return(<CourseItem data={item} clickItem={()=>{Alert.alert('Course Item Clicked')}}/>);
+			 	return(
+			 		<CourseItem 
+			 			data={item} 
+			 			inspectCourseItem={()=>{
+			 				this.props.navigation.navigate('CourseDetail', {id: item.id});
+			 			}}
+			 		/>
+			 	);
 			 }}
 			 ItemSeparatorComponent = {()=>{
 			 	return(<View style={styles.separatorLine}></View>);

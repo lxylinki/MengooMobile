@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 
-export default class RegularBtn extends Component {
+export default class LineBtn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -30,16 +30,17 @@ let styles = StyleSheet.create({
 	button: {
 		height: 50,
 		width: 360,
-		backgroundColor: '#3296fa',
+		backgroundColor: 'white',
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderRadius: 25,
-		margin: 10,
+		padding: 10,
+		borderBottomColor: '#3296fa',
+		borderBottomWidth: 2
 	},
 
 	buttonText: {
-		color: 'white',
 		fontSize: 18,
+		fontWeight: 'bold'
 	},
 
 	inactive: {

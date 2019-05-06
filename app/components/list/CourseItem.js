@@ -13,8 +13,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class CourseItem extends Component {
 	render(){
+		//console.log(this.props.data);
 		return (
-			<TouchableOpacity onPress={this.props.clickItem}>
+			<TouchableOpacity onPress={this.props.inspectCourseItem}>
 				<View style={styles.rootView}>
 					<Image source={{uri: global_.url_prefix + this.props.data.img}} style={styles.image}/>
 					

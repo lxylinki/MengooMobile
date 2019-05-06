@@ -54,21 +54,7 @@ export default class Utils {
 		});		
 	}
 
-
-	getCourseList(keyword, page, pageSize, dataProc){
-		let api = global_.course_list
-				+ '?page=' 
-				+ page 
-				+ '&pagesize=' 
-				+ pageSize;
-
-		let data = {
-			search: {
-				name: keyword
-			}
-			//status: [0, 1, 2, 4]
-		};
-
+	fetchRoutine(api, data, dataProc){
 		fetch(
 			api,
 			{
@@ -92,33 +78,61 @@ export default class Utils {
 		});
 	}
 
+	getCourseList(keyword, page, pageSize, dataProc){
+		let api = global_.course_list
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+
+		let data = {
+			search: {
+				name: keyword
+			},
+
+			order: {
+				learn_count: 'desc'
+			}
+		};
+
+		this.fetchRoutine(api, data, dataProc);
+	}
+
 	getCatagList(dataProc){
 		let api = global_.course_catag_list;
 
 		let data = {
 			all: 1
 		};
+		this.fetchRoutine(api, data, dataProc);
+	}
 
-		fetch(
-			api,
-			{
-				method: 'POST',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data),
-				credentials:'include',
-				mode: 'cors'
-			}
-		).then((resp)=>
-			resp.json()
-			
-		).then((respJson)=>{
-			dataProc(respJson);
+	getCourseView(id, dataProc){
+		let api = global_.course_view;
+		let data = {
+			id: id
+		}
+		this.fetchRoutine(api, data, dataProc);
+	}
 
-		}).catch((err)=>{
-			console.error(err);
-		});
+	getCourseDetail(id, dataProc){
+		let api = global_.course_detail;
+		let data = {
+			id: id
+		}
+		this.fetchRoutine(api, data, dataProc);
+	}
+
+	getCommentList(id, page, pageSize, dataProc){
+		let api = global_.comment_list
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+
+		let data = {
+			course_id: id
+		}
+		this.fetchRoutine(api, data, dataProc);
 	}
 }

@@ -23,7 +23,7 @@ export default class CourseSearch extends Component {
 		this.utils = new Utils();
 		this.state = {
 			keyword: '',
-			courseData: new Array()
+			courseData: []
 		}
 	}
 
