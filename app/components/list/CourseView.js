@@ -18,8 +18,8 @@ export default class CourseView extends Component {
 		this.state = {
 			refreshing: false
 		}
-		this.hasLoad = false;
 	}
+	
 	render(){
 		let key = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});

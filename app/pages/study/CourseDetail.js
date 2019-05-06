@@ -15,6 +15,7 @@ import global_ from '../../common/Global';
 import LineBtn from '../../components/button/LineBtn';
 import RegularBtn from '../../components/button/RegularBtn';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import CommentView from '../../components/list/CommentView';
 
 
 var {height, width} = Dimensions.get('window');
@@ -136,7 +137,7 @@ export default class CourseDetail extends Component {
 						<View style={styles.introPanel}></View>
 					</View>
 
-				{/*<CommentView data={this.state.commentData}/>*/}
+					<CommentView data={this.state.commentData}/>
 				</ScrollView>
 
 				<View style={styles.studyBtnView}>
