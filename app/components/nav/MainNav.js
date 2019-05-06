@@ -53,13 +53,24 @@ const studyStack = createStackNavigator(
 	{
 		CourseHome: CourseHome,
 		CourseDetail: CourseDetail,
-		CourseSearch: CourseSearch
+		CourseSearch: {
+			screen: CourseSearch,
+			// navigationOptions: {
+			// 	tabBarVisible: false
+			// }
+		}
 	},
 	{
 		initialRouteName: 'CourseHome',
 		headerMode: 'none'
 	}
 );
+
+studyStack.navigationOptions = ({ navigation }) => {
+    return {
+        tabBarVisible: navigation.state.index === 0,
+    };
+};
 
 const mineStack = createStackNavigator(
 	{

@@ -37,7 +37,7 @@ export default class CourseHome extends Component {
 
 	getCourseData(){
 		this.utils.getCourseList(this.page, this.pageSize, (resp)=>{
-			console.log(resp);
+			//console.log(resp);
 			if(this.page === 1) {
 				this.setState({
 					courseData: resp._list

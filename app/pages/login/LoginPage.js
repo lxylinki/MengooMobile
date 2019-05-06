@@ -4,7 +4,6 @@ import LoginInput from '../../components/input/LoginInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
-//import {BoxShadow} from 'react-native-shadow';
 
 
 export default class LoginPage extends Component {
@@ -57,17 +56,6 @@ export default class LoginPage extends Component {
 	}
 
 	render(){
-       // const shadowOpt = {
-       //      width:350,
-       //      height:50,
-       //      color:"#000",
-       //      border:5,
-       //      radius:25,
-       //      opacity:0.1,
-       //      x:15,
-       //      y:13
-       //  }
-
 		return(
 			<View style={styles.loginView}>
 				<View style={styles.pageTitleDiv}>
