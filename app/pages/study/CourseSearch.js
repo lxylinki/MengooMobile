@@ -11,8 +11,46 @@ import Header from '../../components/head/Header';
 import SearchInput from '../../components/input/SearchInput';
 import BadgeBtn from '../../components/button/BadgeBtn';
 import RegularBtn from '../../components/button/RegularBtn';
+import CourseView from '../../components/list/CourseView';
+import Utils from '../../common/Utils';
+
 
 export default class CourseSearch extends Component {
+	constructor(props){
+		super(props);
+		this.page = 1;
+		this.pageSize = 10;
+		this.utils = new Utils();
+		this.state = {
+			keyword: '',
+			courseData: new Array()
+		}
+	}
+
+	getCourseData(keyword){
+		if(!keyword) {
+			this.setState({
+				courseData: new Array()
+			});			
+			return;
+		}
+
+		this.utils.getCourseList(keyword, this.page, this.pageSize, (resp)=>{
+			//console.log(resp);
+			if(this.page === 1) {
+				this.setState({
+					courseData: resp._list
+				});	
+			} else {
+				this.setState({
+					courseData: this.state.courseData.concat(resp._list)
+				})
+			}
+		
+		})
+	}
+
+
 	render(){
 		return(
 			<View style={styles.rootView}>
@@ -21,7 +59,17 @@ export default class CourseSearch extends Component {
 				
 				<View style={styles.upperView}>
 					<View style={styles.inp}>
-						<SearchInput style={styles.searchInp} autoFocus={true} smaller={true} placeholder='搜索课程' navigation={this.props.navigation}/>
+						<SearchInput 
+							style={styles.searchInp} 
+							autoFocus={true} 
+							smaller={true} 
+							placeholder='搜索课程' 
+							navigation={this.props.navigation}
+							ref={'searchInp'}
+							onChangeText={(text)=>{
+								this.setState({keyword: text});
+								this.getCourseData(text);
+							}}/>
 						<RegularBtn 
 							style={styles.cancel}
 							textStyle={styles.cancelText}
@@ -34,12 +82,33 @@ export default class CourseSearch extends Component {
 
 					<View style={styles.searchBadges}>
 						<Text>热搜</Text>
-						<BadgeBtn text={'抑郁症'} action={()=>{Alert.alert('pressed')}}/>
-						<BadgeBtn text={'休克'}/>
-						<BadgeBtn text={'抗肿瘤'}/>
+						<BadgeBtn 
+							text={'1'} 
+							ref={'hotSearch1'}
+							action={()=>{
+								let hotkw = this.refs.hotSearch1.props.text;
+								this.refs.searchInp.setState({text: hotkw});
+								this.getCourseData(hotkw);
+							}}/>
+						<BadgeBtn text={'2'}/>
+						<BadgeBtn text={'3'}/>
 					</View>
 
 				</View>
+
+				<CourseView 
+					data={this.state.courseData} 
+					onEndReached={()=>{
+						if(this.state.courseData.length>=this.pageSize) {
+							this.page += 1;
+							this.getCourseData(this.state.keyword);
+						}
+					}} 
+					onRefresh={()=>{
+						this.page = 1;
+						this.getCourseData(this.state.keyword);
+					}}
+					/>				
 			</View>
 		);		
 	}

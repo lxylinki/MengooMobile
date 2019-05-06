@@ -29,9 +29,10 @@ export default class SearchInput extends Component {
 					onChangeText={
 						(text)=>{
 							this.setState({text});
-							//this.props.onChangeText(text);
+							this.props.onChangeText(text);
 						}
 					}
+					value={this.state.text}
 					autoFocus={this.props.autoFocus}
 					onFocus={this.onFocusChange}
 					>

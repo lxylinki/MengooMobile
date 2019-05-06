@@ -24,8 +24,9 @@ var {height, width} = Dimensions.get('window');
 export default class CourseHome extends Component {
 	constructor(props) {
 		super(props);
+		this.keyword = '';
 		this.page = 1;
-		this.pageSize = 10;
+		this.pageSize = 5;
 		this.utils = new Utils();
 		this.state = {
 			courseData: new Array(),
@@ -36,7 +37,7 @@ export default class CourseHome extends Component {
 	}
 
 	getCourseData(){
-		this.utils.getCourseList(this.page, this.pageSize, (resp)=>{
+		this.utils.getCourseList(this.keyword, this.page, this.pageSize, (resp)=>{
 			//console.log(resp);
 			if(this.page === 1) {
 				this.setState({
@@ -83,7 +84,11 @@ export default class CourseHome extends Component {
 					<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
 					<View style={styles.searchBadges}>
 						<Text>热搜</Text>
-						<BadgeBtn text={'抑郁症'} action={()=>{Alert.alert('pressed')}}/>
+						<BadgeBtn 
+							text={'抑郁症'} 
+							action={()=>{
+								this.props.navigation.navigate('CourseSearch');
+							}}/>
 						<BadgeBtn text={'休克'}/>
 						<BadgeBtn text={'抗肿瘤'}/>
 					</View>
@@ -127,8 +132,10 @@ export default class CourseHome extends Component {
 						<CourseView 
 							data={this.state.courseData} 
 							onEndReached={()=>{
-								this.page += 1;
-								this.getCourseData();
+								if(this.state.courseData.length>=this.pageSize) {
+									this.page += 1;
+									this.getCourseData(this.state.keyword);
+								}
 							}} 
 							onRefresh={()=>{
 								this.page = 1;

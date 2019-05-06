@@ -55,7 +55,7 @@ export default class Utils {
 	}
 
 
-	getCourseList(page, pageSize, dataProc){
+	getCourseList(keyword, page, pageSize, dataProc){
 		let api = global_.course_list
 				+ '?page=' 
 				+ page 
@@ -63,6 +63,9 @@ export default class Utils {
 				+ pageSize;
 
 		let data = {
+			search: {
+				name: keyword
+			}
 			//status: [0, 1, 2, 4]
 		};
 
