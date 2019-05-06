@@ -45,8 +45,8 @@ export default class LoginPage extends Component {
 			);
 
 			if(resp.status===200||resp.status===201||resp.status===204) {
-				let respJson = await resp.json();
-				console.log(respJson);
+				// let respJson = await resp.json();
+				// console.log(respJson);
 				this.props.navigation.navigate('Tab');
 
 			} else {

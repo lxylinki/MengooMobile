@@ -63,7 +63,7 @@ export default class Utils {
 				+ pageSize;
 
 		let data = {
-			status: [0, 1, 2, 4]
+			//status: [0, 1, 2, 4]
 		};
 
 		fetch(

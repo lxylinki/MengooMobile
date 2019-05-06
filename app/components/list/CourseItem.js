@@ -9,6 +9,7 @@ import {
 
 import global_ from '../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class CourseItem extends Component {
 	render(){
@@ -19,18 +20,41 @@ export default class CourseItem extends Component {
 					
 					<View>
 						<Text style={styles.title}>{this.props.data.name}</Text>
+						<View style={styles.ratingsBg}>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
+						</View>	
 						<View style={styles.ratings}>
-							<Ionicons name={'md-star'} style={styles.star} size={15} color={ this.props.data.score>0? '#ff3c00': '#ddd'}/>
-							<Ionicons name={'md-star'} style={styles.star} size={15} color={ this.props.data.score>1? '#ff3c00': '#ddd'}/>
-							<Ionicons name={'md-star'} style={styles.star} size={15} color={ this.props.data.score>2? '#ff3c00': '#ddd'}/>
-							<Ionicons name={'md-star'} style={styles.star} size={15} color={ this.props.data.score>3? '#ff3c00': '#ddd'}/>
-							<Ionicons name={'md-star'} style={styles.star} size={15} color={ this.props.data.score>4? '#ff3c00': '#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={ this.props.data.score>0? '#ff3c00': '#ddd'}/>
+							<FontAwesome 
+								name={this.props.data.score>1 && this.props.data.score<=1.5?'star-half':'star'} 
+								style={this.props.data.score>1 && this.props.data.score<=1.5?styles.halfStar:styles.star} 
+								size={15} 
+								color={ this.props.data.score>1? '#ff3c00': '#ddd'}/>
+							<FontAwesome 
+								name={this.props.data.score>2 && this.props.data.score<=2.5?'star-half':'star'} 
+								style={this.props.data.score>2 && this.props.data.score<=2.5?styles.halfStar:styles.star} 
+								size={15} 
+								color={ this.props.data.score>2? '#ff3c00': '#ddd'}/>
+							<FontAwesome 
+								name={this.props.data.score>3 && this.props.data.score<=3.5?'star-half':'star'} 
+								style={this.props.data.score>3 && this.props.data.score<=3.5?styles.halfStar:styles.star} 
+								size={15} 
+								color={ this.props.data.score>3? '#ff3c00': '#ddd'}/>
+							<FontAwesome 
+								name={this.props.data.score>4 && this.props.data.score<=4.5?'star-half':'star'} 
+								style={this.props.data.score>4 && this.props.data.score<=4.5?styles.halfStar:styles.star} 
+								size={15} 
+								color={ this.props.data.score>4? '#ff3c00': '#ddd'}/>
 						</View>						
 					</View>
 
-					<View style={styles.learnCount}>
+					<View style={styles.commentCount}>
 						<Ionicons name={'md-person'} size={15} color={'#3296fa'}/>
-						<Text style={styles.count}>{this.props.data.learn_count}</Text>
+						<Text style={styles.count}>{this.props.data.comment_count}</Text>
 					</View>
 
 				</View>
@@ -56,6 +80,10 @@ let styles = StyleSheet.create({
 		margin: 1
 	},
 
+	halfStar: {
+		marginRight: 9
+	},
+
 	title: {
 		marginBottom: 40,
 		fontSize: 14
@@ -78,11 +106,18 @@ let styles = StyleSheet.create({
 		flexDirection: 'row'
 	},
 
-	learnCount: {
+	ratingsBg: {
+		flexDirection: 'row',
+		position: 'absolute',
+		top: 59
+	},
+
+	commentCount: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginLeft: 120,
-		marginTop: 80
+		position: 'absolute',
+		right: 10,
+		bottom: 10
 	},
 
 	count: {

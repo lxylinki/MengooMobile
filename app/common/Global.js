@@ -5,8 +5,10 @@ const mengoo_login = url_prefix + 'site/login';
 const mengoo_logout = url_prefix + 'site/logout';
 const mengoo_status_check = url_prefix + 'site/profile';
 
-const course_list = url_prefix + 'course/course/admin-list';
-const course_catag_list = url_prefix + 'course/category/admin-list';
+//const course_admin_list = url_prefix + 'course/course/admin-list';
+//const course_catag_admin_list = url_prefix + 'course/category/admin-list';
+const course_list = url_prefix + '/course/course/list';
+const course_catag_list = url_prefix + '/course/category/list';
 
 const super_admin_group = 0;
 const school_admin_group = 1;
