@@ -27,13 +27,18 @@ export default class CourseDetail extends Component {
 		this.state = {
 			courseView: {},
 			courseDetail: {},
+			teachers: [],
 			commentData: []
 		}
 		this.utils = new Utils();
 		this.page = 1;
 		this.pageSize = 10;
+	}
+
+	componentDidMount(){
 		this.getView();
 		this.getDetail();
+		this.getGroup();
 		this.getComments();
 	}
 
@@ -48,6 +53,13 @@ export default class CourseDetail extends Component {
 		this.utils.getCourseDetail(this.courseId, (resp)=>{
 			console.log('detail:', resp[0]);
 			this.setState({courseDetail: resp[0]});
+		});
+	}
+
+	getGroup(){
+		this.utils.getCourseGroup(this.courseId, (resp)=>{
+			console.log('teachers:', resp);
+			this.setState({teachers: resp});
 		});
 	}
 
@@ -112,7 +124,7 @@ export default class CourseDetail extends Component {
 						}}/>
 						
 					<LineBtn 
-						style={styles.indexBtn} 
+						style={this.state.courseView.comment_count?styles.indexBtn:{display: 'none'}} 
 						textStyle={styles.indexBtnText}
 						text={'评价 ('+ this.state.courseView.comment_count +')'}
 						ref={'commentBtn'}
@@ -130,12 +142,13 @@ export default class CourseDetail extends Component {
 					horizontal={true}
 					ref={'pageScroll'}
 					onMomentumScrollEnd={this.scrollEnd}>
-					{/*
-					<View style={{width: width, backgroundColor: 'powderblue'}}></View>
-					<View style={{width: width, backgroundColor: 'white'}}></View>*/}
 					<View style={styles.detailPanel}>
-						<View style={styles.titlePanel}></View>
-						<View style={styles.introPanel}></View>
+						<View style={styles.titlePanel}>
+						</View>
+						<View style={styles.introPanel}>
+							<View style={styles.intro}></View>
+							<View style={styles.syllabus}></View>
+						</View>
 					</View>
 					<View style={styles.commentPanel}>
 						<View style={styles.commentTitle}></View>
@@ -152,7 +165,7 @@ export default class CourseDetail extends Component {
 						if_active={true}
 						action={()=>{
 						}}/>
-					<Text style={styles.learnCount}>
+					<Text style={this.state.courseView.learn_count?styles.learnCount:{display: 'none'}}>
 						{'已学习：' + this.state.courseView.learn_count + '次'}
 					</Text>
 				</View>
@@ -209,8 +222,17 @@ let styles = StyleSheet.create({
 	},
 
 	introPanel: {
-		flex: 3,
+		flex: 2.5,
+	},
+
+	intro: {
+		flex: 1,
 		backgroundColor: 'skyblue'
+	},
+
+	syllabus: {
+		flex: 1,
+		backgroundColor: 'steelblue'
 	},
 
 	studyBtnView: {

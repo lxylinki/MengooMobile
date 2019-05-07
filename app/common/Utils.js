@@ -123,6 +123,14 @@ export default class Utils {
 		this.fetchRoutine(api, data, dataProc);
 	}
 
+	getCourseGroup(id, dataProc){
+		let api = global_.course_group;
+		let data = {
+			course_id: id
+		}
+		this.fetchRoutine(api, data, dataProc);
+	}
+
 	getCommentList(id, page, pageSize, dataProc){
 		let api = global_.comment_list
 				+ '?page=' 
