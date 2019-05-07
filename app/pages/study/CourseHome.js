@@ -32,6 +32,9 @@ export default class CourseHome extends Component {
 			courseData: [],
 			catagData: []
 		}
+	}
+
+	componentDidMount(){
 		this.getCourseData();
 		this.getCatagData();
 	}
@@ -40,9 +43,17 @@ export default class CourseHome extends Component {
 		this.utils.getCourseList(this.keyword, this.page, this.pageSize, (resp)=>{
 			//console.log(resp);
 			if(this.page === 1) {
+				// 测试骨架屏
+				// setTimeout(()=>{
+				// 	this.setState({
+				// 		courseData: resp._list
+				// 	});						
+				// }, 10000);
+
 				this.setState({
 					courseData: resp._list
 				});	
+
 			} else {
 				this.setState({
 					courseData: this.state.courseData.concat(resp._list)
@@ -130,6 +141,7 @@ export default class CourseHome extends Component {
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
 						<CourseView 
+							hasSkeleton={true}
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{

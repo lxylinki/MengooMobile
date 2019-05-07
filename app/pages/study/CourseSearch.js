@@ -97,6 +97,7 @@ export default class CourseSearch extends Component {
 				</View>
 
 				<CourseView 
+					hasSkeleton={false}
 					data={this.state.courseData} 
 					onEndReached={()=>{
 						if(this.state.courseData.length>=this.pageSize) {
