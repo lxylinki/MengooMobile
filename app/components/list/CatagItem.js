@@ -13,9 +13,6 @@ import global_ from '../../common/Global';
 
 export default class CatagItem extends Component {
 	render(){
-		if(this.props.data.hasOwnProperty('sub_categories')){
-			console.log(this.props.data.sub_categories.length);
-		}
 		return (
 			<TouchableOpacity style={styles.rootView} onPress={this.props.clickItem}>
 				<Ionicons

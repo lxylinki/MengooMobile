@@ -181,9 +181,16 @@ export default class CourseDetail extends Component {
 						<View style={styles.introPanel}>
 							<View style={styles.intro}>
 								<Text style={styles.introTitle}>课程概述</Text>
+								<ScrollView>
+									<Text>{this.state.courseDetail.intro}</Text>
+								</ScrollView>
+						
 							</View>
 							<View style={styles.syllabus}>
 								<Text style={styles.syllabusTitle}>课程大纲</Text>
+								<ScrollView>
+									<Text>{this.state.courseDetail.syllabus}</Text>
+								</ScrollView>
 							</View>
 						</View>
 					</View>
