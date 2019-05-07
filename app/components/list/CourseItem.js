@@ -11,6 +11,7 @@ import global_ from '../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+
 export default class CourseItem extends Component {
 	render(){
 		//console.log(this.props.data);
@@ -21,36 +22,20 @@ export default class CourseItem extends Component {
 					
 					<View>
 						<Text style={styles.title}>{this.props.data.name}</Text>
-						<View style={styles.ratingsBg}>
+						<View style={styles.ratingBg}>
 							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 						</View>	
-						<View style={styles.ratings}>
-							<FontAwesome name={'star'} style={styles.star} size={15} color={ this.props.data.score>0? '#ff3c00': '#ddd'}/>
-							<FontAwesome 
-								name={this.props.data.score>1 && this.props.data.score<=1.5?'star-half':'star'} 
-								style={this.props.data.score>1 && this.props.data.score<=1.5?styles.halfStar:styles.star} 
-								size={15} 
-								color={ this.props.data.score>1? '#ff3c00': '#ddd'}/>
-							<FontAwesome 
-								name={this.props.data.score>2 && this.props.data.score<=2.5?'star-half':'star'} 
-								style={this.props.data.score>2 && this.props.data.score<=2.5?styles.halfStar:styles.star} 
-								size={15} 
-								color={ this.props.data.score>2? '#ff3c00': '#ddd'}/>
-							<FontAwesome 
-								name={this.props.data.score>3 && this.props.data.score<=3.5?'star-half':'star'} 
-								style={this.props.data.score>3 && this.props.data.score<=3.5?styles.halfStar:styles.star} 
-								size={15} 
-								color={ this.props.data.score>3? '#ff3c00': '#ddd'}/>
-							<FontAwesome 
-								name={this.props.data.score>4 && this.props.data.score<=4.5?'star-half':'star'} 
-								style={this.props.data.score>4 && this.props.data.score<=4.5?styles.halfStar:styles.star} 
-								size={15} 
-								color={ this.props.data.score>4? '#ff3c00': '#ddd'}/>
-						</View>						
+						<View style={[styles.rating, {width: 81*this.props.data.score/5}]}>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+						</View>				
 					</View>
 
 					<View style={styles.commentCount}>
@@ -103,11 +88,12 @@ let styles = StyleSheet.create({
 		marginRight: 15
 	},
 
-	ratings: {
-		flexDirection: 'row'
+	rating: {
+		flexDirection: 'row',
+		overflow: 'hidden'
 	},
 
-	ratingsBg: {
+	ratingBg: {
 		flexDirection: 'row',
 		position: 'absolute',
 		top: 59

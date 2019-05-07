@@ -195,7 +195,9 @@ export default class CourseDetail extends Component {
 						</View>
 					</View>
 					<View style={styles.commentPanel}>
-						<View style={styles.commentTitle}></View>
+						<View style={styles.commentTitle}>
+							
+						</View>
 						<CommentView data={this.state.commentData}/>
 					</View>
 				</ScrollView>
