@@ -48,8 +48,7 @@ let styles = StyleSheet.create({
 		width: 360,
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderRadius: 25,
-		margin: 10
+		borderRadius: 25
 	},
 
 	inactiveText: {

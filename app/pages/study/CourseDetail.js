@@ -63,6 +63,15 @@ export default class CourseDetail extends Component {
 		});
 	}
 
+	listTeachers(){
+		let teachers = [];
+		for(let i in this.state.teachers) {
+			let teacher = this.state.teachers[i];
+			teachers.push(<Text key={i} style={styles.teacherName}>{teacher.realname}</Text>);
+		}
+		return teachers;
+	}
+
 	getComments(){
 		this.utils.getCommentList(this.courseId, this.page, this.pageSize, (resp)=>{
 			console.log('comments:', resp)
@@ -80,6 +89,19 @@ export default class CourseDetail extends Component {
 		});		
 	}
 
+    getDate(time){
+        time = ~~time;
+        var D = Math.floor(time/60/24),
+            h = Math.floor(time%(60*24)/60),
+            m = Math.floor(time%(60*24)%60);
+
+        return {
+            D : D,
+            h : h,
+            m : m
+        };
+    }
+
 	scrollEnd = (param)=> {
 		let index = Math.round(param.nativeEvent.contentOffset.x/width);
 		switch(index) {
@@ -95,6 +117,7 @@ export default class CourseDetail extends Component {
 	};
 
 	render(){
+		let stime = this.getDate(this.state.courseView.time);
 		return(
 			<View style={styles.rootView}>
 				<TouchableOpacity 
@@ -144,10 +167,24 @@ export default class CourseDetail extends Component {
 					onMomentumScrollEnd={this.scrollEnd}>
 					<View style={styles.detailPanel}>
 						<View style={styles.titlePanel}>
+							<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
+							<View style={styles.teacherList}>
+								{this.listTeachers()}
+							</View>
+							<View>
+								<Text style={styles.suggestTime}>
+									建议学习时长：
+									{(stime.D?(stime.D+'天'):'')+(stime.h?(stime.h+'小时'):'')+(stime.m?(stime.m+'分'):'')}
+								</Text>
+							</View>
 						</View>
 						<View style={styles.introPanel}>
-							<View style={styles.intro}></View>
-							<View style={styles.syllabus}></View>
+							<View style={styles.intro}>
+								<Text style={styles.introTitle}>课程概述</Text>
+							</View>
+							<View style={styles.syllabus}>
+								<Text style={styles.syllabusTitle}>课程大纲</Text>
+							</View>
 						</View>
 					</View>
 					<View style={styles.commentPanel}>
@@ -212,27 +249,58 @@ let styles = StyleSheet.create({
 	},
 
 	commentTitle: {
-		height: 100, 
-		backgroundColor: 'yellowgreen'
+		height: 100,
+		borderTopWidth: 0.3
 	},
 
 	titlePanel: {
 		flex: 1,
-		backgroundColor: 'powderblue'
+		borderTopWidth: 0.3,
+		borderBottomWidth: 0.3,
+		//borderBottomColor: '#ddd',
+		padding: 10
+	},
+
+	courseTitle: {
+		fontSize: 18,
+		fontWeight: 'bold',
+	},
+
+	teacherList: {
+		flexDirection: 'row',		
+	},
+
+	teacherName: {
+		marginRight: 10,
+		marginTop: 10,
+		marginBottom: 10
+	},
+
+	suggestTime: {
 	},
 
 	introPanel: {
-		flex: 2.5,
+		flex: 3
 	},
 
 	intro: {
 		flex: 1,
-		backgroundColor: 'skyblue'
+		padding: 10
+	},
+
+	introTitle: {
+		fontSize: 16,
+		fontWeight: 'bold'
+	},
+
+	syllabusTitle: {
+		fontSize: 16,
+		fontWeight: 'bold'
 	},
 
 	syllabus: {
 		flex: 1,
-		backgroundColor: 'steelblue'
+		padding: 10
 	},
 
 	studyBtnView: {
@@ -250,7 +318,7 @@ let styles = StyleSheet.create({
 
 	indexBtn: {
 		width: 100,
-		height: 40,
+		height: 55,
 		marginLeft: 20,
 		marginRight: 20
 	},
