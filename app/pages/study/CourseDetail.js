@@ -327,7 +327,7 @@ let styles = StyleSheet.create({
 
 	indexBtn: {
 		width: 100,
-		height: 55,
+		height: 53,
 		marginLeft: 20,
 		marginRight: 20
 	},

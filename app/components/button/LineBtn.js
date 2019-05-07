@@ -35,7 +35,7 @@ let styles = StyleSheet.create({
 		alignItems: 'center',
 		padding: 10,
 		borderBottomColor: '#3296fa',
-		borderBottomWidth: 2
+		borderBottomWidth: 3
 	},
 
 	buttonText: {
