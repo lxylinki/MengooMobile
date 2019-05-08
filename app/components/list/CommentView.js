@@ -15,9 +15,9 @@ var {height, width} = Dimensions.get('window');
 export default class CommentView extends Component {
 	constructor(props) {
 		super(props);
-		// this.state = {
-		// 	refreshing: false
-		// }
+		this.state = {
+			refreshing: false
+		}
 	}
 	
 	render(){
@@ -35,10 +35,10 @@ export default class CommentView extends Component {
 			 ItemSeparatorComponent = {()=>{
 			 	return(<View style={styles.separatorLine}></View>);
 			 }}
-			 // refreshing={this.state.refreshing} 
-			 // onRefresh={this.props.onRefresh}
-			 // onEndReached={this.props.onEndReached}
-			 // onEndReachedThreshold={0.5}
+			 refreshing={this.state.refreshing} 
+			 onRefresh={this.props.onRefresh}
+			 onEndReached={this.props.onEndReached}
+			 onEndReachedThreshold={0.5}
 			/>
 		);
 	}	

@@ -195,7 +195,7 @@ export default class CourseDetail extends Component {
 							<View style={styles.intro}>
 								<Text style={styles.introTitle}>课程概述</Text>
 								<ScrollView 
-									contentContainerStyle={styles.contentContainer}
+									//contentContainerStyle={styles.contentContainer}
 									pagingEnabled={true}>
 									<HTML
 										html={this.state.courseDetail.intro?
@@ -217,8 +217,10 @@ export default class CourseDetail extends Component {
 						<View style={styles.commentTitlePanel}>
 							<CommentTitle score={this.state.courseView.score?this.state.courseView.score: 0}/>
 						</View>
-						<CommentView 
-							data={this.state.commentData}/>
+						<CommentView
+							data={this.state.commentData}
+							onEndReached={()=>{}}
+							onRefresh={()=>{}}/>
 					</View>
 				</ScrollView>
 
@@ -269,9 +271,9 @@ let styles = StyleSheet.create({
 
 	},
 
-	contentContainer: {
-		paddingVertical: 0
-	},
+	// contentContainer: {
+	// 	paddingVertical: 0
+	// },
 
 	detailPanel: {
 		width: width
