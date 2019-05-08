@@ -27,6 +27,7 @@ export default class CourseHome extends Component {
 		this.keyword = '';
 		this.page = 1;
 		this.pageSize = 5;
+		this.totalPage = 0;
 		this.utils = new Utils();
 		this.state = {
 			courseData: [],
@@ -42,6 +43,7 @@ export default class CourseHome extends Component {
 	getCourseData(){
 		this.utils.getCourseList(this.keyword, this.page, this.pageSize, (resp)=>{
 			//console.log(resp);
+			this.totalPage = resp.total_page;
 			if(this.page === 1) {
 				// 测试骨架屏
 				// setTimeout(()=>{
@@ -58,6 +60,10 @@ export default class CourseHome extends Component {
 				this.setState({
 					courseData: this.state.courseData.concat(resp._list)
 				})
+			}
+
+			if(this.stopRefresh) {
+				this.stopRefresh();
 			}
 		
 		})
@@ -147,11 +153,14 @@ export default class CourseHome extends Component {
 							onEndReached={()=>{
 								if(this.state.courseData.length>=this.pageSize) {
 									this.page += 1;
-									this.getCourseData(this.state.keyword);
+									if(this.page <= this.totalPage) {
+										this.getCourseData();
+									}
 								}
 							}} 
-							onRefresh={()=>{
+							onRefresh={(callback)=>{
 								this.page = 1;
+								this.stopRefresh = callback;
 								this.getCourseData();
 							}}/>
 						<CatagView data={this.state.catagData}/>

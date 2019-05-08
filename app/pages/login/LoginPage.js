@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, Alert, Button, StyleSheet, View, Text} from 'react-native';
+import {
+	TouchableOpacity, 
+	Alert, 
+	StyleSheet, 
+	View, 
+	Text
+} from 'react-native';
+
 import LoginInput from '../../components/input/LoginInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import Utils from '../../common/Utils';

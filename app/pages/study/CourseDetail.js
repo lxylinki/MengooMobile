@@ -74,15 +74,15 @@ export default class CourseDetail extends Component {
 		return teachers;
 	}
 
-	getComments(size){
+	getComments(){
 		this.utils.getCommentList(this.courseId, this.page, this.pageSize, (resp)=>{
-			size = size || 50;
+			let size = 50;
 			for(let item of resp._list) {
 				item.username = resp.users[item.user_id].username;
 				let avatarUrl = resp.users[item.user_id].avatar;
 				item.avatar = avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
 			}
-			console.log('comments:', resp);
+			//console.log('comments:', resp);
 
 			if(this.page === 1) {
 				this.setState({
@@ -94,6 +94,10 @@ export default class CourseDetail extends Component {
 				});
 			}
 			
+			if(this.stopRefresh) {
+				this.stopRefresh();
+			}
+		
 		});		
 	}
 
@@ -125,6 +129,7 @@ export default class CourseDetail extends Component {
 	};
 
 	render(){
+		//suggested time
 		let stime = this.getDate(this.state.courseView.time);
 		return(
 			<View style={styles.rootView}>
@@ -212,7 +217,8 @@ export default class CourseDetail extends Component {
 						<View style={styles.commentTitlePanel}>
 							<CommentTitle score={this.state.courseView.score?this.state.courseView.score: 0}/>
 						</View>
-						<CommentView data={this.state.commentData}/>
+						<CommentView 
+							data={this.state.commentData}/>
 					</View>
 				</ScrollView>
 

@@ -47,7 +47,18 @@ export default class CourseView extends Component {
 				 	return(<View style={styles.separatorLine}></View>);
 				 }}
 				 refreshing={this.state.refreshing} 
-				 onRefresh={this.props.onRefresh}
+				 onRefresh={()=>{
+				 	if(!this.state.refreshing) {
+				 		this.setState({
+				 			refreshing: true
+				 		});
+				 		this.props.onRefresh(()=>{
+				 			this.setState({
+				 				refreshing: false
+				 			});
+				 		});
+				 	}
+				 }}
 				 onEndReached={this.props.onEndReached}
 				 onEndReachedThreshold={0.5}
 				/>
