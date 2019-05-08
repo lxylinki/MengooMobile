@@ -1,3 +1,4 @@
+const main_url = 'http://mengoo.doctor-u.cn';
 const url_prefix = 'http://mengoo.doctor-u.cn/mengoo/';
 
 const mengoo_encrypt = url_prefix + 'site/pk';
@@ -21,6 +22,7 @@ const student_group = 3;
 
 
 export default {
+	main_url,
 	url_prefix,
 	
 	super_admin_group,

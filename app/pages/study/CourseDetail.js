@@ -10,6 +10,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
+import HTML from 'react-native-render-html';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
 import LineBtn from '../../components/button/LineBtn';
@@ -181,15 +182,21 @@ export default class CourseDetail extends Component {
 						<View style={styles.introPanel}>
 							<View style={styles.intro}>
 								<Text style={styles.introTitle}>课程概述</Text>
-								<ScrollView>
-									<Text>{this.state.courseDetail.intro}</Text>
+								<ScrollView 
+									contentContainerStyle={styles.contentContainer}
+									pagingEnabled={true}>
+									<HTML
+										html={this.state.courseDetail.intro?
+										this.state.courseDetail.intro.replace( /(<img.+?src=")(.*?)/, '$1'+ global_.main_url +'$2'):'<p></p>'} />
 								</ScrollView>
 						
 							</View>
 							<View style={styles.syllabus}>
 								<Text style={styles.syllabusTitle}>课程大纲</Text>
-								<ScrollView>
-									<Text>{this.state.courseDetail.syllabus}</Text>
+								<ScrollView pagingEnabled={true}>
+									<HTML 
+										html={this.state.courseDetail.syllabus?
+										this.state.courseDetail.syllabus:'<p></p>'} />
 								</ScrollView>
 							</View>
 						</View>
@@ -249,6 +256,10 @@ let styles = StyleSheet.create({
 
 	},
 
+	contentContainer: {
+		paddingVertical: 0
+	},
+
 	detailPanel: {
 		width: width
 	},
@@ -273,6 +284,10 @@ let styles = StyleSheet.create({
 	courseTitle: {
 		fontSize: 18,
 		fontWeight: 'bold',
+	},
+
+	htmlText: {
+		color: 'red'
 	},
 
 	teacherList: {
@@ -317,7 +332,8 @@ let styles = StyleSheet.create({
 		flexDirection: 'row',
 		backgroundColor: 'white',
 		justifyContent: 'center',
-		alignItems: 'baseline'
+		alignItems: 'baseline',
+		borderTopWidth: 0.3
 	},
 
 	studyBtn: {
