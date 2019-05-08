@@ -143,4 +143,47 @@ export default class Utils {
 		}
 		this.fetchRoutine(api, data, dataProc);
 	}
+
+	convTime(ntime) {
+		function add0(m){
+			return m<10?'0'+m:m 
+		}
+		// ntime * 1000 milliseconds
+		var unixTime = new Date(ntime * 1000);
+		
+		var y = unixTime.getFullYear();
+		var m = unixTime.getMonth()+1;
+		var d = unixTime.getDate();
+		var h = unixTime.getHours();
+		var mn = unixTime.getMinutes();
+
+		var commonTime = y + '-'
+		               + add0(m) + '-'
+		               + add0(d) + ' '
+		               + add0(h) + ':' 
+		               + add0(mn);
+		return commonTime;
+	}
+
+
+	convTimeFull(ntime) {
+		function add0(m){
+			return m<10?'0'+m:m 
+		}
+		// ntime * 1000 milliseconds
+		var unixTime = new Date(ntime * 1000);
+		
+		var y = unixTime.getFullYear();
+		var m = unixTime.getMonth()+1;
+		var d = unixTime.getDate();
+		var h = unixTime.getHours();
+		var mn = unixTime.getMinutes();
+
+		var commonTime = y + '年'
+		               + add0(m) + '月'
+		               + add0(d) + '日'
+		               + add0(h) + ':' 
+		               + add0(mn);	
+		return commonTime;
+	}
 }

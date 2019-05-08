@@ -17,6 +17,7 @@ import LineBtn from '../../components/button/LineBtn';
 import RegularBtn from '../../components/button/RegularBtn';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CommentView from '../../components/list/CommentView';
+import CommentTitle from '../../components/list/CommentTitle';
 
 
 var {height, width} = Dimensions.get('window');
@@ -45,21 +46,21 @@ export default class CourseDetail extends Component {
 
 	getView(){
 		this.utils.getCourseView(this.courseId, (resp)=>{
-			console.log('view:', resp);
+			//console.log('view:', resp);
 			this.setState({courseView: resp});
 		});
 	}
 
 	getDetail(){
 		this.utils.getCourseDetail(this.courseId, (resp)=>{
-			console.log('detail:', resp[0]);
+			//console.log('detail:', resp[0]);
 			this.setState({courseDetail: resp[0]});
 		});
 	}
 
 	getGroup(){
 		this.utils.getCourseGroup(this.courseId, (resp)=>{
-			console.log('teachers:', resp);
+			//console.log('teachers:', resp);
 			this.setState({teachers: resp});
 		});
 	}
@@ -73,9 +74,15 @@ export default class CourseDetail extends Component {
 		return teachers;
 	}
 
-	getComments(){
+	getComments(size){
 		this.utils.getCommentList(this.courseId, this.page, this.pageSize, (resp)=>{
-			console.log('comments:', resp)
+			size = size || 50;
+			for(let item of resp._list) {
+				item.username = resp.users[item.user_id].username;
+				let avatarUrl = resp.users[item.user_id].avatar;
+				item.avatar = avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
+			}
+			console.log('comments:', resp);
 
 			if(this.page === 1) {
 				this.setState({
@@ -202,8 +209,8 @@ export default class CourseDetail extends Component {
 						</View>
 					</View>
 					<View style={styles.commentPanel}>
-						<View style={styles.commentTitle}>
-							
+						<View style={styles.commentTitlePanel}>
+							<CommentTitle score={this.state.courseView.score?this.state.courseView.score: 0}/>
 						</View>
 						<CommentView data={this.state.commentData}/>
 					</View>
@@ -268,9 +275,10 @@ let styles = StyleSheet.create({
 		width: width
 	},
 
-	commentTitle: {
+	commentTitlePanel: {
 		height: 100,
-		borderTopWidth: 0.3
+		borderTopWidth: 0.3,
+		borderBottomWidth: 0.3
 	},
 
 	titlePanel: {
