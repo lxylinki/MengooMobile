@@ -54,7 +54,7 @@ export default class Utils {
 		});		
 	}
 
-	fetchRoutine(api, data, dataProc){
+	fetchRoutine(api, data, respProc){
 		fetch(
 			api,
 			{
@@ -71,14 +71,14 @@ export default class Utils {
 			resp.json()
 			
 		).then((respJson)=>{
-			dataProc(respJson);
+			respProc(respJson);
 
 		}).catch((err)=>{
 			console.error(err);
 		});
 	}
 
-	getCourseList(keyword, page, pageSize, dataProc){
+	getCourseList(keyword, page, pageSize, respProc){
 		let api = global_.course_list
 				+ '?page=' 
 				+ page 
@@ -95,43 +95,43 @@ export default class Utils {
 			}
 		};
 
-		this.fetchRoutine(api, data, dataProc);
+		this.fetchRoutine(api, data, respProc);
 	}
 
-	getCatagList(dataProc){
+	getCatagList(respProc){
 		let api = global_.course_catag_list;
 
 		let data = {
 			all: 1
 		};
-		this.fetchRoutine(api, data, dataProc);
+		this.fetchRoutine(api, data, respProc);
 	}
 
-	getCourseView(id, dataProc){
+	getCourseView(id, respProc){
 		let api = global_.course_view;
 		let data = {
 			id: id
 		}
-		this.fetchRoutine(api, data, dataProc);
+		this.fetchRoutine(api, data, respProc);
 	}
 
-	getCourseDetail(id, dataProc){
+	getCourseDetail(id, respProc){
 		let api = global_.course_detail;
 		let data = {
 			id: id
 		}
-		this.fetchRoutine(api, data, dataProc);
+		this.fetchRoutine(api, data, respProc);
 	}
 
-	getCourseGroup(id, dataProc){
+	getCourseGroup(id, respProc){
 		let api = global_.course_group;
 		let data = {
 			course_id: id
 		}
-		this.fetchRoutine(api, data, dataProc);
+		this.fetchRoutine(api, data, respProc);
 	}
 
-	getCommentList(id, page, pageSize, dataProc){
+	getCommentList(id, page, pageSize, respProc){
 		let api = global_.comment_list
 				+ '?page=' 
 				+ page 
@@ -141,7 +141,7 @@ export default class Utils {
 		let data = {
 			course_id: id
 		}
-		this.fetchRoutine(api, data, dataProc);
+		this.fetchRoutine(api, data, respProc);
 	}
 
 	convTime(ntime) {

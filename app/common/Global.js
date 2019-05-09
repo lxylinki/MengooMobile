@@ -8,12 +8,13 @@ const mengoo_status_check = url_prefix + 'site/profile';
 
 //const course_admin_list = url_prefix + 'course/course/admin-list';
 //const course_catag_admin_list = url_prefix + 'course/category/admin-list';
-const course_list = url_prefix + '/course/course/list';
-const course_catag_list = url_prefix + '/course/category/list';
-const course_view = url_prefix + '/course/course/view';
-const course_detail = url_prefix + '/course/course/detail';
-const course_group = url_prefix + '/course/group/list';
-const comment_list = url_prefix + '/course/comment/list';
+const course_list = url_prefix + 'course/course/list';
+const course_catag_list = url_prefix + 'course/category/list';
+const course_view = url_prefix + 'course/course/view';
+const course_detail = url_prefix + 'course/course/detail';
+const course_group = url_prefix + 'course/group/list';
+const comment_list = url_prefix + 'course/comment/list';
+const comment_create = url_prefix + 'course/comment/create';
 
 const super_admin_group = 0;
 const school_admin_group = 1;

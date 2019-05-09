@@ -29,7 +29,8 @@ export default class CommentView extends Component {
 			 data = {this.props.data}
 			 renderItem = {({item})=>{
 			 	return(
-			 		<CommentItem data={item} />
+			 		<CommentItem
+			 			data={item} />
 			 	);
 			 }}
 			 ItemSeparatorComponent = {()=>{

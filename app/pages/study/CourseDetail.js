@@ -220,6 +220,7 @@ export default class CourseDetail extends Component {
 					<View style={styles.commentPanel}>
 						<View style={styles.commentTitlePanel}>
 							<CommentTitle
+							    courseId={this.courseId}
 								navigation={this.props.navigation}
 								score={this.state.courseView.score?this.state.courseView.score: 0}/>
 						</View>

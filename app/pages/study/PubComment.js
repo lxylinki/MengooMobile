@@ -16,6 +16,7 @@ import RegularBtn from '../../components/button/RegularBtn';
 export default class PubComment extends Component {
 	constructor(props){
 		super(props);
+		this.courseId = this.props.navigation.getParam('id', null);
 		this.state = {
 			text: '',
 			score: 0,
@@ -24,11 +25,11 @@ export default class PubComment extends Component {
 	}
 
 	readyToSubmit(){
-		return (this.state.score>0 && this.state.content.length>5);
+		return (this.state.score>0 && this.state.content.length>=5);
 	}
 
 	render(){
-		console.log(this.state.content.length);
+		//console.log(this.courseId);
 		return(
 			<View style={styles.rootView}>
 				<CommentHeader
@@ -71,7 +72,9 @@ export default class PubComment extends Component {
 						disabled={!this.readyToSubmit()}
 						style={this.readyToSubmit()? styles.btn: styles.inactiveBtn}
 						text={'提交评价'}
-						action={()=>{console.log('pressed')}}/>
+						action={()=>{
+							
+						}}/>
 				</View>	
 			</View>
 		);

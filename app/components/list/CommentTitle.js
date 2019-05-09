@@ -42,7 +42,8 @@ export default class CommentTitle extends Component {
 						text={'发表评价'}
 						if_active={true}
 						action={()=>{
-							this.props.navigation.navigate('PubComment');
+							//console.log(this.props.courseId);
+							this.props.navigation.navigate('PubComment', {id: this.props.courseId});
 						}}
 						/>
 				</View>
