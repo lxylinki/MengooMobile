@@ -157,8 +157,8 @@ const AppNavigator = createSwitchNavigator(
 		Tab: tabStack
 	},
 	{
-		//initialRouteName: 'Login',
-		initialRouteName: 'Tab',
+		initialRouteName: 'Login',
+		//initialRouteName: 'Tab',
 		headerMode: 'none'
 	}
 );

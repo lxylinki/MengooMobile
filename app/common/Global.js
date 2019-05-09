@@ -41,5 +41,6 @@ export default {
 	course_view,
 	course_detail,
 	course_group,
-	comment_list
+	comment_list,
+	comment_create
 }

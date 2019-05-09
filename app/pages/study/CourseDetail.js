@@ -43,6 +43,15 @@ export default class CourseDetail extends Component {
 		this.getDetail();
 		this.getGroup();
 		this.getComments();
+
+		const {navigation} = this.props;
+		this.focusListener = navigation.addListener('didFocus', ()=>{
+			this.getComments();
+		})
+	}
+
+	componentWillUnmount(){
+		this.focusListener.remove();
 	}
 
 	getView(){

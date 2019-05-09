@@ -10,6 +10,7 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommentHeader from '../../components/head/CommentHeader';
 import RegularBtn from '../../components/button/RegularBtn';
+import Utils from '../../common/Utils';
 
 
 
@@ -22,6 +23,7 @@ export default class PubComment extends Component {
 			score: 0,
 			content: ''
 		}
+		this.utils = new Utils();
 	}
 
 	readyToSubmit(){
@@ -73,7 +75,14 @@ export default class PubComment extends Component {
 						style={this.readyToSubmit()? styles.btn: styles.inactiveBtn}
 						text={'提交评价'}
 						action={()=>{
-							
+							let data = {
+								content: this.state.content,
+								course_id: this.courseId,
+								score: this.state.score
+							}
+							this.utils.createComment(data, (resp)=>{
+								this.props.navigation.goBack();
+							});
 						}}/>
 				</View>	
 			</View>

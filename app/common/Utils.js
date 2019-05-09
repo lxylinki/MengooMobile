@@ -186,4 +186,9 @@ export default class Utils {
 		               + add0(mn);	
 		return commonTime;
 	}
+
+	createComment(data, respProc){
+		let api = global_.comment_create;
+		this.fetchRoutine(api, data, respProc);
+	}
 }
