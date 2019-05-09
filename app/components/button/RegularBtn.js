@@ -18,6 +18,7 @@ export default class RegularBtn extends Component {
 	render(){
 		return(
 			<TouchableOpacity 
+				disabled={this.props.disabled || false}
 				style={[this.state.active? styles.button : styles.inactive, this.props.style]} 
 				onPress={this.props.action}>
 				<Text style={[this.state.active? styles.buttonText : styles.inactiveText, this.props.textStyle]}>{this.props.text}</Text>

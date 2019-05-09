@@ -23,7 +23,12 @@ export default class PubComment extends Component {
 		}
 	}
 
+	readyToSubmit(){
+		return (this.state.score>0 && this.state.content.length>5);
+	}
+
 	render(){
+		console.log(this.state.content.length);
 		return(
 			<View style={styles.rootView}>
 				<CommentHeader
@@ -50,11 +55,23 @@ export default class PubComment extends Component {
 					</View>	
 					<Text style={styles.text}>{this.state.score === 0? '点击星星进行评分': this.state.text}</Text>
 					<View style={styles.contentView}>
-						<TextInput style={styles.content} />
+						<TextInput 
+							style={styles.content}
+							multiline={true}
+							onChangeText={(text)=>{
+								this.setState({
+									content: text
+								});
+							}} 
+							placeholder={'评价内容 (不少于5个字)'}/>
 					</View>
 				</View>
 				<View style={styles.btnView}>
-					{/*<RegularBtn />*/}
+					<RegularBtn 
+						disabled={!this.readyToSubmit()}
+						style={this.readyToSubmit()? styles.btn: styles.inactiveBtn}
+						text={'提交评价'}
+						action={()=>{console.log('pressed')}}/>
 				</View>	
 			</View>
 		);
@@ -71,7 +88,7 @@ let styles = StyleSheet.create({
 	},
 
 	ratingView: {
-		flex: 1,
+		height: 500,
 		alignItems: 'center',
 	},
 
@@ -93,6 +110,21 @@ let styles = StyleSheet.create({
 	content: {
 		width: 380,
 		height: 300,
-		backgroundColor: '#f7f7f7'
+		backgroundColor: '#f7f7f7',
+		textAlignVertical: 'top'
+	},
+
+	btnView: {
+		flex:1,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+
+	btn: {
+		width: 380
+	},
+
+	inactiveBtn: {
+		backgroundColor: '#ddd'
 	}
 });
