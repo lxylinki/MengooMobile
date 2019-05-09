@@ -30,6 +30,8 @@ export default class CommentView extends Component {
 			 renderItem = {({item})=>{
 			 	return(
 			 		<CommentItem
+			 			courseId={this.props.courseId}
+			 			navigation={this.props.navigation}
 			 			userId={this.props.userId}
 			 			data={item} />
 			 	);

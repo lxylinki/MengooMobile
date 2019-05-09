@@ -20,7 +20,7 @@ export default class CommentItem extends Component {
 	}
 
 	render(){
-		console.log(this.props.data.user_id === this.props.userId);
+		//console.log(this.props.data.user_id === this.props.userId);
 		return(
 			<View style={styles.rootView}>
 				<View style={styles.imageView}>
@@ -49,11 +49,15 @@ export default class CommentItem extends Component {
 				</View>	
 
 				<View style={this.props.data.user_id === this.props.userId? styles.opView: {display: 'none'}}>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={()=>{
+						this.props.navigation.navigate('EditComment', {data: {course_id:this.props.courseId, score: this.props.data.score, content: this.props.data.content}});
+					}}>
 						<AntDesign name={'edit'} style={styles.editSign} size={20}/>
 					</TouchableOpacity>
 					
-					<TouchableOpacity>
+					<TouchableOpacity onPress={()=>{
+						
+					}}>
 						<AntDesign name={'delete'} style={styles.deleteSign} size={20}/>
 					</TouchableOpacity>	
 				</View>				

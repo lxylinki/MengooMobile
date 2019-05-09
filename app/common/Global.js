@@ -15,6 +15,8 @@ const course_detail = url_prefix + 'course/course/detail';
 const course_group = url_prefix + 'course/group/list';
 const comment_list = url_prefix + 'course/comment/list';
 const comment_create = url_prefix + 'course/comment/create';
+const comment_update = url_prefix + 'course/comment/update';
+const comment_delete = url_prefix + 'course/comment/delete';
 
 const super_admin_group = 0;
 const school_admin_group = 1;
@@ -42,5 +44,7 @@ export default {
 	course_detail,
 	course_group,
 	comment_list,
-	comment_create
+	comment_create,
+	comment_update,
+	comment_delete
 }

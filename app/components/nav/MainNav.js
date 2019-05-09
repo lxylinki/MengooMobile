@@ -7,8 +7,9 @@ import {
 	createAppContainer} from 'react-navigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 import LoginPage from '../../pages/login/LoginPage';
 
@@ -22,6 +23,7 @@ import CourseHome from '../../pages/study/CourseHome';
 import CourseDetail from '../../pages/study/CourseDetail';
 import CourseSearch from '../../pages/study/CourseSearch';
 import PubComment from '../../pages/study/PubComment';
+import EditComment from '../../pages/study/EditComment';
 
 import MineHome from '../../pages/mine/MineHome';
 import MineDetail from '../../pages/mine/MineDetail';
@@ -60,7 +62,8 @@ const studyStack = createStackNavigator(
 			// 	tabBarVisible: false
 			// }
 		},
-		PubComment: PubComment
+		PubComment: PubComment,
+		EditComment: EditComment
 	},
 	{
 		initialRouteName: 'CourseHome',

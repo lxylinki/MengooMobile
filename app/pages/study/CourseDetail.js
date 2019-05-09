@@ -238,8 +238,10 @@ export default class CourseDetail extends Component {
 								score={this.state.courseView.score?this.state.courseView.score: 0}/>
 						</View>
 						<CommentView
+							courseId={this.courseId}
 							userId={this.userId}
 							data={this.state.commentData}
+							navigation={this.props.navigation}
 							onRefresh={(callback)=>{
 								this.page = 1;
 								this.stopRefresh = callback;
