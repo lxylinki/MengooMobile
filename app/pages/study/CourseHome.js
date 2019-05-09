@@ -43,7 +43,10 @@ export default class CourseHome extends Component {
 	getCourseData(){
 		this.utils.getCourseList(this.keyword, this.page, this.pageSize, (resp)=>{
 			//console.log(resp);
-			this.totalPage = resp.total_page;
+			if(this.totalPage === 0 && resp.total_page > 0) {
+				this.totalPage = resp.total_page;
+			} 
+			
 			if(this.page === 1) {
 				// 测试骨架屏
 				// setTimeout(()=>{
@@ -152,8 +155,8 @@ export default class CourseHome extends Component {
 							data={this.state.courseData} 
 							onEndReached={()=>{
 								if(this.state.courseData.length>=this.pageSize) {
-									this.page += 1;
-									if(this.page <= this.totalPage) {
+									if(this.page < this.totalPage) {
+										this.page += 1;										
 										this.getCourseData();
 									}
 								}

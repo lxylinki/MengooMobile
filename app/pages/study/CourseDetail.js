@@ -34,7 +34,8 @@ export default class CourseDetail extends Component {
 		}
 		this.utils = new Utils();
 		this.page = 1;
-		this.pageSize = 10;
+		this.pageSize = 5;
+		this.totalPage = 0;
 	}
 
 	componentDidMount(){
@@ -76,13 +77,16 @@ export default class CourseDetail extends Component {
 
 	getComments(){
 		this.utils.getCommentList(this.courseId, this.page, this.pageSize, (resp)=>{
+			if(this.totalPage === 0 && resp.total_page > 0) {
+				this.totalPage = resp.total_page;
+			}
 			let size = 50;
 			for(let item of resp._list) {
 				item.username = resp.users[item.user_id].username;
 				let avatarUrl = resp.users[item.user_id].avatar;
 				item.avatar = avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
 			}
-			//console.log('comments:', resp);
+			console.log('comments:', resp);
 
 			if(this.page === 1) {
 				this.setState({
@@ -219,8 +223,20 @@ export default class CourseDetail extends Component {
 						</View>
 						<CommentView
 							data={this.state.commentData}
-							onEndReached={()=>{}}
-							onRefresh={()=>{}}/>
+							onRefresh={(callback)=>{
+								this.page = 1;
+								this.stopRefresh = callback;
+								this.getComments();
+							}}
+							onEndReached={()=>{
+								if(this.state.commentData.length >= this.pageSize){
+									if(this.page < this.totalPage) {
+										this.page += 1;
+										this.getComments();
+									}
+								}
+							}}
+							/>
 					</View>
 				</ScrollView>
 
