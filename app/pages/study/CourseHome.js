@@ -107,10 +107,20 @@ export default class CourseHome extends Component {
 						<BadgeBtn 
 							text={'1'} 
 							action={()=>{
-								this.props.navigation.navigate('CourseSearch');
+								this.props.navigation.navigate('CourseSearch', {keyword: '1'});
 							}}/>
-						<BadgeBtn text={'2'}/>
-						<BadgeBtn text={'3'}/>
+						<BadgeBtn 
+							text={'2'}
+							action={()=>{
+								this.props.navigation.navigate('CourseSearch', {keyword: '2'});
+							}}
+						/>
+						<BadgeBtn 
+							text={'3'}
+							action={()=>{
+								this.props.navigation.navigate('CourseSearch', {keyword: '3'});
+							}}
+						/>
 					</View>
 				</View>
 

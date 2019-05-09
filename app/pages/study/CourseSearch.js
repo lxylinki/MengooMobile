@@ -22,7 +22,7 @@ export default class CourseSearch extends Component {
 		this.pageSize = 10;
 		this.utils = new Utils();
 		this.state = {
-			keyword: '',
+			keyword: this.props.navigation.getParam('keyword', ''),
 			courseData: []
 		}
 	}
@@ -50,6 +50,12 @@ export default class CourseSearch extends Component {
 		})
 	}
 
+	componentDidMount(){
+		if(this.state.keyword.length > 0) {
+			this.refs.searchInp.setState({text: this.state.keyword});
+			this.getCourseData(this.state.keyword);
+		}
+	}
 
 	render(){
 		return(
@@ -84,19 +90,32 @@ export default class CourseSearch extends Component {
 						<Text>热搜</Text>
 						<BadgeBtn 
 							text={'1'} 
-							ref={'hotSearch1'}
+							//ref={'hotSearch1'}
 							action={()=>{
-								let hotkw = this.refs.hotSearch1.props.text;
-								this.refs.searchInp.setState({text: hotkw});
-								this.getCourseData(hotkw);
+								// let hotkw = this.refs.hotSearch1.props.text;
+								// this.refs.searchInp.setState({text: hotkw});
+								// this.getCourseData(hotkw);
+								this.refs.searchInp.setState({text: '1'});
+								this.getCourseData('1');
 							}}/>
-						<BadgeBtn text={'2'}/>
-						<BadgeBtn text={'3'}/>
+						<BadgeBtn 
+							text={'2'}
+							action={()=>{
+								this.refs.searchInp.setState({text: '2'});
+								this.getCourseData('2');
+							}}/>
+						<BadgeBtn 
+							text={'3'}
+							action={()=>{
+								this.refs.searchInp.setState({text: '3'});
+								this.getCourseData('3');
+							}}/>
 					</View>
 
 				</View>
 
 				<CourseView 
+					navigation={this.props.navigation}
 					hasSkeleton={false}
 					data={this.state.courseData} 
 					onEndReached={()=>{
