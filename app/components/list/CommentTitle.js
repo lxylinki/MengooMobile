@@ -41,6 +41,9 @@ export default class CommentTitle extends Component {
 						textStyle={styles.submitBtnText}
 						text={'发表评价'}
 						if_active={true}
+						action={()=>{
+							this.props.navigation.navigate('PubComment');
+						}}
 						/>
 				</View>
 			</View>

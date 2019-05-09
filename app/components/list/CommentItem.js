@@ -30,7 +30,7 @@ export default class CommentItem extends Component {
 
 				<View style={styles.contentView}>
 					<Text style={styles.username}>{this.props.data.username}</Text>
-					<View style={styles.ratings}>
+					<View style={styles.rating}>
 						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>0? '#ff3c00': '#ddd'}/>
 						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>1? '#ff3c00': '#ddd'}/>
 						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>2? '#ff3c00': '#ddd'}/>
@@ -82,15 +82,9 @@ let styles = StyleSheet.create({
 		fontSize: 14
 	},
 
-	ratings: {
+	rating: {
 		flexDirection: 'row',
 		margin: 5
-	},
-
-	ratingsBg: {
-		flexDirection: 'row',
-		position: 'absolute',
-		top: 59
 	},
 
 	commentContent: {

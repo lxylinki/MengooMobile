@@ -98,7 +98,7 @@ export default class CourseHome extends Component {
 	render(){
 		return(
 			<View style={styles.rootView}>
-				<Header style={styles.headerView} title='MY FIRST APP' />
+				<Header style={styles.headerView} title={'MY FIRST APP'} />
 
 				<View style={styles.upperView}>
 					<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>

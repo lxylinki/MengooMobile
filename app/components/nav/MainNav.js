@@ -21,6 +21,7 @@ import FollowDetail from '../../pages/follow/FollowDetail';
 import CourseHome from '../../pages/study/CourseHome';
 import CourseDetail from '../../pages/study/CourseDetail';
 import CourseSearch from '../../pages/study/CourseSearch';
+import PubComment from '../../pages/study/PubComment';
 
 import MineHome from '../../pages/mine/MineHome';
 import MineDetail from '../../pages/mine/MineDetail';
@@ -58,7 +59,8 @@ const studyStack = createStackNavigator(
 			// navigationOptions: {
 			// 	tabBarVisible: false
 			// }
-		}
+		},
+		PubComment: PubComment
 	},
 	{
 		initialRouteName: 'CourseHome',
