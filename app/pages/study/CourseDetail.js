@@ -18,6 +18,7 @@ import RegularBtn from '../../components/button/RegularBtn';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CommentView from '../../components/list/CommentView';
 import CommentTitle from '../../components/list/CommentTitle';
+import Store from '../../common/Store';
 
 
 var {height, width} = Dimensions.get('window');
@@ -36,13 +37,15 @@ export default class CourseDetail extends Component {
 		this.page = 1;
 		this.pageSize = 5;
 		this.totalPage = 0;
+		this.userId = null;
 	}
 
 	componentDidMount(){
+		Store.get('user_info').then((info)=>{this.userId = info.id});
 		this.getView();
 		this.getDetail();
 		this.getGroup();
-		this.getComments();
+		//this.getComments();
 
 		const {navigation} = this.props;
 		this.focusListener = navigation.addListener('didFocus', ()=>{
@@ -95,7 +98,7 @@ export default class CourseDetail extends Component {
 				let avatarUrl = resp.users[item.user_id].avatar;
 				item.avatar = avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
 			}
-			console.log('comments:', resp);
+			//console.log('comments:', resp);
 
 			if(this.page === 1) {
 				this.setState({
@@ -142,6 +145,7 @@ export default class CourseDetail extends Component {
 	};
 
 	render(){
+		//Store.get('user_info').then((val)=>{console.log('user_info:', val.id)});
 		//suggested time
 		let stime = this.getDate(this.state.courseView.time);
 		return(
@@ -234,6 +238,7 @@ export default class CourseDetail extends Component {
 								score={this.state.courseView.score?this.state.courseView.score: 0}/>
 						</View>
 						<CommentView
+							userId={this.userId}
 							data={this.state.commentData}
 							onRefresh={(callback)=>{
 								this.page = 1;

@@ -11,6 +11,7 @@ import LoginInput from '../../components/input/LoginInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
+import Store from '../../common/Store';
 
 
 export default class LoginPage extends Component {
@@ -51,8 +52,9 @@ export default class LoginPage extends Component {
 			);
 
 			if(resp.status===200||resp.status===201||resp.status===204) {
-				// let respJson = await resp.json();
-				// console.log(respJson);
+				let respJson = await resp.json();
+				console.log(respJson);
+				Store.save('user_info', respJson);
 				this.props.navigation.navigate('Tab');
 
 			} else {

@@ -22,7 +22,7 @@ export default class CommentView extends Component {
 	
 	render(){
 		let key = 0;
-		this.props.data.forEach(function(item){item.key = String(key++);});
+		this.props.data.forEach(function(item){console.log(item); item.key = String(key++);});
 		return (
 			<FlatList
 			 style={[styles.list, this.props.style]}
@@ -30,6 +30,7 @@ export default class CommentView extends Component {
 			 renderItem = {({item})=>{
 			 	return(
 			 		<CommentItem
+			 			userId={this.props.userId}
 			 			data={item} />
 			 	);
 			 }}

@@ -3,12 +3,14 @@ import {
 	StyleSheet, 
 	View, 
 	Text,
-	Image
+	Image,
+	TouchableOpacity
 } from 'react-native';
 
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class CommentItem extends Component {
@@ -18,7 +20,7 @@ export default class CommentItem extends Component {
 	}
 
 	render(){
-		//console.log(this.props.data);
+		console.log(this.props.data.user_id === this.props.userId);
 		return(
 			<View style={styles.rootView}>
 				<View style={styles.imageView}>
@@ -44,7 +46,17 @@ export default class CommentItem extends Component {
 				
 				<View style={styles.dateView}>
 					<Text style={styles.datetime}>{this.utils.convTimeFull(this.props.data.updated_at)}</Text>
-				</View>					
+				</View>	
+
+				<View style={this.props.data.user_id === this.props.userId? styles.opView: {display: 'none'}}>
+					<TouchableOpacity>
+						<AntDesign name={'edit'} style={styles.editSign} size={20}/>
+					</TouchableOpacity>
+					
+					<TouchableOpacity>
+						<AntDesign name={'delete'} style={styles.deleteSign} size={20}/>
+					</TouchableOpacity>	
+				</View>				
 			</View>
 		);
 	}
@@ -104,5 +116,20 @@ let styles = StyleSheet.create({
 
 	datetime: {
 		fontSize: 14
+	},
+
+	opView: {
+		position: 'absolute',
+		right: 10,
+		bottom: 10,
+		flexDirection: 'row'
+	},
+
+	editSign: {
+		margin: 5
+	},
+
+	deleteSign: {
+		margin: 5
 	}
 });
