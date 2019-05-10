@@ -9,6 +9,7 @@ import {
 	ScrollView,
 	TouchableOpacity
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import HTML from 'react-native-render-html';
 import Utils from '../../common/Utils';
@@ -18,12 +19,12 @@ import RegularBtn from '../../components/button/RegularBtn';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CommentView from '../../components/list/CommentView';
 import CommentTitle from '../../components/list/CommentTitle';
-import Store from '../../common/Store';
+//import Storage from '../../common/Storage';
 
 
 var {height, width} = Dimensions.get('window');
 
-export default class CourseDetail extends Component {
+class CourseDetail extends Component {
 	constructor(props){
 		super(props);
 		this.courseId = this.props.navigation.getParam('id', null);
@@ -37,11 +38,11 @@ export default class CourseDetail extends Component {
 		this.page = 1;
 		this.pageSize = 5;
 		this.totalPage = 0;
-		this.userId = null;
+		this.userId = this.props.user_id;
 	}
 
 	componentDidMount(){
-		Store.get('user_info').then((info)=>{this.userId = info.id});
+		//Storage.get('user_info').then((info)=>{this.userId = info.id});
 		this.getView();
 		this.getDetail();
 		this.getGroup();
@@ -145,7 +146,6 @@ export default class CourseDetail extends Component {
 	};
 
 	render(){
-		//Store.get('user_info').then((val)=>{console.log('user_info:', val.id)});
 		//suggested time
 		let stime = this.getDate(this.state.courseView.time);
 		return(
@@ -276,6 +276,13 @@ export default class CourseDetail extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	user_id: state.user_id
+});
+
+export default connect(mapStateToProps)(CourseDetail);
+
 
 let styles = StyleSheet.create({
 	rootView: { 

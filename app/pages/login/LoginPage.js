@@ -6,15 +6,17 @@ import {
 	View, 
 	Text
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import LoginInput from '../../components/input/LoginInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
-import Store from '../../common/Store';
+//import Storage from '../../common/Storage';
+import {setVal} from '../../common/Actions';
 
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
 	constructor(props) {
 		super(props);
 		this.username = '';
@@ -54,7 +56,10 @@ export default class LoginPage extends Component {
 			if(resp.status===200||resp.status===201||resp.status===204) {
 				let respJson = await resp.json();
 				console.log(respJson);
-				Store.save('user_info', respJson);
+				//Storage.save('user_info', respJson);
+				this.props.setVal(respJson);
+				//this.props.dispatch(setVal(respJson));
+				//console.log(this.props.user_id);
 				this.props.navigation.navigate('Tab');
 
 			} else {
@@ -94,6 +99,14 @@ export default class LoginPage extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	user_id: state.user_id
+});
+
+export default connect(mapStateToProps, {setVal})(LoginPage);
+//export default connect(mapStateToProps)(LoginPage);
+
 
 let styles = StyleSheet.create({
 	pageTitleDiv: {

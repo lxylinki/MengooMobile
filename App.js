@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { 
+    Dimensions, 
+    StyleSheet, 
+    Text, 
+    View 
+} from 'react-native';
+
 import MainNav from './app/components/nav/MainNav';
+import { Provider } from 'react-redux';
+import { store } from './app/common/Store';
 
 export default class App extends Component {
     constructor(props){
@@ -12,9 +20,11 @@ export default class App extends Component {
 
     render() {
         return (
-            <View style={this.state.screenStyle.rootView}>
-                <MainNav />
-            </View>
+            <Provider store={store}>
+                <View style={this.state.screenStyle.rootView}>
+                    <MainNav />
+                </View>
+            </Provider>
         );
     }
 }
