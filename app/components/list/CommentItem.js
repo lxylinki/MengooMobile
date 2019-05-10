@@ -4,7 +4,8 @@ import {
 	View, 
 	Text,
 	Image,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from 'react-native';
 
 import Utils from '../../common/Utils';
@@ -56,7 +57,20 @@ export default class CommentItem extends Component {
 					</TouchableOpacity>
 					
 					<TouchableOpacity onPress={()=>{
-						
+						Alert.alert(
+							'提示',
+							'确定删除评论？',
+							[
+								{text: '确定', 
+									onPress: () => {
+										this.utils.deleteComment({course_id: this.props.courseId}, (resp)=>{
+											this.props.refresh();
+										})
+									}},
+								{text: '取消', onPress: () => {}},
+							],
+							{cancelable: false}
+						);
 					}}>
 						<AntDesign name={'delete'} style={styles.deleteSign} size={20}/>
 					</TouchableOpacity>	

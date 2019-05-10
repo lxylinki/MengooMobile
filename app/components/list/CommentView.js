@@ -19,6 +19,20 @@ export default class CommentView extends Component {
 			refreshing: false
 		}
 	}
+
+	refresh = ()=> {
+		if(!this.state.refreshing) {
+			this.setState({
+				refreshing: true
+			});
+
+			this.props.onRefresh(()=>{
+				this.setState({
+					refreshing: false
+				})
+			});
+		}
+	};
 	
 	render(){
 		let key = 0;
@@ -33,6 +47,7 @@ export default class CommentView extends Component {
 			 			courseId={this.props.courseId}
 			 			navigation={this.props.navigation}
 			 			userId={this.props.userId}
+			 			refresh={this.refresh}
 			 			data={item} />
 			 	);
 			 }}
@@ -40,18 +55,7 @@ export default class CommentView extends Component {
 			 	return(<View style={styles.separatorLine}></View>);
 			 }}
 			 refreshing={this.state.refreshing} 
-			 onRefresh={()=>{
-			 	if(!this.state.refreshing) {
-			 		this.setState({
-			 			refreshing: true
-			 		});
-			 		this.props.onRefresh(()=>{
-			 			this.setState({
-			 				refreshing: false
-			 			});
-			 		});
-			 	}
-			 }}
+			 onRefresh={this.refresh}
 			 onEndReached={this.props.onEndReached}
 			 onEndReachedThreshold={0.5}
 			/>

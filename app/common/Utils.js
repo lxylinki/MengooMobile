@@ -196,4 +196,9 @@ export default class Utils {
 		let api = global_.comment_update;
 		this.fetchRoutine(api, data, respProc);
 	}
+
+	deleteComment(data, respProc){
+		let api = global_.comment_delete;
+		this.fetchRoutine(api, data, respProc);
+	}
 }
