@@ -21,6 +21,7 @@ import FollowDetail from '../../pages/follow/FollowDetail';
 
 import CourseHome from '../../pages/study/CourseHome';
 import CourseDetail from '../../pages/study/CourseDetail';
+import CourseStruct from '../../pages/study/CourseStruct';
 import CourseSearch from '../../pages/study/CourseSearch';
 import PubComment from '../../pages/study/PubComment';
 import EditComment from '../../pages/study/EditComment';
@@ -63,7 +64,8 @@ const studyStack = createStackNavigator(
 			// }
 		},
 		PubComment: PubComment,
-		EditComment: EditComment
+		EditComment: EditComment,
+		CourseStruct: CourseStruct
 	},
 	{
 		initialRouteName: 'CourseHome',

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { 
 	FlatList, 
 	StyleSheet, 
@@ -13,7 +13,7 @@ import FakeList from './FakeList';
 
 var {height, width} = Dimensions.get('window');
 
-export default class CourseView extends Component {
+export default class CourseView extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {

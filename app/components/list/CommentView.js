@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { 
 	FlatList, 
 	StyleSheet, 
@@ -12,7 +12,7 @@ import CommentItem from './CommentItem';
 
 var {height, width} = Dimensions.get('window');
 
-export default class CommentView extends Component {
+export default class CommentView extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -36,7 +36,7 @@ export default class CommentView extends Component {
 	
 	render(){
 		let key = 0;
-		this.props.data.forEach(function(item){console.log(item); item.key = String(key++);});
+		this.props.data.forEach(function(item){item.key = String(key++);});
 		return (
 			<FlatList
 			 style={[styles.list, this.props.style]}

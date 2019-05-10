@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { 
 	StyleSheet, 
 	View, 
@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
-export default class CourseItem extends Component {
+export default class CourseItem extends PureComponent {
 	render(){
 		//console.log(this.props.data);
 		return (

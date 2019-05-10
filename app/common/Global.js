@@ -18,6 +18,9 @@ const comment_create = url_prefix + 'course/comment/create';
 const comment_update = url_prefix + 'course/comment/update';
 const comment_delete = url_prefix + 'course/comment/delete';
 
+const course_struct = url_prefix + 'course/struct/list';
+
+
 const super_admin_group = 0;
 const school_admin_group = 1;
 const teacher_group = 2;
@@ -46,5 +49,6 @@ export default {
 	comment_list,
 	comment_create,
 	comment_update,
-	comment_delete
+	comment_delete,
+	course_struct
 }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { 
 	StyleSheet, 
 	View, 
@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default class CommentItem extends Component {
+export default class CommentItem extends PureComponent {
 	constructor(props){
 		super(props);
 		this.utils = new Utils();

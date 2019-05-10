@@ -46,7 +46,6 @@ class CourseDetail extends Component {
 		this.getView();
 		this.getDetail();
 		this.getGroup();
-		//this.getComments();
 
 		const {navigation} = this.props;
 		this.focusListener = navigation.addListener('didFocus', ()=>{
@@ -267,6 +266,14 @@ class CourseDetail extends Component {
 						ref={'studyBtn'}
 						if_active={true}
 						action={()=>{
+							this.props.navigation.navigate('CourseStruct', 
+								{
+									//course_id, course name
+									id: this.courseId,
+									name: this.state.courseView.name,
+									teachers: this.state.teachers,
+									img_src:  global_.url_prefix + this.state.courseView.img
+								});
 						}}/>
 					<Text style={this.state.courseView.learn_count?styles.learnCount:{display: 'none'}}>
 						{'已学习：' + this.state.courseView.learn_count + '次'}
