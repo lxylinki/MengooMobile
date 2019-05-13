@@ -59,6 +59,6 @@ let styles = StyleSheet.create({
 	    width: 360,
 	    margin:0,
 	    borderBottomWidth: 2,
-	    borderBottomColor: '#3296fa'		
+	    borderBottomColor: '#c9151e'		
 	}
 });

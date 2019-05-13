@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {
+	View, 
+	Text,
+	Image,
+	StyleSheet
+} from 'react-native';
 import {
 	createStackNavigator, 
 	createSwitchNavigator,
@@ -9,6 +14,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Iconfont from 'react-native-vector-icons/Iconfont';
 
 
 import LoginPage from '../../pages/login/LoginPage';
@@ -25,6 +31,9 @@ import CourseStruct from '../../pages/study/CourseStruct';
 import CourseSearch from '../../pages/study/CourseSearch';
 import PubComment from '../../pages/study/PubComment';
 import EditComment from '../../pages/study/EditComment';
+
+import VidHome from '../../pages/vidstudy/VidHome';
+import VidDetail from '../../pages/vidstudy/VidDetail';
 
 import MineHome from '../../pages/mine/MineHome';
 import MineDetail from '../../pages/mine/MineDetail';
@@ -79,6 +88,18 @@ studyStack.navigationOptions = ({ navigation }) => {
     };
 };
 
+const vidstudyStack = createStackNavigator(
+	{
+		VidHome: VidHome,
+		VidDetail: VidDetail
+	},
+	{
+		initialRouteName: 'VidHome',
+		headerMode: 'none'
+	}
+);
+
+
 const mineStack = createStackNavigator(
 	{
 		MineHome: MineHome,
@@ -94,22 +115,30 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 	const { routeName } = navigation.state;
 	let iconName;
 	if (routeName === 'study') {
-		iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-		return <Ionicons name={iconName} size={25} color={tintColor} />;
+		if(focused) {
+			return <Image resizeMode='center' style={styles.homeIcon} source={require('../../../assets/img/home-selected.png')} />
+		} else {
+			return <Image resizeMode='center' style={styles.homeIcon} source={require('../../../assets/img/home.png')} />			
+		}
 
 	} else if (routeName === 'mine') {
-		iconName = `user-circle${focused ? '' : '-o'}`;
-		return <FontAwesome name={iconName} size={25} color={tintColor} />;
+		iconName = `mine${focused ? '' : ''}`;
+		return <Iconfont name={iconName} size={30} color={tintColor} />;
 
 	} else if (routeName === 'message') {
-		iconName = `message-processing${focused ? '' : ''}`;
-		return <MaterialCommunityIcons name={iconName} size={25} color={tintColor} />;
+		iconName = `message${focused ? '' : ''}`;
+		return <Iconfont name={iconName} size={30} color={tintColor} />;
 
 	} else if (routeName === 'follow') {
-		iconName = `star${focused ? '' : '-o'}`;
-		return <FontAwesome name={iconName} size={25} color={tintColor} />;
+		iconName = `follow${focused ? '' : ''}`;
+		return <Iconfont name={iconName} size={30} color={tintColor} />;
+	} else if (routeName === 'vidstudy') {
+		iconName = `vidstudy${focused ? '' : ''}`;
+		return <Iconfont name={iconName} size={30} color={tintColor} />;		
 	}
 };
+
+const _this = this;
 
 const tabStack = createBottomTabNavigator(
 	{
@@ -130,8 +159,15 @@ const tabStack = createBottomTabNavigator(
 		study: {
 			screen: studyStack,
 			navigationOptions: {
-				title: '学习'
+				title: '首页'
 			},
+		},
+
+		vidstudy: {
+			screen: vidstudyStack,
+			navigationOptions: {
+				title: '视频学习'
+			}
 		},
 		
 		mine: {
@@ -150,8 +186,9 @@ const tabStack = createBottomTabNavigator(
 		}),
 		
 		tabBarOptions: {
-			activeTintColor: '#3296fa',
+			activeTintColor: '#c9151e',
 			inactiveTintColor: 'gray',
+			style: {height: 60}
 		},
 	}
 );
@@ -175,3 +212,9 @@ export default class MainNav extends Component {
 		return <AppContainer />
 	}
 }
+
+let styles = StyleSheet.create({
+	homeIcon: {
+		width: 50,
+	}
+});

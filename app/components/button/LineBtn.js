@@ -34,7 +34,7 @@ let styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 10,
-		borderBottomColor: '#3296fa',
+		borderBottomColor: '#c9151e',
 		borderBottomWidth: 3
 	},
 

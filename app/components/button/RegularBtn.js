@@ -19,7 +19,7 @@ export default class RegularBtn extends Component {
 		return(
 			<TouchableOpacity 
 				disabled={this.props.disabled || false}
-				style={[this.state.active? styles.button : styles.inactive, this.props.style]} 
+				style={this.state.active? [styles.button, this.props.style] : [styles.inactive, this.props.inactStyle]} 
 				onPress={this.props.action}>
 				<Text style={[this.state.active? styles.buttonText : styles.inactiveText, this.props.textStyle]}>{this.props.text}</Text>
 			</TouchableOpacity>			
@@ -31,7 +31,7 @@ let styles = StyleSheet.create({
 	button: {
 		height: 50,
 		width: 360,
-		backgroundColor: '#3296fa',
+		backgroundColor: '#c9151e',
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 25,

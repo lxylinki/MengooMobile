@@ -130,6 +130,7 @@ export default class CourseHome extends Component {
 					<View style={styles.indexBtns}>
 						<RegularBtn 
 							style={styles.indexBtn} 
+							inactStyle={styles.indexBtnFade}
 							textStyle={styles.indexBtnText}
 							text={'推荐课程'}
 							ref={'courseBtn'}
@@ -142,6 +143,7 @@ export default class CourseHome extends Component {
 							
 						<RegularBtn 
 							style={styles.indexBtn} 
+							inactStyle={styles.indexBtnFade}
 							textStyle={styles.indexBtnText}
 							text={'课程分类'}
 							ref={'catagBtn'}
@@ -225,8 +227,13 @@ let styles = StyleSheet.create({
 	indexBtn: {
 		width: 100,
 		height: 34,
+		backgroundColor: '#f4313b'
 	},
-
+	indexBtnFade: {
+		width: 100,
+		height: 34,
+		backgroundColor: 'transparent'
+	},
 	indexBtnText: {
 		fontSize: 16
 	}
