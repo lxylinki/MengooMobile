@@ -34,11 +34,11 @@ export default class CommentItem extends PureComponent {
 				<View style={styles.contentView}>
 					<Text style={styles.username}>{this.props.data.username}</Text>
 					<View style={styles.rating}>
-						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>0? '#ff3c00': '#ddd'}/>
-						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>1? '#ff3c00': '#ddd'}/>
-						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>2? '#ff3c00': '#ddd'}/>
-						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>3? '#ff3c00': '#ddd'}/>
-						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>4? '#ff3c00': '#ddd'}/>
+						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>0? '#ffd161': '#ddd'}/>
+						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>1? '#ffd161': '#ddd'}/>
+						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>2? '#ffd161': '#ddd'}/>
+						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>3? '#ffd161': '#ddd'}/>
+						<FontAwesome name={'star'} style={styles.star} size={10} color={ this.props.data.score>4? '#ffd161': '#ddd'}/>
 					</View>	
 					<Text style={styles.commentContent}>
 						{this.props.data.content}

@@ -31,36 +31,37 @@ export default class CourseView extends PureComponent {
 			this.props.data.forEach(function(item){item.key = String(key++);});
 			return (
 				<FlatList
-				 style={styles.list}
-				 data = {this.props.data}
-				 renderItem = {({item})=>{
-				 	return(
-				 		<CourseItem 
-				 			data={item} 
-				 			inspectCourseItem={()=>{
-				 				this.props.navigation.navigate('CourseDetail', {id: item.id});
-				 			}}
-				 		/>
-				 	);
-				 }}
-				 ItemSeparatorComponent = {()=>{
-				 	return(<View style={styles.separatorLine}></View>);
-				 }}
-				 refreshing={this.state.refreshing} 
-				 onRefresh={()=>{
-				 	if(!this.state.refreshing) {
-				 		this.setState({
-				 			refreshing: true
-				 		});
-				 		this.props.onRefresh(()=>{
-				 			this.setState({
-				 				refreshing: false
-				 			});
-				 		});
-				 	}
-				 }}
-				 onEndReached={this.props.onEndReached}
-				 onEndReachedThreshold={0.5}
+					onScroll={this.props.onScroll}
+					style={styles.list}
+					data = {this.props.data}
+					renderItem = {({item})=>{
+						return(
+							<CourseItem 
+								data={item} 
+								inspectCourseItem={()=>{
+									this.props.navigation.navigate('CourseDetail', {id: item.id});
+								}}
+							/>
+						);
+					}}
+					ItemSeparatorComponent = {()=>{
+						return(<View style={styles.separatorLine}></View>);
+					}}
+					refreshing={this.state.refreshing} 
+					onRefresh={()=>{
+						if(!this.state.refreshing) {
+							this.setState({
+								refreshing: true
+							});
+							this.props.onRefresh(()=>{
+								this.setState({
+									refreshing: false
+								});
+							});
+						}
+					}}
+					onEndReached={this.props.onEndReached}
+					onEndReachedThreshold={0.5}
 				/>
 			);
 		}

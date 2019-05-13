@@ -25,11 +25,11 @@ export default class CommentTitle extends Component {
 								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 							</View>	
 							<View style={[styles.rating, {width: Number(this.props.score)/5*81}]}>
-								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
 							</View>
 						</View>
 					</View>	
@@ -103,7 +103,7 @@ let styles = StyleSheet.create({
 	},
 
 	ratingTitle: {
-		color: '#ff3c00',
+		color: '#c9151e',
 		position: 'absolute',
 		fontSize: 16
 	},

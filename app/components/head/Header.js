@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {
+	StyleSheet, 
+	View, 
+	Text,
+	Image
+} from 'react-native';
 
 export default class Header extends Component {
 	render(){
 		return (
 			<View style={[this.props.style, styles.headerbar]}>
-				<Text style={styles.headertext}>{this.props.title}</Text>
+				<Image resizeMode={'stretch'} style={styles.image} source={require('../../../assets/img/headlogo.png')} />
 			</View>
 		);
 	}
@@ -14,12 +19,18 @@ export default class Header extends Component {
 let styles = StyleSheet.create({
 	headerbar: {
 		backgroundColor: '#c9151e',
-		justifyContent: 'center',
+		flexDirection: 'row',
 		alignItems: 'center'
 	},
 
 	headertext: {
 		color: 'white',
 		fontSize: 18
+	},
+
+	image: {
+		width: 178,
+		height: 36,
+		marginLeft: 10
 	}
 });

@@ -21,6 +21,7 @@ export default class CourseSearch extends Component {
 		this.page = 1;
 		this.pageSize = 10;
 		this.utils = new Utils();
+		this.totalPage = 0;
 		this.state = {
 			keyword: this.props.navigation.getParam('keyword', ''),
 			courseData: []
@@ -36,7 +37,10 @@ export default class CourseSearch extends Component {
 		}
 
 		this.utils.getCourseList(keyword, this.page, this.pageSize, (resp)=>{
-			//console.log(resp);
+			if(this.totalPage === 0 && resp.total_page > 0) {
+				this.totalPage = resp.total_page;
+			} 
+
 			if(this.page === 1) {
 				this.setState({
 					courseData: resp._list
@@ -60,59 +64,53 @@ export default class CourseSearch extends Component {
 	render(){
 		return(
 			<View style={styles.rootView}>
-
-				<Header style={styles.headerView} title='MY FIRST APP' />
+				<Header style={styles.headerView} />
 				
-				<View style={styles.upperView}>
-					<View style={styles.inp}>
-						<SearchInput 
-							style={styles.searchInp} 
-							autoFocus={true} 
-							smaller={true} 
-							placeholder='搜索课程' 
-							navigation={this.props.navigation}
-							ref={'searchInp'}
-							onChangeText={(text)=>{
-								this.setState({keyword: text});
-								this.getCourseData(text);
-							}}/>
-						<RegularBtn 
-							style={styles.cancel}
-							textStyle={styles.cancelText}
-							text={'取消'} 
-							if_active={false} 
-							action={()=>{
-								this.props.navigation.navigate('CourseHome');
-							}}/>
-					</View>
+				<View style={styles.inp}>
+					<SearchInput 
+						style={styles.searchInp} 
+						autoFocus={true} 
+						smaller={true} 
+						placeholder='搜索课程' 
+						navigation={this.props.navigation}
+						ref={'searchInp'}
+						onChangeText={(text)=>{
+							this.setState({keyword: text});
+							this.getCourseData(text);
+						}}/>
 
-					<View style={styles.searchBadges}>
-						<Text>热搜</Text>
-						<BadgeBtn 
-							text={'1'} 
-							//ref={'hotSearch1'}
-							action={()=>{
-								// let hotkw = this.refs.hotSearch1.props.text;
-								// this.refs.searchInp.setState({text: hotkw});
-								// this.getCourseData(hotkw);
-								this.refs.searchInp.setState({text: '1'});
-								this.getCourseData('1');
-							}}/>
-						<BadgeBtn 
-							text={'2'}
-							action={()=>{
-								this.refs.searchInp.setState({text: '2'});
-								this.getCourseData('2');
-							}}/>
-						<BadgeBtn 
-							text={'3'}
-							action={()=>{
-								this.refs.searchInp.setState({text: '3'});
-								this.getCourseData('3');
-							}}/>
-					</View>
-
+					<RegularBtn
+						inactStyle={styles.cancel}
+						textStyle={styles.cancelText}
+						text={'取消'} 
+						if_active={false} 
+						action={()=>{
+							this.props.navigation.navigate('CourseHome');
+						}}/>
 				</View>
+
+				<View style={styles.searchBadges}>
+					<Text>热搜</Text>
+					<BadgeBtn 
+						text={'1'}
+						action={()=>{
+							this.refs.searchInp.setState({text: '1'});
+							this.getCourseData('1');
+						}}/>
+					<BadgeBtn 
+						text={'2'}
+						action={()=>{
+							this.refs.searchInp.setState({text: '2'});
+							this.getCourseData('2');
+						}}/>
+					<BadgeBtn 
+						text={'3'}
+						action={()=>{
+							this.refs.searchInp.setState({text: '3'});
+							this.getCourseData('3');
+						}}/>
+				</View>
+
 
 				<CourseView 
 					navigation={this.props.navigation}
@@ -120,8 +118,10 @@ export default class CourseSearch extends Component {
 					data={this.state.courseData} 
 					onEndReached={()=>{
 						if(this.state.courseData.length>=this.pageSize) {
-							this.page += 1;
-							this.getCourseData(this.state.keyword);
+							if(this.page < this.totalPage) {
+								this.page += 1;										
+								this.getCourseData(this.state.keyword);
+							}
 						}
 					}} 
 					onRefresh={()=>{
@@ -161,6 +161,7 @@ let styles = StyleSheet.create({
 		alignItems: 'baseline',
 		width: 380,
 		height: 60,
+		marginLeft: 10
 	},
 
 	cancel: {

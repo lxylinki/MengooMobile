@@ -116,9 +116,9 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 	let iconName;
 	if (routeName === 'study') {
 		if(focused) {
-			return <Image resizeMode='center' style={styles.homeIcon} source={require('../../../assets/img/home-selected.png')} />
+			return <Image resizeMode='stretch' style={styles.homeIcon} source={require('../../../assets/img/home-selected.png')} />
 		} else {
-			return <Image resizeMode='center' style={styles.homeIcon} source={require('../../../assets/img/home.png')} />			
+			return <Image resizeMode='stretch' style={styles.homeIcon} source={require('../../../assets/img/home.png')} />			
 		}
 
 	} else if (routeName === 'mine') {
@@ -159,7 +159,7 @@ const tabStack = createBottomTabNavigator(
 		study: {
 			screen: studyStack,
 			navigationOptions: {
-				title: '首页'
+				title: ''
 			},
 		},
 
@@ -199,8 +199,8 @@ const AppNavigator = createSwitchNavigator(
 		Tab: tabStack
 	},
 	{
-		initialRouteName: 'Login',
-		//initialRouteName: 'Tab',
+		//initialRouteName: 'Login',
+		initialRouteName: 'Tab',
 		headerMode: 'none'
 	}
 );
@@ -215,6 +215,9 @@ export default class MainNav extends Component {
 
 let styles = StyleSheet.create({
 	homeIcon: {
-		width: 50,
+		width: 45,
+		height: 45,
+		position: 'absolute',
+		top: 8
 	}
 });

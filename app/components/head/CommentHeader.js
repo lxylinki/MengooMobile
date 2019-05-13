@@ -23,7 +23,7 @@ export default class CommentHeader extends Component {
 
 let styles = StyleSheet.create({
 	headerbar: {
-		backgroundColor: '#3296fa',
+		backgroundColor: '#c9151e',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center'

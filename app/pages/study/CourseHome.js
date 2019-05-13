@@ -6,7 +6,8 @@ import {
 	StyleSheet, 
 	View, 
 	Text,
-	ScrollView
+	ScrollView,
+	Animated
 } from 'react-native';
 
 import Header from '../../components/head/Header';
@@ -31,13 +32,41 @@ export default class CourseHome extends Component {
 		this.utils = new Utils();
 		this.state = {
 			courseData: [],
-			catagData: []
+			catagData: [],
+			bottomHeight: new Animated.Value(height*0.4),
+			bottomTop: new Animated.Value(0)
 		}
 	}
+
+	// componentWillMount() {
+	// 	this.animatedEvent = Animated.event([
+	// 		{
+	// 			nativeEvent: {
+	// 				contentOffset: { y: this.state.bottomHeight }
+	// 			}
+	// 		}
+	// 	])
+	// }
 
 	componentDidMount(){
 		this.getCourseData();
 		this.getCatagData();
+
+		Animated.timing(                  
+			this.state.bottomHeight,           
+			{
+				toValue: height,                   
+				duration: 8000,              
+			}
+			).start(); 
+
+		Animated.timing(                  
+			this.state.bottomTop,            
+			{
+				toValue: -60,                   
+				duration: 8000,              
+			}
+			).start(); 
 	}
 
 	getCourseData(){
@@ -96,37 +125,36 @@ export default class CourseHome extends Component {
 	};
 
 	render(){
+		let { bottomHeight, bottomTop } = this.state;
 		return(
-			<View style={styles.rootView}>
-				<Header style={styles.headerView} title={'MY FIRST APP'} />
-
-				<View style={styles.upperView}>
-					<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
-					<View style={styles.searchBadges}>
-						<Text>热搜</Text>
-						<BadgeBtn 
-							text={'1'} 
-							action={()=>{
-								this.props.navigation.navigate('CourseSearch', {keyword: '1'});
-							}}/>
-						<BadgeBtn 
-							text={'2'}
-							action={()=>{
-								this.props.navigation.navigate('CourseSearch', {keyword: '2'});
-							}}
-						/>
-						<BadgeBtn 
-							text={'3'}
-							action={()=>{
-								this.props.navigation.navigate('CourseSearch', {keyword: '3'});
-							}}
-						/>
-					</View>
+			<View style={styles.rootView}>		
+				<Header style={styles.headerView} />
+				<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
+						
+				<View style={styles.searchBadges}>
+					<Text>热搜</Text>
+					<BadgeBtn 
+						text={'1'} 
+						action={()=>{
+							this.props.navigation.navigate('CourseSearch', {keyword: '1'});
+						}}/>
+					<BadgeBtn 
+						text={'2'}
+						action={()=>{
+							this.props.navigation.navigate('CourseSearch', {keyword: '2'});
+						}}
+					/>
+					<BadgeBtn 
+						text={'3'}
+						action={()=>{
+							this.props.navigation.navigate('CourseSearch', {keyword: '3'});
+						}}
+					/>
 				</View>
-
+			
 				<HomeSwiper />
 				
-				<View style={styles.bottomView}>
+				<Animated.View style={[styles.bottomView, {height: bottomHeight, top: bottomTop}]}>
 					<View style={styles.indexBtns}>
 						<RegularBtn 
 							style={styles.indexBtn} 
@@ -161,7 +189,9 @@ export default class CourseHome extends Component {
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
+
 						<CourseView 
+							onScroll={this.animatedEvent}
 							hasSkeleton={true}
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
@@ -178,9 +208,11 @@ export default class CourseHome extends Component {
 								this.stopRefresh = callback;
 								this.getCourseData();
 							}}/>
+
 						<CatagView data={this.state.catagData}/>
+
 					</ScrollView>
-				</View>
+				</Animated.View>
 
 			</View>
 		);
@@ -197,14 +229,16 @@ let styles = StyleSheet.create({
 		height: 70
 	},
 
-	upperView: {
-		height: 100,
-		alignItems: 'center',
-		flexDirection: 'column'
+	bottomView: {
+		//top: 0,
+		height: height*0.4,
+		backgroundColor: '#f5f6fa'
 	},
 
-	bottomView: {
-		flex: 2.5
+	bottomViewExpanded: {
+		top: -60,
+		height: height,
+		backgroundColor: '#f5f6fa'
 	},
 
 	searchBadges: {
@@ -212,6 +246,7 @@ let styles = StyleSheet.create({
 		alignItems: 'baseline',
 		width: 380,
 		height: 60,
+		marginLeft: 10
 	},
 
 	indexBtns: {
@@ -222,12 +257,13 @@ let styles = StyleSheet.create({
 	},
 
 	scroll: {
+		backgroundColor: '#f5f6fa'
 	},
 
 	indexBtn: {
 		width: 100,
 		height: 34,
-		backgroundColor: '#f4313b'
+		backgroundColor: '#c9151e'
 	},
 	indexBtnFade: {
 		width: 100,

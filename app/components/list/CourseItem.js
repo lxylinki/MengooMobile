@@ -30,11 +30,11 @@ export default class CourseItem extends PureComponent {
 							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 						</View>	
 						<View style={[styles.rating, {width: 81*this.props.data.score/5}]}>
-							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
-							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ff3c00'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
+							<FontAwesome name={'star'} style={styles.star} size={15} color={'#ffd161'}/>
 						</View>				
 					</View>
 

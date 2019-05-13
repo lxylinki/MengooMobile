@@ -5,10 +5,13 @@ import {
 	View,
 	Image,
 	TouchableOpacity,
-	Alert
+	Alert,
+	Dimensions
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
+
+var {height, width} = Dimensions.get('window');
 
 export default class HomeSwiper extends Component {
 	constructor(props){
@@ -19,7 +22,6 @@ export default class HomeSwiper extends Component {
 		return (
 			<Swiper 
 				style={styles.container}
-				height={100}
 				paginationStyle={styles.pagination}
 				dot={<View style={styles.regularDot} />}
 				autoplay={true}
@@ -28,27 +30,17 @@ export default class HomeSwiper extends Component {
 				>
 				<View style={styles.slide}>
 					<TouchableOpacity onPress={()=>{Alert.alert('pressed')}}>
-						<Image resizeMode='center' style={styles.image} source={require('../../../assets/img/1.jpg')} />
+						<Image resizeMode={'stretch'} style={styles.image} source={require('../../../assets/img/banner-1.png')} />
 					</TouchableOpacity>
 				</View>
 				<View style={styles.slide}>
 					<TouchableOpacity>
-						<Image resizeMode='center' style={styles.image} source={require('../../../assets/img/2.jpg')} />
+						<Image resizeMode={'stretch'} style={styles.image} source={require('../../../assets/img/banner-2.png')} />
 					</TouchableOpacity>
 				</View>
 				<View style={styles.slide}>
 					<TouchableOpacity>
-						<Image resizeMode='center' style={styles.image} source={require('../../../assets/img/3.jpg')} />
-					</TouchableOpacity>
-				</View>
-				<View style={styles.slide}>
-					<TouchableOpacity>
-						<Image resizeMode='center' style={styles.image} source={require('../../../assets/img/4.jpg')} />
-					</TouchableOpacity>
-				</View>
-				<View style={styles.slide}>
-					<TouchableOpacity>
-						<Image resizeMode='center' style={styles.image} source={require('../../../assets/img/5.jpg')} />
+						<Image resizeMode={'stretch'} style={styles.image} source={require('../../../assets/img/banner-3.png')} />
 					</TouchableOpacity>
 				</View>
 			</Swiper>
@@ -75,6 +67,11 @@ let styles = StyleSheet.create({
 
 	pagination: {
 		bottom: 5,
+	},
+
+	image: {
+		width: width,
+		flex: 1
 	},
 
 	regularDot: {
