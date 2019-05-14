@@ -69,9 +69,11 @@ export default class Utils {
 			}
 		).then((resp)=>
 			resp.json()
+			//resp.text()
 			
 		).then((respJson)=>{
 			respProc(respJson);
+			//console.log(api, respJson);
 
 		}).catch((err)=>{
 			console.error(err);
@@ -199,6 +201,34 @@ export default class Utils {
 
 	deleteComment(data, respProc){
 		let api = global_.comment_delete;
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	getCourseStructList(id, page, pageSize, respProc){
+		let api = global_.course_struct
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+
+		let data = {
+			course_id: id
+		}
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	getCourseSectionList(id, pid, page, pageSize, respProc){
+		let api = global_.course_struct
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+
+		let data = {
+			course_id: id,
+			pid: pid
+		}
+		//console.log(data);
 		this.fetchRoutine(api, data, respProc);
 	}
 }

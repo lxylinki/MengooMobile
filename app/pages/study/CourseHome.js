@@ -15,8 +15,8 @@ import SearchInput from '../../components/input/SearchInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import BadgeBtn from '../../components/button/BadgeBtn';
 import HomeSwiper from '../../components/swiper/HomeSwiper';
-import CourseView from '../../components/list/CourseView';
-import CatagView from '../../components/list/CatagView';
+import CourseView from '../../components/list/course/CourseView';
+import CatagView from '../../components/list/catag/CatagView';
 import Utils from '../../common/Utils';
 
 

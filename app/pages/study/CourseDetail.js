@@ -17,8 +17,8 @@ import global_ from '../../common/Global';
 import LineBtn from '../../components/button/LineBtn';
 import RegularBtn from '../../components/button/RegularBtn';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CommentView from '../../components/list/CommentView';
-import CommentTitle from '../../components/list/CommentTitle';
+import CommentView from '../../components/list/comment/CommentView';
+import CommentTitle from '../../components/list/comment/CommentTitle';
 //import Storage from '../../common/Storage';
 
 

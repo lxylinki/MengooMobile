@@ -11,6 +11,9 @@ import {
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import LineBtn from '../../components/button/LineBtn';
+import Utils from '../../common/Utils';
+import StructView from '../../components/list/struct/StructView';
+
 
 var {height, width} = Dimensions.get('window');
 
@@ -21,7 +24,18 @@ export default class CourseStruct extends Component {
 		this.courseName = this.props.navigation.getParam('name', '');
 		this.teachers = this.props.navigation.getParam('teachers', []);
 		this.imgSrc = this.props.navigation.getParam('img_src', '');
+        this.page = 1;
+        this.pageSize = 5;
+        this.totalPage = 0;
+        this.utils = new Utils();
+        this.state = {
+            structData: []
+        }
 	}
+
+    componentDidMount(){
+        this.getStructData();
+    }
 
 	listTeachers(){
 		let teachers = [];
@@ -64,6 +78,24 @@ export default class CourseStruct extends Component {
                 break;
         }
     };
+
+    getStructData(){
+        this.utils.getCourseStructList(this.courseId, this.page, this.pageSize, (resp)=>{
+            if(this.totalPage === 0 && resp.total_page > 0) {
+                this.totalPage = resp.total_page;
+            }
+
+            if(this.page === 1) {
+                this.setState({
+                    structData: resp._list
+                });
+            } else {
+                this.setState({
+                    structData: this.state.structData.concat(resp._list)
+                });            
+            }            
+        });
+    }
 
 	render(){
 		return(
@@ -149,10 +181,15 @@ export default class CourseStruct extends Component {
                     pagingEnabled={true}
                     horizontal={true}
                     onMomentumScrollEnd={this.scrollEnd}>
-                    <View style={{width: width, height: 600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
-                    <View style={{width: width, height: 600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
-                    <View style={{width: width, height: 600, opacity: 0.5, backgroundColor: 'steelblue'}}></View>
-                    <View style={{width: width, height: 600, opacity: 0.5, backgroundColor: 'yellowgreen'}}></View>
+
+                    <ScrollView
+                        padingEnabled={true}>
+                        <StructView courseId={this.courseId} data={this.state.structData}/>
+                    </ScrollView>
+                    
+                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
+                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'steelblue'}}></View>
+                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
                 </ScrollView>
 			</View>
 		);

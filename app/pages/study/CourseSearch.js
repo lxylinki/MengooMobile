@@ -11,7 +11,7 @@ import Header from '../../components/head/Header';
 import SearchInput from '../../components/input/SearchInput';
 import BadgeBtn from '../../components/button/BadgeBtn';
 import RegularBtn from '../../components/button/RegularBtn';
-import CourseView from '../../components/list/CourseView';
+import CourseView from '../../components/list/course/CourseView';
 import Utils from '../../common/Utils';
 
 
