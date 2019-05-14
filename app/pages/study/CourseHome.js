@@ -179,8 +179,7 @@ export default class CourseHome extends Component {
 							}}/>
 					</View>
 
-					<ScrollView 
-						style={styles.scroll}
+					<ScrollView
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
@@ -249,10 +248,6 @@ let styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'baseline',
 		paddingLeft: 10
-	},
-
-	scroll: {
-		backgroundColor: '#f5f6fa'
 	},
 
 	indexBtn: {
