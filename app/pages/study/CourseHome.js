@@ -33,40 +33,36 @@ export default class CourseHome extends Component {
 		this.state = {
 			courseData: [],
 			catagData: [],
-			bottomHeight: new Animated.Value(height*0.4),
-			bottomTop: new Animated.Value(0)
+			bottomHeight: new Animated.Value(0),
 		}
 	}
 
-	// componentWillMount() {
-	// 	this.animatedEvent = Animated.event([
-	// 		{
-	// 			nativeEvent: {
-	// 				contentOffset: { y: this.state.bottomHeight }
-	// 			}
-	// 		}
-	// 	])
-	// }
+	componentWillMount() {
+		this.listHeight = this.state.bottomHeight.interpolate({
+			inputRange: [0, height*0.5, height],
+			outputRange: [height*0.4, height*0.5, height*0.6]
+		});
+
+		this.listTop = this.state.bottomHeight.interpolate({
+			inputRange: [0, height*0.4, height],
+			outputRange: [0, 0, -35]
+		});
+
+		this.animatedEvent = Animated.event([
+			//this.state.bottomHeight = e.nativeEvent.contentOffset.y
+			{
+				nativeEvent: {
+					contentOffset: { 
+						y: this.state.bottomHeight, 
+					}
+				}
+			}
+		])
+	}
 
 	componentDidMount(){
 		this.getCourseData();
 		this.getCatagData();
-
-		Animated.timing(                  
-			this.state.bottomHeight,           
-			{
-				toValue: height,                   
-				duration: 8000,              
-			}
-			).start(); 
-
-		Animated.timing(                  
-			this.state.bottomTop,            
-			{
-				toValue: -60,                   
-				duration: 8000,              
-			}
-			).start(); 
 	}
 
 	getCourseData(){
@@ -151,10 +147,10 @@ export default class CourseHome extends Component {
 						}}
 					/>
 				</View>
-			
+				
 				<HomeSwiper />
 				
-				<Animated.View style={[styles.bottomView, {height: bottomHeight, top: bottomTop}]}>
+				<Animated.View style={[styles.bottomView, {top: this.listTop, height: this.listHeight}]}>
 					<View style={styles.indexBtns}>
 						<RegularBtn 
 							style={styles.indexBtn} 
@@ -196,6 +192,7 @@ export default class CourseHome extends Component {
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{
+								//console.log('on end reached');
 								if(this.state.courseData.length>=this.pageSize) {
 									if(this.page < this.totalPage) {
 										this.page += 1;										
@@ -230,16 +227,14 @@ let styles = StyleSheet.create({
 	},
 
 	bottomView: {
-		//top: 0,
-		height: height*0.4,
 		backgroundColor: '#f5f6fa'
 	},
 
-	bottomViewExpanded: {
-		top: -60,
-		height: height,
-		backgroundColor: '#f5f6fa'
-	},
+	// bottomViewExpanded: {
+	// 	top: -60,
+	// 	height: height*0.7,
+	// 	backgroundColor: '#f5f6fa'
+	// },
 
 	searchBadges: {
 		flexDirection: 'row',
