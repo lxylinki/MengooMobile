@@ -28,7 +28,7 @@ export default class CommentItem extends PureComponent {
 					<Image 
 						style={styles.image} 
 						resizeMode='cover' 
-						source={ this.props.data.avatar? {uri: this.props.data.avatar} : require('../../../assets/img/user-avatar.png')}/>
+						source={ this.props.data.avatar? {uri: this.props.data.avatar} : require('../../../../assets/img/user-avatar.png')}/>
 				</View>
 
 				<View style={styles.contentView}>
