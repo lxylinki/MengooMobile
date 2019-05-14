@@ -7,7 +7,7 @@ import {
 	TouchableOpacity 
 } from 'react-native';
 
-import global_ from '../../common/Global';
+import global_ from '../../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 

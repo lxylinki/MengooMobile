@@ -5,7 +5,7 @@ import {
 	View
 } from 'react-native';
 
-import RegularBtn from '../button/RegularBtn';
+import RegularBtn from '../../button/RegularBtn';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class CommentTitle extends Component {

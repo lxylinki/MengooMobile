@@ -9,7 +9,7 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import global_ from '../../common/Global';
+import global_ from '../../../common/Global';
 
 export default class CatagItem extends Component {
 	render(){

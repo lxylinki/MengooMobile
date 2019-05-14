@@ -8,8 +8,8 @@ import {
 	Alert
 } from 'react-native';
 
-import Utils from '../../common/Utils';
-import global_ from '../../common/Global';
+import Utils from '../../../common/Utils';
+import global_ from '../../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

@@ -9,9 +9,9 @@ import {
 	Easing
 } from 'react-native';
 
-import global_ from '../../common/Global';
+import global_ from '../../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Utils from '../../common/Utils';
+import Utils from '../../../common/Utils';
 import SectionView from './SectionView';
 
 
@@ -21,7 +21,8 @@ export default class StructItem extends PureComponent {
 		let _this = this;
 		this.state = {
 			showToggle: 0,
-			secData: []
+			secData: [],
+			contentData: []
 		}
 		this.spinValue = new Animated.Value(0);
 		this.utils = new Utils();
@@ -64,11 +65,13 @@ export default class StructItem extends PureComponent {
 
             if(this.page === 1) {
                 this.setState({
-                    secData: resp._list
+                    secData: resp._list,
+                    contentData: resp.contents
                 });
             } else {
                 this.setState({
-                    secData: this.state.secData.concat(resp._list)
+                    secData: this.state.secData.concat(resp._list),
+                    contentData: this.state.contentData.concat(resp.contents)
                 });            
             }            
         });
@@ -91,7 +94,9 @@ export default class StructItem extends PureComponent {
 				</TouchableOpacity>
 
 				<Animated.View style={{height: this.secHeight}}>
-					<SectionView data={this.state.secData}/>
+					<SectionView 
+						contentData={this.state.contentData}
+						data={this.state.secData}/>
 				</Animated.View>
 			</View>
 		);
