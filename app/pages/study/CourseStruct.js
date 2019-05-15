@@ -29,7 +29,8 @@ export default class CourseStruct extends Component {
         this.totalPage = 0;
         this.utils = new Utils();
         this.state = {
-            structData: []
+            structData: [],
+            examData: {}
         }
 	}
 
@@ -81,19 +82,21 @@ export default class CourseStruct extends Component {
 
     getStructData(){
         this.utils.getCourseStructList(this.courseId, this.page, this.pageSize, (resp)=>{
+            console.log(resp);
             if(this.totalPage === 0 && resp.total_page > 0) {
                 this.totalPage = resp.total_page;
             }
 
             if(this.page === 1) {
                 this.setState({
-                    structData: resp._list
+                    structData: resp._list,
                 });
             } else {
                 this.setState({
-                    structData: this.state.structData.concat(resp._list)
-                });            
-            }            
+                    structData: this.state.structData.concat(resp._list),
+                });       
+            }
+            Object.assign(this.state.examData, resp.exams);  
         });
     }
 
@@ -184,7 +187,10 @@ export default class CourseStruct extends Component {
 
                     <ScrollView
                         padingEnabled={true}>
-                        <StructView courseId={this.courseId} data={this.state.structData}/>
+                        <StructView 
+                            courseId={this.courseId} 
+                            exams={this.state.examData} 
+                            data={this.state.structData}/>
                     </ScrollView>
                     
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>

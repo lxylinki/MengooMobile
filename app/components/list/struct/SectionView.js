@@ -15,8 +15,9 @@ export default class SectionView extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			refreshing: false
-		}
+			refreshing: false,
+		};
+		this.height = 0;
 	}
 
 	refresh = ()=> {
@@ -34,26 +35,35 @@ export default class SectionView extends PureComponent {
 	};
 
 	render(){
-		console.log('contents:', this.props.contentData);
-		let key = 0;
+		//console.log('SectionView:', this.props.data);
+		let key = 0, itemCount = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
 		return (
 			<FlatList
-			 style={[styles.list, this.props.style]}
-			 data = {this.props.data}
-			 renderItem = {({item})=>{
-			 	return(
-			 		<SectionItem
-			 			data={item} />
-			 	);
-			 }}
-			 ItemSeparatorComponent = {()=>{
-			 	return(<View style={styles.separatorLine}></View>);
-			 }}
-			 refreshing={this.state.refreshing} 
-			 onRefresh={this.refresh}
-			 onEndReached={this.props.onEndReached}
-			 onEndReachedThreshold={0.5}
+				style={[styles.list, {height: this.state.maxHeight}, this.props.style]}
+				data = {this.props.data}
+				renderItem = {({item})=>{
+					return(
+						<SectionItem
+							addHeight={(itemHeight)=>{
+								this.height += itemHeight;
+								itemCount += 1;
+								if(itemCount === this.props.data.length) {
+									console.log('SectionView height:', this.height);
+									this.props.setMaxHeight(this.height);
+								}
+							}}
+							content={this.props.contentData[0][item.id]}
+							data={item} />
+					);
+				}}
+				ItemSeparatorComponent = {()=>{
+					return(<View style={styles.separatorLine}></View>);
+				}}
+				refreshing={this.state.refreshing} 
+				onRefresh={this.refresh}
+				onEndReached={this.props.onEndReached}
+				onEndReachedThreshold={0.5}
 			/>
 		);
 	}		
@@ -61,7 +71,7 @@ export default class SectionView extends PureComponent {
 
 let styles = StyleSheet.create({
 	list: {
-		width: width
+		width: width,
 	},
 
 	separatorLine: {

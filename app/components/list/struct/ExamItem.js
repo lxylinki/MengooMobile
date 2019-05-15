@@ -12,18 +12,14 @@ import {
 import global_ from '../../../common/Global';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Utils from '../../../common/Utils';
-import SectionView from './SectionView';
 
 
-export default class StructItem extends PureComponent {
+export default class ExamItem extends PureComponent {
 	constructor(props){
 		super(props);
 		let _this = this;
 		this.state = {
 			showToggle: 1,
-			secData: [],
-			contentData: [],
-			maxHeight: 0
 		}
 		this.spinValue = new Animated.Value(this.state.showToggle);
 		this.utils = new Utils();
@@ -47,64 +43,31 @@ export default class StructItem extends PureComponent {
             outputRange: ['0deg', '180deg'] 
         });
 
-        // this.secHeight = this.spinValue.interpolate({
-        // 	inputRange: [0, 1],
-        // 	outputRange: [0, this.state.maxHeight]
-        // })
+        this.secHeight = this.spinValue.interpolate({
+        	inputRange: [0, 1],
+        	outputRange: [0, 60]
+        })
 	}
-
-	componentDidMount(){
-		this.getSectionData();
-	}
-
-    getSectionData(){
-        this.utils.getCourseSectionList(this.props.courseId, this.props.data.id, this.page, this.pageSize, (resp)=>{
-        	//console.log(resp);
-            if(this.totalPage === 0 && resp.total_page > 0) {
-                this.totalPage = resp.total_page;
-            }
-
-            if(this.page === 1) {
-                this.setState({
-                    secData: resp._list,
-                    contentData: resp.contents
-                });
-            } else {
-                this.setState({
-                    secData: this.state.secData.concat(resp._list),
-                    contentData: this.state.contentData.concat(resp.contents)
-                });            
-            }            
-        });
-    }
 
 	render(){
+		console.log('exam:', this.props.exam);
 		return(
 			<View style={styles.rootView}>
 				<TouchableOpacity onPress={()=>{
-						this.setState({
-							showToggle: this.state.showToggle === 0? 1: 0
-						}, this.spin);
-					}}>
-
+					this.setState({
+						showToggle: this.state.showToggle === 0? 1: 0
+					}, this.spin);
+				}}>
 					<View style={styles.barView}>
 						<Text style={styles.text}>{this.props.data.name}</Text>
 						<Animated.View style={{transform:[{rotate: this.angle}]}}>
 							<Ionicons name={'ios-arrow-down'} size={20}/>
 						</Animated.View>
 					</View>
-
 				</TouchableOpacity>
 
 				<Animated.View style={{height: this.secHeight}}>
-					<SectionView
-						setMaxHeight={(maxHeight)=>{
-							this.setState({
-								maxHeight: maxHeight
-							});
-						}}
-						contentData={this.state.contentData}
-						data={this.state.secData}/>
+					<Text>{this.props.exam.exam_name}</Text>
 				</Animated.View>
 			</View>
 		);
@@ -112,14 +75,10 @@ export default class StructItem extends PureComponent {
 }
 
 let styles = StyleSheet.create({
-	rootView: {
-		flex: 1
-	},
-
 	barView: {
 		height: 60,
 		padding: 10,
-		backgroundColor: '#f5f6fa',
+		backgroundColor: '#ddd',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between'
