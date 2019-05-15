@@ -17,7 +17,7 @@ export default class SectionItem extends PureComponent {
 	layout=(e)=>{
 		if(this.props.content.length>0 && e.layout.height >= 40) {
 			this.height = e.layout.height;
-			console.log(this.height, this.props.content);
+			//console.log(this.height, this.props.content);
 			this.props.addHeight(this.height);
 		}
 	};

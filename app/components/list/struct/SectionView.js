@@ -37,6 +37,7 @@ export default class SectionView extends PureComponent {
 	render(){
 		//console.log('SectionView:', this.props.data);
 		let key = 0, itemCount = 0;
+		this.height = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
 		return (
 			<FlatList
@@ -46,11 +47,13 @@ export default class SectionView extends PureComponent {
 					return(
 						<SectionItem
 							addHeight={(itemHeight)=>{
-								this.height += itemHeight;
-								itemCount += 1;
-								if(itemCount === this.props.data.length) {
-									console.log('SectionView height:', this.height);
-									this.props.setMaxHeight(this.height);
+								if(itemCount <= this.props.data.length) {
+									this.height += itemHeight;
+									itemCount += 1;
+									if(itemCount === this.props.data.length) {
+										this.props.setMaxHeight(this.height);
+									}
+									console.log(this.height, itemCount, this.props.data.length);
 								}
 							}}
 							content={this.props.contentData[0][item.id]}

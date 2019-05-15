@@ -27,6 +27,9 @@ export default class StructItem extends PureComponent {
 		}
 		this.spinValue = new Animated.Value(this.state.showToggle);
 		this.utils = new Utils();
+		this.angle = '0deg';
+		this.maxHeight = 0;
+		this.secHeight = 300;
 	}
 
 
@@ -46,11 +49,6 @@ export default class StructItem extends PureComponent {
             inputRange: [0, 1],
             outputRange: ['0deg', '180deg'] 
         });
-
-        // this.secHeight = this.spinValue.interpolate({
-        // 	inputRange: [0, 1],
-        // 	outputRange: [0, this.state.maxHeight]
-        // })
 	}
 
 	componentDidMount(){
@@ -96,11 +94,14 @@ export default class StructItem extends PureComponent {
 
 				</TouchableOpacity>
 
-				<Animated.View style={{height: this.secHeight}}>
+				<Animated.View style={this.maxHeight>0?{height: this.secHeight}:{}}>
 					<SectionView
 						setMaxHeight={(maxHeight)=>{
-							this.setState({
-								maxHeight: maxHeight
+							this.maxHeight = maxHeight;
+							console.log('maxHeight:', this.maxHeight);
+							this.secHeight = this.spinValue.interpolate({
+								inputRange: [0, 1],
+								outputRange: [0, this.maxHeight]
 							});
 						}}
 						contentData={this.state.contentData}
