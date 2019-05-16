@@ -47,16 +47,16 @@ export default class StructView extends PureComponent {
 	// };
 
 
-	layout=(e)=>{
-		console.log('StructView height:', e.layout.height);
-	}
+	// layout=(e)=>{
+	// 	console.log('StructView height:', e.layout.height);
+	// }
 
 	render(){
 		let key = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
 		return (
 			<FlatList
-				onLayout={({nativeEvent:e})=>this.layout(e)}
+				//onLayout={({nativeEvent:e})=>this.layout(e)}
 				style={[styles.list, this.props.style]}
 				data = {this.props.data}
 				renderItem = {({item})=>{

@@ -32,6 +32,7 @@ export default class SectionItem extends PureComponent {
 				<FlatList 
 					data={this.props.content} 
 					renderItem={({item})=>{
+						console.log(item.hasOwnProperty('resource')? item.resource.mime: 'Not Resource');
 						return(
 							<View style={styles.subText}>
 								<Text>{'Subitem-' + item.name}</Text>
