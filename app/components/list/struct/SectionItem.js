@@ -25,6 +25,7 @@ export default class SectionItem extends PureComponent {
 		return(
 			<View style={styles.rootView} onLayout={({nativeEvent:e})=>this.layout(e)}>
 				<View style={styles.secItemBar}>
+					<View style={styles.decor}></View>
 					<Text style={styles.itemText}>{this.props.data.name}</Text>	
 				</View>
 					
@@ -44,15 +45,21 @@ export default class SectionItem extends PureComponent {
 
 let styles = StyleSheet.create({
 	rootView: {
-		backgroundColor: 'pink',
 		justifyContent: 'center',
 		padding: 10
 	},
 
 	secItemBar: {
 		height: 40,
-		backgroundColor: 'powderblue',
-		justifyContent: 'center'
+		alignItems: 'center',
+		flexDirection: 'row'
+	},
+
+	decor: {
+		width: 3,
+		height: 20,
+		backgroundColor: '#c9151e',
+		marginRight: 10
 	},
 
 	itemText: {

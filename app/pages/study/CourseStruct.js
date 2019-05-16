@@ -106,7 +106,7 @@ export default class CourseStruct extends Component {
                 <Image style={styles.image} resizeMode={'cover'} source={{uri: this.imgSrc}}/>
                 <TouchableOpacity 
                     style={styles.backBtn}
-                    onPress={()=>{this.props.navigation.navigate('CourseHome')}}>
+                    onPress={()=>{this.props.navigation.navigate('CourseDetail')}}>
                     <AntDesign 
                         name={'leftcircle'}
                         size={30}
@@ -249,8 +249,9 @@ let styles = StyleSheet.create({
         justifyContent: 'center'
     },
     indexBtn: {
-        width: 100,
-        height: 53
+        width: 80,
+        height: 45,
+        margin: 5
     },
 
     indexBtnText: {
