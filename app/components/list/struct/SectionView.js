@@ -46,6 +46,7 @@ export default class SectionView extends PureComponent {
 				renderItem = {({item})=>{
 					return(
 						<SectionItem
+							navigation={this.props.navigation}
 							addHeight={(itemHeight)=>{
 								if(itemCount < this.props.data.length) {
 									this.height += itemHeight;

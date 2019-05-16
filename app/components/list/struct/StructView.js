@@ -64,6 +64,7 @@ export default class StructView extends PureComponent {
 					 	return(
 					 		<ExamItem
 								//addHeight={this.addHeight}
+								navigation={this.props.navigation}
 					 			exam={this.props.exams[item.id]}
 					 			data={item} />
 					 	);
@@ -71,6 +72,7 @@ export default class StructView extends PureComponent {
 					 	return(
 					 		<StructItem
 								//addHeight={this.addHeight}
+								navigation={this.props.navigation}
 					 			courseId={this.props.courseId}
 					 			data={item} />
 					 	);

@@ -25,7 +25,7 @@ export default class StructItem extends PureComponent {
 			contentData: [],
 			maxHeight: 0
 		}
-		this.spinValue = new Animated.Value(this.state.showToggle);
+		this.spinValue = new Animated.Value(1);
 		this.utils = new Utils();
 		this.angle = '0deg';
 		this.maxHeight = 0;
@@ -34,6 +34,7 @@ export default class StructItem extends PureComponent {
 
 
 	spin = ()=> {
+		console.log('showToggle:', this.state.showToggle);
 		Animated.timing(
 			this.spinValue,
 			{
@@ -102,10 +103,13 @@ export default class StructItem extends PureComponent {
 
 				</TouchableOpacity>
 
-				<Animated.View style={this.maxHeight>0?{height: this.secHeight}:{}}>
+				<Animated.View style={[styles.secBar, this.maxHeight>0?{height: this.secHeight}:{}]}>
 					<SectionView
+						navigation={this.props.navigation}
 						setMaxHeight={(maxHeight)=>{
-							this.maxHeight = maxHeight;
+							if(this.maxHeight === 0) {
+								this.maxHeight = maxHeight;
+							}
 							this.secHeight = this.spinValue.interpolate({
 								inputRange: [0, 1],
 								outputRange: [0, this.maxHeight]
@@ -135,5 +139,9 @@ let styles = StyleSheet.create({
 
 	text: {
 		fontSize: 16
+	},
+
+	secBar: {
+		overflow: 'hidden'
 	}
 });

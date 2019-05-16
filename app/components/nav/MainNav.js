@@ -31,6 +31,9 @@ import CourseStruct from '../../pages/study/CourseStruct';
 import CourseSearch from '../../pages/study/CourseSearch';
 import PubComment from '../../pages/study/PubComment';
 import EditComment from '../../pages/study/EditComment';
+import CourseResource from '../../pages/study/CourseResource';
+import CourseArticle from '../../pages/study/CourseArticle';
+
 
 import VidHome from '../../pages/vidstudy/VidHome';
 import VidDetail from '../../pages/vidstudy/VidDetail';
@@ -66,15 +69,12 @@ const studyStack = createStackNavigator(
 	{
 		CourseHome: CourseHome,
 		CourseDetail: CourseDetail,
-		CourseSearch: {
-			screen: CourseSearch,
-			// navigationOptions: {
-			// 	tabBarVisible: false
-			// }
-		},
+		CourseSearch: CourseSearch,
 		PubComment: PubComment,
 		EditComment: EditComment,
-		CourseStruct: CourseStruct
+		CourseStruct: CourseStruct,
+		CourseResource: CourseResource,
+		CourseArticle: CourseArticle
 	},
 	{
 		initialRouteName: 'CourseHome',
@@ -138,7 +138,6 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 	}
 };
 
-const _this = this;
 
 const tabStack = createBottomTabNavigator(
 	{

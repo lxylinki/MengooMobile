@@ -19,6 +19,11 @@ const comment_update = url_prefix + 'course/comment/update';
 const comment_delete = url_prefix + 'course/comment/delete';
 
 const course_struct = url_prefix + 'course/struct/list';
+const course_struct_view = url_prefix + 'course/struct/view';
+const course_struct_set = url_prefix + 'course/record/struct-set';
+const course_get_text = url_prefix + 'course/struct/get-text';
+const course_load = url_prefix + 'resources/resource/load/';
+
 
 
 const super_admin_group = 0;
@@ -50,5 +55,10 @@ export default {
 	comment_create,
 	comment_update,
 	comment_delete,
-	course_struct
+
+	course_struct,
+	course_struct_view,
+	course_struct_set,
+	course_get_text,
+	course_load
 }

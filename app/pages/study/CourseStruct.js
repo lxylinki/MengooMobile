@@ -97,6 +97,10 @@ export default class CourseStruct extends Component {
                 });       
             }
             Object.assign(this.state.examData, resp.exams);  
+
+            if(this.stopRefresh) {
+                this.stopRefresh();
+            }
         });
     }
 
@@ -185,14 +189,28 @@ export default class CourseStruct extends Component {
                     horizontal={true}
                     onMomentumScrollEnd={this.scrollEnd}>
 
-                    {/*<ScrollView
-                        style={{flex: 1}}
-                        padingEnabled={true}>*/}
                     <StructView 
+                        navigation={this.props.navigation}
                         courseId={this.courseId} 
                         exams={this.state.examData} 
-                        data={this.state.structData}/>
-                    {/*</ScrollView>*/}
+                        data={this.state.structData}
+
+                        onEndReached={()=>{
+                            //console.log('on end reached');
+                            if(this.state.structData.length>=this.pageSize) {
+                                if(this.page < this.totalPage) {
+                                    this.page += 1;                                     
+                                    this.getStructData();
+                                }
+                            }
+                        }} 
+                        onRefresh={(callback)=>{
+                            this.page = 1;
+                            this.stopRefresh = callback;
+                            this.getStructData();
+                        }}
+
+                        />
                     
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'steelblue'}}></View>

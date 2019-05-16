@@ -11,6 +11,16 @@ import {
 import Iconfont from 'react-native-vector-icons/Iconfont';
 
 
+const iconColors = {
+	'experiment': '#4095ff',
+	'ppt': '#dc6583',
+	'video': '#e7c903',
+	'image': '#5bdf7d',
+	'audio': '#e00060',
+	'article': '#01c7e1',
+	//'exam': '#00caba'
+}
+
 export default class SectionItem extends PureComponent {
 	constructor(props){
 		super(props);
@@ -26,7 +36,29 @@ export default class SectionItem extends PureComponent {
 	fileType(item) {
 		if(item.hasOwnProperty('resource')) {
 			let format = item.resource.mime.split(/[^a-z0-9]+/g).pop();
-			return format;
+			console.log(format);
+			let iconName;
+			switch(format) {
+				case 'html':
+					iconName = 'experiment';
+					break;
+				case 'presentation':
+					iconName = 'ppt';
+					break;
+				case 'mp4':
+					iconName = 'video';
+					break;
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+				case 'gif':
+					iconName = 'image';
+					break;
+				case 'mpeg':
+					iconName = 'audio';
+					break;
+			}
+			return iconName;
 		} else {
 			return 'article';
 		}
@@ -48,16 +80,23 @@ export default class SectionItem extends PureComponent {
 					data={this.props.content} 
 					renderItem={({item})=>{
 						console.log(item);
-						console.log(this.fileType(item));
 						return(
-							<View style={styles.subText}>
-								<View>
-									<Iconfont name={'video'} size={30}/>
+							<TouchableOpacity onPress={()=>{
+								this.props.navigation.navigate('CourseArticle');
+							}}>
+								<View style={styles.subText}>
+									<View style={[styles.iconBg, {backgroundColor: iconColors[this.fileType(item)]}]}>
+										<Iconfont style={styles.icon} name={this.fileType(item)} size={40} color={'white'}/>
+									</View>
+									<Text>{item.name}</Text>
 								</View>
-								<Text>{'Subitem-' + item.name}</Text>
-							</View>
+							</TouchableOpacity>
 						);
-					}}/>	
+					}}
+					ItemSeparatorComponent = {()=>{
+						return(<View style={styles.separatorLine}></View>);
+					}}
+					/>	
 			</View>
 		);
 	}
@@ -70,7 +109,7 @@ let styles = StyleSheet.create({
 	},
 
 	secItemBar: {
-		height: 40,
+		height: 60,
 		alignItems: 'center',
 		flexDirection: 'row'
 	},
@@ -87,8 +126,27 @@ let styles = StyleSheet.create({
 	},
 
 	subText: {
-		height: 40,
+		height: 60,
 		flexDirection: 'row',
 		alignItems: 'center'
+	},
+
+	iconBg: {
+		padding: 0,
+		width: 30,
+		height: 30,
+		borderRadius: 5,
+		marginRight: 10,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+
+	icon: {
+		position: 'absolute',
+		left: -5,
+	},
+	separatorLine: {
+		height: 0.3,
+		backgroundColor: 'gray',
 	}
 });
