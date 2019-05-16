@@ -47,13 +47,13 @@ export default class SectionView extends PureComponent {
 					return(
 						<SectionItem
 							addHeight={(itemHeight)=>{
-								if(itemCount <= this.props.data.length) {
+								if(itemCount < this.props.data.length) {
 									this.height += itemHeight;
 									itemCount += 1;
 									if(itemCount === this.props.data.length) {
 										this.props.setMaxHeight(this.height);
 									}
-									console.log(this.height, itemCount, this.props.data.length);
+									//console.log(this.height, itemCount, this.props.data.length);
 								}
 							}}
 							content={this.props.contentData[0][item.id]}

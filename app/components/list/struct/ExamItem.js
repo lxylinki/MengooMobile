@@ -49,10 +49,17 @@ export default class ExamItem extends PureComponent {
         })
 	}
 
+	// layout=(e)=>{
+	// 	console.log('ExamItem height:', e.layout.height, this.props.exam.exam_name);
+	// 	this.props.addHeight(e.layout.height);
+	// };
+
 	render(){
-		console.log('exam:', this.props.exam);
 		return(
-			<View style={styles.rootView}>
+			<View 
+				style={styles.rootView} 
+				//onLayout={({nativeEvent:e})=>this.layout(e)}
+				>
 				<TouchableOpacity onPress={()=>{
 					this.setState({
 						showToggle: this.state.showToggle === 0? 1: 0
@@ -67,7 +74,9 @@ export default class ExamItem extends PureComponent {
 				</TouchableOpacity>
 
 				<Animated.View style={{height: this.secHeight}}>
-					<Text>{this.props.exam.exam_name}</Text>
+					<View style={styles.examName}>
+						<Text>{this.props.exam.exam_name}</Text>
+					</View>
 				</Animated.View>
 			</View>
 		);
@@ -86,5 +95,10 @@ let styles = StyleSheet.create({
 
 	text: {
 		fontSize: 16
+	},
+
+	examName: {
+		justifyContent: 'center',
+		padding: 10
 	}
 });

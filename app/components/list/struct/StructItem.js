@@ -29,7 +29,7 @@ export default class StructItem extends PureComponent {
 		this.utils = new Utils();
 		this.angle = '0deg';
 		this.maxHeight = 0;
-		this.secHeight = 300;
+		this.secHeight = 0;
 	}
 
 
@@ -76,9 +76,19 @@ export default class StructItem extends PureComponent {
         });
     }
 
+    // layout=(e)=>{
+    // 	if(this.state.secData.length>0 && e.layout.height>60) {
+    // 		console.log('StructItem height:', e.layout.height, this.props.data.name);
+    // 		this.props.addHeight(e.layout.height);
+    // 	}
+    // };
+
 	render(){
 		return(
-			<View style={styles.rootView}>
+			<View 
+				style={styles.rootView} 
+				//onLayout={({nativeEvent:e})=>this.layout(e)}
+				>
 				<TouchableOpacity onPress={()=>{
 						this.setState({
 							showToggle: this.state.showToggle === 0? 1: 0
@@ -98,7 +108,6 @@ export default class StructItem extends PureComponent {
 					<SectionView
 						setMaxHeight={(maxHeight)=>{
 							this.maxHeight = maxHeight;
-							console.log('maxHeight:', this.maxHeight);
 							this.secHeight = this.spinValue.interpolate({
 								inputRange: [0, 1],
 								outputRange: [0, this.maxHeight]

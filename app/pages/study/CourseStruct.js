@@ -82,7 +82,7 @@ export default class CourseStruct extends Component {
 
     getStructData(){
         this.utils.getCourseStructList(this.courseId, this.page, this.pageSize, (resp)=>{
-            console.log(resp);
+            //console.log(resp);
             if(this.totalPage === 0 && resp.total_page > 0) {
                 this.totalPage = resp.total_page;
             }
@@ -185,13 +185,14 @@ export default class CourseStruct extends Component {
                     horizontal={true}
                     onMomentumScrollEnd={this.scrollEnd}>
 
-                    <ScrollView
-                        padingEnabled={true}>
-                        <StructView 
-                            courseId={this.courseId} 
-                            exams={this.state.examData} 
-                            data={this.state.structData}/>
-                    </ScrollView>
+                    {/*<ScrollView
+                        style={{flex: 1}}
+                        padingEnabled={true}>*/}
+                    <StructView 
+                        courseId={this.courseId} 
+                        exams={this.state.examData} 
+                        data={this.state.structData}/>
+                    {/*</ScrollView>*/}
                     
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'steelblue'}}></View>

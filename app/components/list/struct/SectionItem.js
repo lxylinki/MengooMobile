@@ -11,14 +11,11 @@ import {
 export default class SectionItem extends PureComponent {
 	constructor(props){
 		super(props);
-		this.height = 0;
 	}
 
 	layout=(e)=>{
-		if(this.props.content.length>0 && e.layout.height >= 40) {
-			this.height = e.layout.height;
-			//console.log(this.height, this.props.content);
-			this.props.addHeight(this.height);
+		if(this.props.content.length>0 && e.layout.height > 40) {
+			this.props.addHeight(e.layout.height);
 		}
 	};
 
