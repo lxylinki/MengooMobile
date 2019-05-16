@@ -35,7 +35,7 @@ export default class SectionView extends PureComponent {
 	};
 
 	render(){
-		//console.log('SectionView:', this.props.data);
+		//console.log('SectionView contentData:', this.props.contentData);
 		let key = 0, itemCount = 0;
 		this.height = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
@@ -56,7 +56,7 @@ export default class SectionView extends PureComponent {
 									//console.log(this.height, itemCount, this.props.data.length);
 								}
 							}}
-							content={this.props.contentData[0][item.id]}
+							content={Object.keys(this.props.contentData[0]).includes(item.id)? this.props.contentData[0][item.id]:[]}
 							data={item} />
 					);
 				}}

@@ -44,15 +44,13 @@ export default class StructItem extends PureComponent {
 		).start();
 	}
 
-	componentWillMount(){
+
+	componentDidMount(){
+		this.getSectionData();
         this.angle = this.spinValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg', '180deg'] 
         });
-	}
-
-	componentDidMount(){
-		this.getSectionData();
 	}
 
     getSectionData(){
