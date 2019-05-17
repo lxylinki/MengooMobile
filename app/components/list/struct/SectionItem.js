@@ -84,7 +84,18 @@ export default class SectionItem extends PureComponent {
 						//console.log(type);
 						return(
 							<TouchableOpacity onPress={()=>{
-								this.props.navigation.navigate('CourseResource', {item: item, type: type});
+								console.log(type);
+								switch(type) {
+									case 'article':
+										this.props.navigation.navigate('CourseArticle', {item: item});
+										break;
+									case 'video':
+										this.props.navigation.navigate('CourseVideo', {item: item});
+										break;
+									case 'experiment':
+										this.props.navigation.navigate('CourseExp', {item: item});
+										break;
+								}
 							}}>
 								<View style={styles.subText}>
 									<View style={[styles.iconBg, {backgroundColor: iconColors[type]}]}>

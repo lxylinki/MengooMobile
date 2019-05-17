@@ -239,4 +239,12 @@ export default class Utils {
 		}
 		this.fetchRoutine(api, data, respProc);
 	}
+
+	getArticle(id, respProc){
+		let api = global_.course_get_text;
+		let data = {
+			id: id
+		}
+		this.fetchRoutine(api, data, respProc);
+	}
 }

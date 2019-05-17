@@ -31,8 +31,9 @@ import CourseStruct from '../../pages/study/CourseStruct';
 import CourseSearch from '../../pages/study/CourseSearch';
 import PubComment from '../../pages/study/PubComment';
 import EditComment from '../../pages/study/EditComment';
-import CourseResource from '../../pages/study/CourseResource';
+import CourseVideo from '../../pages/study/CourseVideo';
 import CourseArticle from '../../pages/study/CourseArticle';
+import CourseExp from '../../pages/study/CourseExp';
 
 
 import VidHome from '../../pages/vidstudy/VidHome';
@@ -73,8 +74,9 @@ const studyStack = createStackNavigator(
 		PubComment: PubComment,
 		EditComment: EditComment,
 		CourseStruct: CourseStruct,
-		CourseResource: CourseResource,
-		CourseArticle: CourseArticle
+		CourseVideo: CourseVideo,
+		CourseArticle: CourseArticle,
+		CourseExp: CourseExp
 	},
 	{
 		initialRouteName: 'CourseHome',
@@ -198,8 +200,8 @@ const AppNavigator = createSwitchNavigator(
 		Tab: tabStack
 	},
 	{
-		//initialRouteName: 'Login',
-		initialRouteName: 'Tab',
+		initialRouteName: 'Login',
+		//initialRouteName: 'Tab',
 		headerMode: 'none'
 	}
 );

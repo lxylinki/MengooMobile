@@ -8,50 +8,63 @@ import {
 //import ReactSWF from 'react-swf';
 import Video from 'react-native-video';
 import Utils from '../../common/Utils';
-import HTML from 'react-native-render-html';
 import global_ from '../../common/Global';
 
-
-
-export default class CourseArticle extends Component {
+export default class CourseVideo extends Component {
 	constructor(props) {
 		super(props);
 		this.item = this.props.navigation.getParam('item', null);
 		//this.type = this.props.navigation.getParam('type', null);
 		this.utils = new Utils();
 		this.state = {
-			content: ''
+			url: ''
 		}
 	}
 
 	componentDidMount(){
-		//console.log(this.item, this.type);
+		//console.log(this.item);
 		this.getStructSet();
 	}
 
 	getStructSet(){
 		this.utils.setStruct(this.item.id, ()=>{
-			//console.log('setStruct resp:', resp);
-			this.utils.getArticle(this.item.id, (resp)=>{
-				this.setState({
-					content: resp[0].content
-				});
-				//console.log('getArticle resp:', resp[0].content);
+			this.setState({
+				url: global_.course_load + this.item.resource.fid + '/' + this.item.resource.fname
 			});
 		});
 	}
 
 	render(){
-		return(
-			<View style={styles.rootView}>
-				<HTML html={this.state.content?this.state.content.replace( /(<img.+?src=")(.*?)/, '$1'+ global_.main_url +'$2'):'<p></p>'} />
-			</View>
-		);
+		if(this.state.url.length > 0) {
+			return(
+				<View style={styles.rootView}>
+					<Video
+						style={styles.videoFrame} 
+						controls={true}
+						source={{uri: this.state.url}}
+					/>
+				</View>
+			);
+		} else {
+			return(
+				<View>
+					<Text>{'错误：无视频文件'}</Text>
+				</View>
+			);
+		}
 	};
 }
 
 let styles = StyleSheet.create({
 	rootView: {
-		flex: 1,
-	}
+		flex: 1
+	},
+
+	videoFrame: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		bottom: 0,
+		right: 0,
+	},
 });
