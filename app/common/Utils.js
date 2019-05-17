@@ -231,4 +231,12 @@ export default class Utils {
 		//console.log(data);
 		this.fetchRoutine(api, data, respProc);
 	}
+
+	setStruct(id, respProc){
+		let api = global_.course_struct_set;
+		let data = {
+			struct_id: id
+		}
+		this.fetchRoutine(api, data, respProc);
+	}
 }

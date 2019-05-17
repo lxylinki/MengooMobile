@@ -36,7 +36,7 @@ export default class SectionItem extends PureComponent {
 	fileType(item) {
 		if(item.hasOwnProperty('resource')) {
 			let format = item.resource.mime.split(/[^a-z0-9]+/g).pop();
-			console.log(format);
+			//console.log(format);
 			let iconName;
 			switch(format) {
 				case 'html':
@@ -79,14 +79,16 @@ export default class SectionItem extends PureComponent {
 				<FlatList 
 					data={this.props.content} 
 					renderItem={({item})=>{
-						console.log(item);
+						//console.log(item);
+						let type = this.fileType(item);
+						//console.log(type);
 						return(
 							<TouchableOpacity onPress={()=>{
-								this.props.navigation.navigate('CourseArticle');
+								this.props.navigation.navigate('CourseResource', {item: item, type: type});
 							}}>
 								<View style={styles.subText}>
-									<View style={[styles.iconBg, {backgroundColor: iconColors[this.fileType(item)]}]}>
-										<Iconfont style={styles.icon} name={this.fileType(item)} size={40} color={'white'}/>
+									<View style={[styles.iconBg, {backgroundColor: iconColors[type]}]}>
+										<Iconfont style={styles.icon} name={type} size={40} color={'white'}/>
 									</View>
 									<Text>{item.name}</Text>
 								</View>
