@@ -5,11 +5,13 @@ import {
 	Text, 
 	Image, 
 	TouchableOpacity,
-	FlatList
+	FlatList,
+	Linking
 } from 'react-native';
 
 import Iconfont from 'react-native-vector-icons/Iconfont';
-
+import Utils from '../../../common/Utils';
+//import global_ from '../../../common/Global';
 
 const iconColors = {
 	'experiment': '#4095ff',
@@ -24,6 +26,7 @@ const iconColors = {
 export default class SectionItem extends PureComponent {
 	constructor(props){
 		super(props);
+		this.utils = new Utils();
 	}
 
 	layout=(e)=>{
@@ -93,8 +96,9 @@ export default class SectionItem extends PureComponent {
 										this.props.navigation.navigate('CourseVideo', {item: item});
 										break;
 									case 'experiment':
-										this.props.navigation.navigate('CourseExp', {item: item});
-										break;
+										this.utils.setStruct(item.id, ()=>{
+											Linking.openURL('https://mengoo.doctor-u.cn/flash/jrzs/').catch(err => console.error('访问链接错误', err));
+										});
 								}
 							}}>
 								<View style={styles.subText}>

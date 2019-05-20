@@ -208,25 +208,21 @@ class CourseDetail extends Component {
 							</View>
 						</View>
 						<View style={styles.introPanel}>
-							<View style={styles.intro}>
-								<Text style={styles.introTitle}>课程概述</Text>
-								<ScrollView 
-									//contentContainerStyle={styles.contentContainer}
-									pagingEnabled={true}>
+							<ScrollView>
+								<View style={styles.intro}>
+									<Text style={styles.introTitle}>课程概述</Text>
 									<HTML
 										html={this.state.courseDetail.intro?
 										this.state.courseDetail.intro.replace( /(<img.+?src=")(.*?)/, '$1'+ global_.main_url +'$2'):'<p></p>'} />
-								</ScrollView>
-						
-							</View>
-							<View style={styles.syllabus}>
-								<Text style={styles.syllabusTitle}>课程大纲</Text>
-								<ScrollView pagingEnabled={true}>
+							
+								</View>
+								<View style={styles.syllabus}>
+									<Text style={styles.syllabusTitle}>课程大纲</Text>			
 									<HTML 
 										html={this.state.courseDetail.syllabus?
 										this.state.courseDetail.syllabus:'<p></p>'} />
-								</ScrollView>
-							</View>
+								</View>
+							</ScrollView>
 						</View>
 					</View>
 					<View style={styles.commentPanel}>
@@ -402,7 +398,7 @@ let styles = StyleSheet.create({
 	},
 
 	studyBtn: {
-		width: 280,
+		width: 240,
 		height: 45
 	},
 

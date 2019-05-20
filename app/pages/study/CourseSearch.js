@@ -165,7 +165,7 @@ let styles = StyleSheet.create({
 	},
 
 	cancel: {
-		width: 50,
+		width: 40,
 		height: 30,
 		margin: 0
 	},

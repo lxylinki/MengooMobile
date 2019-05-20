@@ -14,6 +14,7 @@ import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
 //import Storage from '../../common/Storage';
 import {setVal} from '../../common/Actions';
+import Orientation from 'react-native-orientation';
 
 
 class LoginPage extends Component {
@@ -24,6 +25,10 @@ class LoginPage extends Component {
 		this.epassword = '';
 		this.utils = new Utils();
 		this.login = this.login.bind(this);
+	}
+
+	componentDidMount(){
+		Orientation.lockToPortrait();
 	}
 
 
@@ -122,7 +127,7 @@ let styles = StyleSheet.create({
 	},
 
 	usernameDiv: {
-		flex: 2,
+		flex: 2.5,
 		padding: 20,
 		flexDirection: 'column',
 		marginBottom: -20
@@ -134,7 +139,7 @@ let styles = StyleSheet.create({
 	},
 
 	passwordDiv: {
-		flex: 2,
+		flex: 2.5,
 		marginBottom: 30,
 		padding: 20,
 	},

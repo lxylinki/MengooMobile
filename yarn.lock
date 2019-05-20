@@ -5044,6 +5044,11 @@ react-native-gesture-handler@^1.1.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-orientation@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-orientation/-/react-native-orientation-3.1.3.tgz#d45803841fe94b6cce9acbe904fd5ca191a3711e"
+  integrity sha512-A0h0E+2f95X4avmhaBG1ZT8WDxBACA/q//JN2eF1E7kq8AJVxt5XDiavv+aSBkBlqFsfF3bIS+T/DB5mXmnxuA==
+
 react-native-render-html@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-4.1.2.tgz#dfd06ac7e87ed68b6421750e88dd7895d284935b"
@@ -5211,11 +5216,6 @@ react-redux@^7.0.3:
     loose-envify "^1.4.0"
     prop-types "^15.7.2"
     react-is "^16.8.6"
-
-react-swf@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/react-swf/-/react-swf-1.0.7.tgz#5e48603df54a0633355e79235439411e2c6532dc"
-  integrity sha512-qYqcuvUh7WaNpdlkRyac0Vpm64iwnizPzzXfSFm/F6Wxi+drsZTa4PznQFx+YQUFqmJtZ8KhGnnOQfTsnOLvMQ==
 
 react-test-renderer@16.8.3:
   version "16.8.3"

@@ -44,7 +44,7 @@ export default class SearchInput extends Component {
 
 let styles = StyleSheet.create({
 	inputView: {
-		width: 380,
+		width: 340,
 		height: 40,
 		borderRadius: 25,
 		backgroundColor: 'white',
@@ -59,11 +59,11 @@ let styles = StyleSheet.create({
 	},
 
 	icon: {
-		left: 140
+		left: 120
 	},
 
 	smallInputView: {
-		width: 340,
+		width: 280,
 		height: 40,
 		borderRadius: 25,
 		backgroundColor: 'white',
@@ -78,6 +78,6 @@ let styles = StyleSheet.create({
 	},
 
 	smallIcon: {
-		left: 120
+		left: 100
 	}
 });

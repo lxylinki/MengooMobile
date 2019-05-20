@@ -9,6 +9,8 @@ import {
 import Video from 'react-native-video';
 import Utils from '../../common/Utils';
 import global_ from '../../common/Global';
+import Orientation from 'react-native-orientation';
+
 
 export default class CourseVideo extends Component {
 	constructor(props) {
@@ -24,6 +26,24 @@ export default class CourseVideo extends Component {
 	componentDidMount(){
 		//console.log(this.item);
 		this.getStructSet();
+		Orientation.unlockAllOrientations();
+		//Orientation.addOrientationListener(this._orientationDidChange);
+	}
+
+	// _orientationDidChange = (orientation) => {
+	// 	if (orientation === 'LANDSCAPE') {
+	// 		console.log('Current layout: landscape');
+	// 	} else {
+	// 		console.log('Current layout: portrait');
+	// 	}
+	// }
+
+	componentWillUnmount(){
+		Orientation.lockToPortrait();
+		// Orientation.getOrientation((err, orientation) => {
+		// 	console.log(`Current Device Orientation: ${orientation}`);
+		// });
+		//Orientation.removeOrientationListener(this._orientationDidChange);
 	}
 
 	getStructSet(){

@@ -30,7 +30,7 @@ export default class RegularBtn extends Component {
 let styles = StyleSheet.create({
 	button: {
 		height: 50,
-		width: 360,
+		width: 340,
 		backgroundColor: '#c9151e',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -45,7 +45,7 @@ let styles = StyleSheet.create({
 
 	inactive: {
 		height: 50,
-		width: 360,
+		width: 340,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 25,

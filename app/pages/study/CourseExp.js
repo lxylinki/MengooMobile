@@ -3,7 +3,8 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	WebView
+	//WebView,
+	Linking
 } from 'react-native';
 
 
@@ -29,10 +30,11 @@ export default class CourseExp extends Component {
 
 	getStructSet(){
 		this.utils.setStruct(this.item.id, ()=>{
-			this.setState({
-				//url: global_.course_load + this.item.resource.fid + '/' + this.item.resource.fname
-				url: 'https://mengoo.doctor-u.cn/flash/jrzs/'
-			});
+			// this.setState({
+			// 	//url: global_.course_load + this.item.resource.fid + '/' + this.item.resource.fname
+			// 	url: 'https://mengoo.doctor-u.cn/flash/jrzs/'
+			// });
+			Linking.openURL('https://mengoo.doctor-u.cn/flash/jrzs/').catch(err => console.error('访问链接错误', err));
 		});
 	}
 
@@ -49,7 +51,7 @@ export default class CourseExp extends Component {
 		// 	);
 		// }
 		return (
-			<WebView style={styles.rootView} source={{uri: 'https://mengoo.doctor-u.cn/flash/jrzs/'}}/>
+			<View></View>
 		);
 	};
 }

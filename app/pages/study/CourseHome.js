@@ -20,6 +20,7 @@ import CatagView from '../../components/list/catag/CatagView';
 import Utils from '../../common/Utils';
 
 
+
 var {height, width} = Dimensions.get('window');
 
 export default class CourseHome extends Component {
@@ -239,7 +240,7 @@ let styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'baseline',
 		width: 380,
-		height: 60,
+		height: 40,
 		marginLeft: 10
 	},
 

@@ -44,19 +44,19 @@ let styles = StyleSheet.create({
 	    marginTop: 20,
 	    marginBottom: 10,
 	    height:50,
-	    width: 360
+	    width: 320
 	},
 
 	input: {
 	    height:45,
-	    width: 360,
+	    width: 320,
 	    margin:0,
 	    borderBottomWidth: 0.3,
 	},
 
 	focusInput: {
 	    height:45,
-	    width: 360,
+	    width: 320,
 	    margin:0,
 	    borderBottomWidth: 2,
 	    borderBottomColor: '#c9151e'		
