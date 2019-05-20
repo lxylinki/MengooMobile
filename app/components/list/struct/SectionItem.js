@@ -11,7 +11,9 @@ import {
 
 import Iconfont from 'react-native-vector-icons/Iconfont';
 import Utils from '../../../common/Utils';
-//import global_ from '../../../common/Global';
+import global_ from '../../../common/Global';
+import OpenFile from 'react-native-doc-viewer';
+
 
 const iconColors = {
 	'experiment': '#4095ff',
@@ -95,10 +97,21 @@ export default class SectionItem extends PureComponent {
 									case 'video':
 										this.props.navigation.navigate('CourseVideo', {item: item});
 										break;
+									case 'audio':
+										this.props.navigation.navigate('CourseVideo', {item: item});
+										break;										
 									case 'experiment':
 										this.utils.setStruct(item.id, ()=>{
 											Linking.openURL('https://mengoo.doctor-u.cn/flash/jrzs/').catch(err => console.error('访问链接错误', err));
 										});
+										break;
+									case 'image':
+										this.props.navigation.navigate('CourseImage', {item: item});
+										break;
+									case 'ppt':
+										//console.log( global_.course_load + item.resource.fid + '/' + item.resource.fname);
+										//this.props.navigation.navigate('CourseDoc', {item: item});
+										break;
 								}
 							}}>
 								<View style={styles.subText}>
