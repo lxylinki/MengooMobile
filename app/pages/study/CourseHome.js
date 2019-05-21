@@ -40,13 +40,13 @@ export default class CourseHome extends Component {
 
 	componentWillMount() {
 		this.listHeight = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.5, height],
-			outputRange: [height*0.4, height*0.5, height*0.6]
+			inputRange: [0, height*0.4, height*0.6, height],
+			outputRange: [height*0.4, height*0.5, height*0.7, height*0.7]
 		});
 
 		this.listTop = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.4, height],
-			outputRange: [0, 0, -35]
+			inputRange: [0, height*0.4, height*0.6, height],
+			outputRange: [0, 0, -35, -40]
 		});
 
 		this.animatedEvent = Animated.event([

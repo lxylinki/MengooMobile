@@ -195,20 +195,20 @@ class CourseDetail extends Component {
 					ref={'pageScroll'}
 					onMomentumScrollEnd={this.scrollEnd}>
 					<View style={styles.detailPanel}>
-						<View style={styles.titlePanel}>
-							<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
-							<View style={styles.teacherList}>
-								{this.listTeachers()}
+						<ScrollView>
+							<View style={styles.titlePanel}>
+								<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
+								<View style={styles.teacherList}>
+									{this.listTeachers()}
+								</View>
+								<View>
+									<Text style={styles.suggestTime}>
+										建议学习时长：
+										{(stime.D?(stime.D+'天'):'')+(stime.h?(stime.h+'小时'):'')+(stime.m?(stime.m+'分'):'')}
+									</Text>
+								</View>
 							</View>
-							<View>
-								<Text style={styles.suggestTime}>
-									建议学习时长：
-									{(stime.D?(stime.D+'天'):'')+(stime.h?(stime.h+'小时'):'')+(stime.m?(stime.m+'分'):'')}
-								</Text>
-							</View>
-						</View>
-						<View style={styles.introPanel}>
-							<ScrollView>
+							<View style={styles.introPanel}>						
 								<View style={styles.intro}>
 									<Text style={styles.introTitle}>课程概述</Text>
 									<HTML
@@ -221,9 +221,9 @@ class CourseDetail extends Component {
 									<HTML 
 										html={this.state.courseDetail.syllabus?
 										this.state.courseDetail.syllabus:'<p></p>'} />
-								</View>
-							</ScrollView>
-						</View>
+								</View>							
+							</View>
+						</ScrollView>
 					</View>
 					<View style={styles.commentPanel}>
 						<View style={styles.commentTitlePanel}>

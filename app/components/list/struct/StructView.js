@@ -94,7 +94,7 @@ export default class StructView extends PureComponent {
 let styles = StyleSheet.create({
 	list: {
 		width: width,
-		height: 405
+		height: 360
 	},
 
 	separatorLine: {
