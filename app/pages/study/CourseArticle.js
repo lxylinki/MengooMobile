@@ -35,7 +35,7 @@ export default class CourseArticle extends Component {
 			this.utils.getArticle(this.item.id, (resp)=>{
 				//console.log('getArticle resp:', resp);
 				this.setState({
-					content: resp[0].content
+					content: resp.length>0? resp[0].content: '<p>错误：内容为空</p>'
 				});
 			});
 		});

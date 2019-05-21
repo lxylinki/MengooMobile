@@ -34,7 +34,7 @@ export default class StructItem extends PureComponent {
 
 
 	spin = ()=> {
-		console.log('showToggle:', this.state.showToggle);
+		//console.log('showToggle:', this.state.showToggle);
 		Animated.timing(
 			this.spinValue,
 			{

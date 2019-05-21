@@ -52,7 +52,8 @@ export default class CourseItem extends PureComponent {
 let styles = StyleSheet.create({
 	rootView: {
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		backgroundColor: 'white'
 	},
 
 	image: {

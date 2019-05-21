@@ -75,7 +75,7 @@ let styles = StyleSheet.create({
 	},
 
 	separatorLine: {
-		height: 0.5,
-		backgroundColor: 'gray',
+		height: 10,
+		backgroundColor: '#f5f6fa',
 	}
 });
