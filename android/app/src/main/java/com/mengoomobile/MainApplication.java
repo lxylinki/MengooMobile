@@ -5,7 +5,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
 import com.rnfs.RNFSPackage;
-import com.reactlibrary.RNReactNativeDocViewerPackage;
+//import com.reactlibrary.RNReactNativeDocViewerPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -33,7 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNFileViewerPackage(),
             new RNFSPackage(),
-            new RNReactNativeDocViewerPackage(),
+            //new RNReactNativeDocViewerPackage(),
             new OrientationPackage(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),

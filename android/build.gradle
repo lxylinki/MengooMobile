@@ -30,4 +30,17 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
     }
+
+    //Make buildTools, compileSdk version consistent
+    subprojects {
+        afterEvaluate {
+            project ->
+                if (project.hasProperty("android")) {
+                    android {
+                        compileSdkVersion = rootProject.compileSdkVersion
+                        buildToolsVersion = rootProject.buildToolsVersion
+                    }
+                }
+        }
+    }
 }
