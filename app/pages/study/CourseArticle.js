@@ -33,10 +33,10 @@ export default class CourseArticle extends Component {
 		this.utils.setStruct(this.item.id, ()=>{
 			//console.log('setStruct resp:', resp);
 			this.utils.getArticle(this.item.id, (resp)=>{
+				//console.log('getArticle resp:', resp);
 				this.setState({
 					content: resp[0].content
 				});
-				//console.log('getArticle resp:', resp[0].content);
 			});
 		});
 	}

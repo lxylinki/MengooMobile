@@ -12,7 +12,10 @@ import {
 import Iconfont from 'react-native-vector-icons/Iconfont';
 import Utils from '../../../common/Utils';
 import global_ from '../../../common/Global';
-import OpenFile from 'react-native-doc-viewer';
+//import OpenFile from 'react-native-doc-viewer';
+import FileViewer from 'react-native-file-viewer';
+import RNFS from 'react-native-fs';
+
 
 
 const iconColors = {
@@ -69,6 +72,12 @@ export default class SectionItem extends PureComponent {
 		}
 	}
 
+	getLocalPath (url) {
+		const filename = url.split('/').pop();
+		// feel free to change main path according to your requirements
+		return `${RNFS.DocumentDirectoryPath}/${filename}`;
+		//return `./${filename}`;
+	}
 
 	render(){
 		let key = 0;
@@ -89,7 +98,7 @@ export default class SectionItem extends PureComponent {
 						//console.log(type);
 						return(
 							<TouchableOpacity onPress={()=>{
-								console.log(type);
+								//console.log(type);
 								switch(type) {
 									case 'article':
 										this.props.navigation.navigate('CourseArticle', {item: item});
@@ -109,8 +118,15 @@ export default class SectionItem extends PureComponent {
 										this.props.navigation.navigate('CourseImage', {item: item});
 										break;
 									case 'ppt':
-										//console.log( global_.course_load + item.resource.fid + '/' + item.resource.fname);
 										//this.props.navigation.navigate('CourseDoc', {item: item});
+										let url = global_.course_load + item.resource.fid + '/' + item.resource.fname;
+										let localFile = this.getLocalPath(url);
+										let options = {
+											fromUrl: url,
+											toFile: localFile
+										}
+										RNFS.downloadFile(options).promise
+										.then(FileViewer.open(localFile));
 										break;
 								}
 							}}>
