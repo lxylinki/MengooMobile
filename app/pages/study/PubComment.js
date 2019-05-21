@@ -100,7 +100,7 @@ let styles = StyleSheet.create({
 	},
 
 	ratingView: {
-		height: 500,
+		height: 460,
 		alignItems: 'center',
 	},
 
@@ -120,8 +120,8 @@ let styles = StyleSheet.create({
 	},
 
 	content: {
-		width: 380,
-		height: 300,
+		width: 360,
+		height: 280,
 		backgroundColor: '#f7f7f7',
 		textAlignVertical: 'top'
 	},
@@ -133,7 +133,7 @@ let styles = StyleSheet.create({
 	},
 
 	btn: {
-		width: 380
+
 	},
 
 	inactiveBtn: {
