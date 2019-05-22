@@ -30,6 +30,9 @@ export default class StructItem extends PureComponent {
 		this.angle = '0deg';
 		this.maxHeight = 0;
 		this.secHeight = 0;
+		this.page = 1;
+		this.pageSize = 5;
+		this.totalPage = 0;
 	}
 
 
@@ -64,7 +67,8 @@ export default class StructItem extends PureComponent {
             if(this.page === 1) {
                 this.setState({
                     secData: resp._list,
-                    contentData: resp.contents
+                    //contentData: resp.contents,
+                    contentData: [].concat(resp.contents)
                 });
             } else {
                 this.setState({
