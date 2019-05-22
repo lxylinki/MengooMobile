@@ -13,6 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import LineBtn from '../../components/button/LineBtn';
 import Utils from '../../common/Utils';
 import StructView from '../../components/list/struct/StructView';
+import NoticeView from '../../components/list/notice/NoticeView';
 
 
 var {height, width} = Dimensions.get('window');
@@ -212,7 +213,9 @@ export default class CourseStruct extends Component {
 
                         />
                     
-                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
+                    <NoticeView 
+                        courseId={this.courseId} 
+                    />
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'steelblue'}}></View>
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
                 </ScrollView>

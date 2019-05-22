@@ -24,6 +24,7 @@ const course_struct_set = url_prefix + 'course/record/struct-set';
 const course_get_text = url_prefix + 'course/struct/get-text';
 const course_load = url_prefix + 'resources/resource/load/';
 
+const course_notice = url_prefix + 'course/notice/list';
 
 
 const super_admin_group = 0;
@@ -60,5 +61,7 @@ export default {
 	course_struct_view,
 	course_struct_set,
 	course_get_text,
-	course_load
+	course_load,
+
+	course_notice
 }

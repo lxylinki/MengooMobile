@@ -47,7 +47,7 @@ export default class CourseHome extends Component {
 
 		this.listTop = this.state.bottomHeight.interpolate({
 			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [0, 0, -35, -40]
+			outputRange: [0, 0, -35, -35]
 		});
 
 		this.animatedEvent = Animated.event([
