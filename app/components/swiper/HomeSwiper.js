@@ -21,7 +21,7 @@ export default class HomeSwiper extends Component {
 	render(){
 		return (
 			<Swiper 
-				style={styles.container}
+				style={[styles.container, this.props.style]}
 				paginationStyle={styles.pagination}
 				dot={<View style={styles.regularDot} />}
 				autoplay={true}
@@ -49,10 +49,6 @@ export default class HomeSwiper extends Component {
 }
 
 let styles = StyleSheet.create({
-	container: {
-		height: 200
-	},
-	
 	slide: {
 		flex: 1,
 		justifyContent: 'center',
@@ -80,7 +76,8 @@ let styles = StyleSheet.create({
 		height: 10, 
 		borderRadius: 5, 
 		marginLeft: 7, 
-		marginRight: 7
+		marginRight: 7,
+		marginBottom: 10
 	},
 
 	activeDot: {
@@ -89,6 +86,7 @@ let styles = StyleSheet.create({
 		height: 10, 
 		borderRadius: 5, 
 		marginLeft: 7, 
-		marginRight: 7
+		marginRight: 7,
+		marginBottom: 10
 	}
 });

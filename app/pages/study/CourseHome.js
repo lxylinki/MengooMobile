@@ -7,7 +7,8 @@ import {
 	View, 
 	Text,
 	ScrollView,
-	Animated
+	Animated,
+	PanResponder
 } from 'react-native';
 
 import Header from '../../components/head/Header';
@@ -40,12 +41,12 @@ export default class CourseHome extends Component {
 
 	componentWillMount() {
 		this.listHeight = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.4, height*0.6, height],
-			outputRange: [height*0.4, height*0.5, height*0.7, height*0.7]
+			inputRange: [0, height*0.25, height*0.5, height],
+			outputRange: [height*0.45, height*0.6, height*0.7, height*0.7]
 		});
 
 		this.listTop = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.4, height*0.6, height],
+			inputRange: [0, height*0.25, height*0.5, height],
 			outputRange: [0, 0, -35, -40]
 		});
 
@@ -58,7 +59,26 @@ export default class CourseHome extends Component {
 					}
 				}
 			}
-		])
+		]);
+
+		// this.animatedEvent = (event)=> {
+		// 	console.log(event.nativeEvent.contentOffset.y);
+		// }
+
+		// this._panResponder = PanResponder.create({
+		// 	// 要求成为响应者：
+		// 	onStartShouldSetPanResponder: (evt, gestureState) => true,
+		// 	onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+		// 	onMoveShouldSetPanResponder: (evt, gestureState) => true,
+		// 	onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+		// 	onPanResponderMove: (evt, gestureState) => {
+		// 	// 最近一次的移动距离为gestureState.move{X,Y}
+
+		// 	// 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
+		// 		console.log('dy:', gestureState.dy);
+		// 	}
+		// });
+
 	}
 
 	componentDidMount(){
@@ -149,9 +169,12 @@ export default class CourseHome extends Component {
 					/>
 				</View>
 				
-				<HomeSwiper />
+				<HomeSwiper style={styles.swiper}/>
 				
-				<Animated.View style={[styles.bottomView, {top: this.listTop, height: this.listHeight}]}>
+				<Animated.View 
+					//{...this._panResponder.panHandlers}
+					style={[styles.bottomView, {top: this.listTop}, {height: this.listHeight}]}>
+					
 					<View style={styles.indexBtns}>
 						<RegularBtn 
 							style={styles.indexBtn} 
@@ -192,7 +215,7 @@ export default class CourseHome extends Component {
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{
-								//console.log('on end reached');
+								console.log('on end reached');
 								if(this.state.courseData.length>=this.pageSize) {
 									if(this.page < this.totalPage) {
 										this.page += 1;										
@@ -204,9 +227,14 @@ export default class CourseHome extends Component {
 								this.page = 1;
 								this.stopRefresh = callback;
 								this.getCourseData();
-							}}/>
+							}}
+						/>
 
-						<CatagView data={this.state.catagData}/>
+						<CatagView 
+							onScroll={this.animatedEvent}
+							data={this.state.catagData}
+							navigation={this.props.navigation}
+						/>
 
 					</ScrollView>
 				</Animated.View>
@@ -224,6 +252,13 @@ let styles = StyleSheet.create({
 
 	headerView: {
 		height: 70
+	},
+
+	swiper: {
+		position: 'absolute',
+		width: width,
+		height: 120,
+		top: 0
 	},
 
 	bottomView: {

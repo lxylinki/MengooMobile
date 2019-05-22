@@ -19,14 +19,21 @@ export default class CatagView extends Component {
 		
 		return (
 			<FlatList
-			 style={styles.list}
-			 data = {this.props.data}
-			 renderItem = {({item})=>{
-			 	return(<CatagItem data={item} clickItem={()=>{Alert.alert('Course Item Clicked')}}/>);
-			 }}
-			 ItemSeparatorComponent = {()=>{
-			 	return(<View style={styles.separatorLine}></View>);
-			 }}
+				onScroll={this.props.onScroll}
+				style={styles.list}
+				data = {this.props.data}
+				renderItem = {({item})=>{
+					return(
+						<CatagItem 
+							data={item} 
+							clickItem={()=>{
+								Alert.alert('Course Item Clicked')
+							}}/>
+					);
+				}}
+				ItemSeparatorComponent = {()=>{
+					return(<View style={styles.separatorLine}></View>);
+				}}
 			/>
 		);
 	}	
