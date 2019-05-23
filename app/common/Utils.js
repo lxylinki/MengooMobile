@@ -100,11 +100,25 @@ export default class Utils {
 		this.fetchRoutine(api, data, respProc);
 	}
 
-	getCatagList(respProc){
+	getCatagCourseList(cid, page, pageSize, respProc){
+		let api = global_.course_list
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+		let data = {
+			cid: cid
+		};
+		this.fetchRoutine(api, data, respProc);		
+	}
+	
+
+	getCatagList(pid, respProc){
 		let api = global_.course_catag_list;
 
 		let data = {
-			all: 1
+			all: 1,
+			pid: pid
 		};
 		this.fetchRoutine(api, data, respProc);
 	}

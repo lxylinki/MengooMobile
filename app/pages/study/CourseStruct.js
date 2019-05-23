@@ -83,7 +83,7 @@ export default class CourseStruct extends Component {
 
     getStructData(){
         this.utils.getCourseStructList(this.courseId, this.page, this.pageSize, (resp)=>{
-            //console.log(resp);
+            //console.log('getStructData', resp);
             if(this.totalPage === 0 && resp.total_page > 0) {
                 this.totalPage = resp.total_page;
             }

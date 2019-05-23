@@ -119,7 +119,7 @@ export default class CourseHome extends Component {
 	}
 
 	getCatagData(){
-		this.utils.getCatagList((resp)=>{
+		this.utils.getCatagList(null, (resp)=>{
 			//console.log(resp);
 			this.setState({
 				catagData: resp

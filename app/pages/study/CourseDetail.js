@@ -152,7 +152,7 @@ class CourseDetail extends Component {
 			<View style={styles.rootView}>
 				<TouchableOpacity 
 					style={styles.backBtn}
-					onPress={()=>{this.props.navigation.navigate('CourseHome')}}>
+					onPress={()=>{this.props.navigation.goBack()}}>
 					<AntDesign 
 						name={'leftcircle'}
 						size={30}

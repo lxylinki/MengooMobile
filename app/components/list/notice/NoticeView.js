@@ -45,7 +45,7 @@ export default class NoticeView extends Component {
 
 	getNoticeData(){
 		this.utils.getNotice(this.props.courseId, this.page, this.pageSize, (resp)=>{
-            //console.log(resp);
+            //console.log('getNoticeData', resp);
             if(this.totalPage === 0 && resp.total_page > 0) {
                 this.totalPage = resp.total_page;
             }

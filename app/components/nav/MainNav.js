@@ -35,8 +35,8 @@ import CourseVideo from '../../pages/study/CourseVideo';
 import CourseArticle from '../../pages/study/CourseArticle';
 import CourseExp from '../../pages/study/CourseExp';
 import CourseImage from '../../pages/study/CourseImage';
-
 import NoticeDetail from '../../pages/study/NoticeDetail';
+import CatagDetail from '../../pages/study/CatagDetail';
 
 
 
@@ -82,7 +82,8 @@ const studyStack = createStackNavigator(
 		CourseArticle: CourseArticle,
 		CourseExp: CourseExp,
 		CourseImage: CourseImage,
-		NoticeDetail: NoticeDetail
+		NoticeDetail: NoticeDetail,
+		CatagDetail: CatagDetail
 	},
 	{
 		initialRouteName: 'CourseHome',
@@ -206,8 +207,8 @@ const AppNavigator = createSwitchNavigator(
 		Tab: tabStack
 	},
 	{
-		//initialRouteName: 'Login',
-		initialRouteName: 'Tab',
+		initialRouteName: 'Login',
+		//initialRouteName: 'Tab',
 		headerMode: 'none'
 	}
 );

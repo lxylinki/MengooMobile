@@ -27,7 +27,7 @@ export default class CatagView extends Component {
 						<CatagItem 
 							data={item} 
 							clickItem={()=>{
-								Alert.alert('Course Item Clicked')
+								this.props.navigation.navigate('CatagDetail', {item: item});
 							}}/>
 					);
 				}}
@@ -46,7 +46,7 @@ let styles = StyleSheet.create({
 	},
 
 	separatorLine: {
-		height: 0.5,
-		backgroundColor: 'gray',
+		height: 10,
+		backgroundColor: '#f5f6fa',
 	}
 });
