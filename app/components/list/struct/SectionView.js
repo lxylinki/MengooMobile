@@ -35,9 +35,18 @@ export default class SectionView extends PureComponent {
 	};
 
 	render(){
-		let key = 0, itemCount = 0;
+		let key = 0, itemCount = 0, _this=this;
 		this.height = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
+		
+		function setContent(id){
+			let content = [];
+			if(_this.props.contentData[0]) {
+				content = Object.keys(_this.props.contentData[0]).includes(id)? _this.props.contentData[0][id]:[];
+			}
+			return content;
+		}
+
 		return (
 			<FlatList
 				style={[styles.list, {height: this.state.maxHeight}, this.props.style]}
@@ -55,8 +64,8 @@ export default class SectionView extends PureComponent {
 									}
 								}
 							}}
-							content={Object.keys(this.props.contentData[0]).includes(item.id)? this.props.contentData[0][item.id]:[]}
-							//content={[]}
+							//content={Object.keys(this.props.contentData[0]).includes(item.id)? this.props.contentData[0][item.id]:[]}
+							content={setContent(item.id)}
 							data={item} />
 					);
 				}}
