@@ -136,6 +136,11 @@ export default class CatagDetail extends Component {
 }
 
 let styles = StyleSheet.create({
+	rootView: {
+		flex: 1,
+		backgroundColor: '#f5f6fa',		
+	},
+
 	headerView: {
 		height: 70
 	},
