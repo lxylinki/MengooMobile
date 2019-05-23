@@ -215,7 +215,7 @@ export default class CourseHome extends Component {
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{
-								console.log('on end reached');
+								//console.log('on end reached');
 								if(this.state.courseData.length>=this.pageSize) {
 									if(this.page < this.totalPage) {
 										this.page += 1;										

@@ -113,7 +113,7 @@ export default class Utils {
 		let api = global_.course_view;
 		let data = {
 			id: id
-		}
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 
@@ -121,7 +121,7 @@ export default class Utils {
 		let api = global_.course_detail;
 		let data = {
 			id: id
-		}
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 
@@ -129,7 +129,7 @@ export default class Utils {
 		let api = global_.course_group;
 		let data = {
 			course_id: id
-		}
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 
@@ -142,7 +142,7 @@ export default class Utils {
 
 		let data = {
 			course_id: id
-		}
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 
@@ -183,7 +183,7 @@ export default class Utils {
 
 		var commonTime = y + '年'
 		               + add0(m) + '月'
-		               + add0(d) + '日'
+		               + add0(d) + '日 '
 		               + add0(h) + ':' 
 		               + add0(mn);	
 		return commonTime;
@@ -213,7 +213,7 @@ export default class Utils {
 
 		let data = {
 			course_id: id
-		}
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 
@@ -227,7 +227,7 @@ export default class Utils {
 		let data = {
 			course_id: id,
 			pid: pid
-		}
+		};
 		//console.log(data);
 		this.fetchRoutine(api, data, respProc);
 	}
@@ -236,7 +236,7 @@ export default class Utils {
 		let api = global_.course_struct_set;
 		let data = {
 			struct_id: id
-		}
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 
@@ -244,7 +244,19 @@ export default class Utils {
 		let api = global_.course_get_text;
 		let data = {
 			id: id
-		}
+		};
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	getNotice(id, page, pageSize, respProc){
+		let api = global_.course_notice
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;		
+		let data = {
+			course_id: id
+		};
 		this.fetchRoutine(api, data, respProc);
 	}
 }

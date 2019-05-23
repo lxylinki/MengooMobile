@@ -210,13 +210,15 @@ export default class CourseStruct extends Component {
                             this.stopRefresh = callback;
                             this.getStructData();
                         }}
-
                         />
                     
+                    
                     <NoticeView 
+                        navigation={this.props.navigation}
                         courseId={this.courseId} 
                     />
-                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'steelblue'}}></View>
+
+                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
                     <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
                 </ScrollView>
 			</View>
