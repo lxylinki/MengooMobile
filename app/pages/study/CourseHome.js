@@ -47,7 +47,7 @@ export default class CourseHome extends Component {
 
 		this.listTop = this.state.bottomHeight.interpolate({
 			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [0, 0, -35, -35]
+			outputRange: [0, 0, -40, -40]
 		});
 
 		this.animatedEvent = Animated.event([
@@ -150,23 +150,26 @@ export default class CourseHome extends Component {
 						
 				<View style={styles.searchBadges}>
 					<Text>热搜</Text>
-					<BadgeBtn 
-						text={'1'} 
+					<BadgeBtn
+						style={{width: 70}}
+						text={'测试课程1'} 
 						action={()=>{
-							this.props.navigation.navigate('CourseSearch', {keyword: '1'});
+							this.props.navigation.navigate('CourseDetail', {id: '41'});
 						}}/>
 					<BadgeBtn 
-						text={'2'}
+						style={{width: 120}}
+						text={'课程虚拟仿真实验'}
 						action={()=>{
-							this.props.navigation.navigate('CourseSearch', {keyword: '2'});
+							this.props.navigation.navigate('CourseDetail', {id: 'B3'});
 						}}
 					/>
+					{/*
 					<BadgeBtn 
 						text={'3'}
 						action={()=>{
 							this.props.navigation.navigate('CourseSearch', {keyword: '3'});
 						}}
-					/>
+					/>*/}
 				</View>
 				
 				<HomeSwiper style={styles.swiper}/>
