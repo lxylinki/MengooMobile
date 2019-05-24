@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Utils from '../../common/Utils';
+import SmallBtn from '../../components/button/SmallBtn';
 import ShallowLineBtn from '../../components/button/ShallowLineBtn';
 import TitleHeader from '../../components/head/TitleHeader';
 import CourseView from '../../components/list/course/CourseView';
@@ -29,12 +30,13 @@ export default class CatagDetail extends Component {
 		this.totalPage = [];
 
 		this.state = {
+			condition: null,
 			subCatags: [],
 			catagBtns: [],
 			courseData: [],
 			views: [],
 			activeIndex: 0,
-			refreshing: false
+			refreshing: false,
 		};
 	}
 
@@ -68,6 +70,7 @@ export default class CatagDetail extends Component {
 			activeIndex: index,
 			catagBtns: this.genCatagBtns(index)
 		}, ()=>{
+			//temp setting
 			if(index === 0) {
 				this.refs.btnScroll.scrollTo({x:0, animated:true});
 			} else if(index > 2) {
@@ -133,15 +136,17 @@ export default class CatagDetail extends Component {
 		
 		//console.log('cid:', cid);
 
-		this.utils.getCatagCourseList(cid, this.page, this.pageSize, (resp)=>{
+		this.utils.getCatagCourseList(cid, this.page[index], this.pageSize, (resp)=>{
 			if(this.totalPage[index] === 0) {
 				this.totalPage[index] = resp.total_page;
 			}
+
 			if(this.stopRefresh) {
 				this.stopRefresh();
 			}
+
 			callback(resp);
-		});
+		}, this.state.condition);
 	}
 
 	fillCourseData(){
@@ -158,6 +163,18 @@ export default class CatagDetail extends Component {
 		}
 	}
 
+	refresh(i, callback){
+		this.page[i] = 1;
+		this.stopRefresh = callback;
+		this.getCourseData(i, (resp)=>{
+			let arrs = this.state.courseData;
+			arrs[i] = resp._list;
+			this.setState({
+				courseData: arrs
+			});
+		});
+	}
+
 	genListViews(){
 		let views = [];
 		if(this.state.courseData.length == this.state.subCatags.length + 1) {
@@ -168,7 +185,7 @@ export default class CatagDetail extends Component {
 						navigation={this.props.navigation}
 						data={this.state.courseData[i]}
 						onEndReached={()=>{
-							console.log('on end reached' + i);
+							//console.log('on end reached' + i);
 							if(this.state.courseData[i].length>=this.pageSize) {
 								if(this.page[i] < this.totalPage[i]) {
 									this.page[i] += 1;										
@@ -183,15 +200,7 @@ export default class CatagDetail extends Component {
 							}
 						}} 
 						onRefresh={(callback)=>{
-							this.page[i] = 1;
-							this.stopRefresh = callback;
-							this.getCourseData(i, (resp)=>{
-								let arrs = this.state.courseData;
-								arrs[i] = resp._list;
-								this.setState({
-									courseData: arrs
-								});
-							});
+							this.refresh(i, callback);
 						}}
 					/>
 				);
@@ -203,6 +212,7 @@ export default class CatagDetail extends Component {
 	scrollEnd = (param)=> {
 		let index = Math.round(param.nativeEvent.contentOffset.x/width);
 		this.scrollToPage(index);
+		this.refresh(index, ()=>{this.setState({refreshing: false})});	
 	};
 
 	render(){
@@ -235,7 +245,87 @@ export default class CatagDetail extends Component {
 					{this.state.catagBtns}
 				</ScrollView>
 
+               <View style={styles.sortBtns}>
+					<SmallBtn 
+						style={styles.sortBtn} 
+						inactStyle={styles.sortBtnFade}
+						textStyle={styles.sortBtnText}
+						text={'综合'}
+						ref={'sortByOverall'}
+						if_active={true}
+						action={()=>{
+							this.refs.sortByOverall.setState({active: true});	
+							this.refs.sortByLearnCount.setState({active: false});
+							this.refs.sortByUpdatedAt.setState({active: false});
+							this.refs.sortByCommentCount.setState({active: false});	
+							this.setState({
+								condition: null
+							}, ()=>{
+								this.refresh(this.state.activeIndex, ()=>{this.setState({refreshing: false})});	
+							});				
+						}}/>   
+
+					<SmallBtn 
+						style={styles.sortBtn} 
+						inactStyle={styles.sortBtnFade}
+						textStyle={styles.sortBtnText}
+						text={'最热'}
+						ref={'sortByLearnCount'}
+						if_active={false}
+						action={()=>{
+							this.refs.sortByOverall.setState({active: false});	
+							this.refs.sortByLearnCount.setState({active: true});
+							this.refs.sortByUpdatedAt.setState({active: false});
+							this.refs.sortByCommentCount.setState({active: false});	
+							this.setState({
+								condition: 'learn_count'
+							}, ()=>{
+								this.refresh(this.state.activeIndex, ()=>{this.setState({refreshing: false})});
+							});	
+						}}/>  
+
+					<SmallBtn 
+						style={styles.sortBtn} 
+						inactStyle={styles.sortBtnFade}
+						textStyle={styles.sortBtnText}
+						text={'最新'}
+						ref={'sortByUpdatedAt'}
+						if_active={false}
+						action={()=>{
+							this.refs.sortByOverall.setState({active: false});	
+							this.refs.sortByLearnCount.setState({active: false});
+							this.refs.sortByUpdatedAt.setState({active: true});
+							this.refs.sortByCommentCount.setState({active: false});
+							this.setState({
+								condition: 'updated_at'
+							}, ()=>{
+								this.refresh(this.state.activeIndex, ()=>{this.setState({refreshing: false})});
+							});
+						}}/>  
+
+					<SmallBtn 
+						style={styles.sortBtn} 
+						inactStyle={styles.sortBtnFade}
+						textStyle={styles.sortBtnText}
+						text={'热评'}
+						ref={'sortByCommentCount'}
+						if_active={false}
+						action={()=>{
+							this.refs.sortByOverall.setState({active: false});	
+							this.refs.sortByLearnCount.setState({active: false});
+							this.refs.sortByUpdatedAt.setState({active: false});
+							this.refs.sortByCommentCount.setState({active: true});
+							this.setState({
+								condition: 'comment_count'
+							}, ()=>{
+								this.refresh(this.state.activeIndex, ()=>{this.setState({refreshing: false})});	
+							});						
+						}}/>               	
+                </View>
+
+
 				<ScrollView 
+					style={styles.pageScroll}
 					ref={'pageScroll'}
 					horizontal={true}
 					pagingEnabled={true}
@@ -277,10 +367,22 @@ let styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 20
+        marginBottom: 25
+	},
+
+	btnScroll: {
+		margin: 0
 	},
 
 	catagBtnText: {
 		fontSize: 16
+	},
+
+	sortBtns: {
+		flexDirection: 'row',
+		paddingLeft: 10,
+	},
+	pageScroll: {
+		height: height
 	}
 });

@@ -136,7 +136,7 @@ export default class CourseHome extends Component {
 	setCoursePanelScroll(){
 		this.listHeight = this.state.bottomHeight.interpolate({
 			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [height*0.45, height*0.6, height*0.7, height*0.7]
+			outputRange: [height*0.40, height*0.6, height*0.7, height*0.7]
 		});
 
 		this.listTop = this.state.bottomHeight.interpolate({
@@ -145,17 +145,17 @@ export default class CourseHome extends Component {
 		});		
 	}
 
-	setCatagPanelScroll(){
-		this.listHeight = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [height*0.45, height*0.7, height*0.7, height*0.7]
-		});
+	// setCatagPanelScroll(){
+	// 	this.listHeight = this.state.bottomHeight.interpolate({
+	// 		inputRange: [0, height*0.25, height*0.5, height],
+	// 		outputRange: [height*0.40, height*0.7, height*0.7, height*0.7]
+	// 	});
 
-		this.listTop = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [0, -45, -100, -100]
-		});				
-	}
+	// 	this.listTop = this.state.bottomHeight.interpolate({
+	// 		inputRange: [0, height*0.25, height*0.5, height],
+	// 		outputRange: [0, -45, -100, -100]
+	// 	});				
+	// }
 
 	render(){
 		let { bottomHeight, bottomTop } = this.state;

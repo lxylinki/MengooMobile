@@ -43,7 +43,7 @@ class CourseDetail extends Component {
 
 	componentDidMount(){
 		//Storage.get('user_info').then((info)=>{this.userId = info.id});
-		console.log(this.courseId);
+		//console.log(this.courseId);
 		this.getView();
 		this.getDetail();
 		this.getGroup();
