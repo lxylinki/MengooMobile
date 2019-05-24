@@ -91,26 +91,20 @@ export default class CourseSearch extends Component {
 
 				<View style={styles.searchBadges}>
 					<Text>热搜</Text>
-					<BadgeBtn 
-						text={'1'}
+					<BadgeBtn
+						style={{width: 70}}
+						text={'测试课程1'} 
 						action={()=>{
-							this.refs.searchInp.setState({text: '1'});
-							this.getCourseData('1');
+							this.props.navigation.navigate('CourseDetail', {id: '41'});
 						}}/>
 					<BadgeBtn 
-						text={'2'}
+						style={{width: 120}}
+						text={'课程虚拟仿真实验'}
 						action={()=>{
-							this.refs.searchInp.setState({text: '2'});
-							this.getCourseData('2');
-						}}/>
-					<BadgeBtn 
-						text={'3'}
-						action={()=>{
-							this.refs.searchInp.setState({text: '3'});
-							this.getCourseData('3');
-						}}/>
+							this.props.navigation.navigate('CourseDetail', {id: 'B3'});
+						}}
+					/>
 				</View>
-
 
 				<CourseView 
 					navigation={this.props.navigation}

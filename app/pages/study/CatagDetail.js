@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import Utils from '../../common/Utils';
-import LineBtn from '../../components/button/LineBtn';
+import ShallowLineBtn from '../../components/button/ShallowLineBtn';
 import TitleHeader from '../../components/head/TitleHeader';
 import CourseView from '../../components/list/course/CourseView';
 
@@ -27,50 +27,74 @@ export default class CatagDetail extends Component {
 
 		this.state = {
 			subCatags: [],
-			courseData: []
-		}
+			catagBtns: [],
+			courseData: [],
+			views: [],
+			activeIndex: 0
+		};
 	}
 
 	componentDidMount(){
-		this.getSubCatagList();
+		this.getSubCatagList(this.state.activeIndex);
 	}
 
-	getSubCatagList(){
+	getSubCatagList(index){
 		this.utils.getCatagList(this.item.id, (resp)=>{
 			this.setState({
 				subCatags: resp
-			}, this.fillCourseData);
+			}, ()=>{
+				this.fillCourseData();
+				this.setState({catagBtns: this.genCatagBtns(index)});
+			});
 		});
 	}
 
-	genCatagBtns(){
+	selectCatag(index) {
+		this.setState({
+			activeIndex: index,
+			catagBtns: this.genCatagBtns(index)
+		}, ()=>{
+			console.log(this.state.activeIndex);
+			console.log(this.state.catagBtns);
+			this.refs.pageScroll.scrollTo({x:index*width, animated:true});
+		});
+	}
+
+	//index is selected
+	genCatagBtns(index){
 		let btns = [];
 		btns.push(
-			<LineBtn 
+			<ShallowLineBtn 
 				key={0}
 				style={styles.catagBtn} 
 				textStyle={styles.catagBtnText}
 				text={'全部'}
-				if_active={true}
+				if_active={index === 0}
 				action={()=>{
+					this.selectCatag(0);
 				}}
 			/>
 		);
 		for(let i in this.state.subCatags) {
 			let subCatag = this.state.subCatags[i];
 			btns.push(
-				<LineBtn 
-					key={i+1}
+				<ShallowLineBtn 
+					key={Number(i)+1}
 					style={styles.catagBtn} 
 					textStyle={styles.catagBtnText}
 					text={subCatag.name}
-					if_active={false}
+					if_active={index === Number(i)+1}
 					action={()=>{
+						this.selectCatag(Number(i)+1);
 					}}
 				/>
 			);
 		}
+		//console.log(btns);
 		return btns;
+		// this.setState({
+		// 	catagBtns: btns
+		// }, ()=>{console.log(this.state.catagBtns)});
 	}
 
 
@@ -117,15 +141,17 @@ export default class CatagDetail extends Component {
 	}
 
 	render(){
+		console.log('render');
 		return(
 			<View style={styles.rootView}>
 				<TitleHeader style={styles.headerView} title={this.item.name}/>
 				
 				<ScrollView horizontal={true}>
-					{this.genCatagBtns()}
+					{this.state.catagBtns}
 				</ScrollView>
 
 				<ScrollView 
+					ref={'pageScroll'}
 					horizontal={true}
 					pagingEnabled={true}>
 					{this.genListViews()}
