@@ -163,12 +163,12 @@ export default class CatagDetail extends Component {
 		}
 	}
 
-	refresh(i, callback){
-		this.page[i] = 1;
+	refresh(index, callback){
+		this.page[index] = 1;
 		this.stopRefresh = callback;
-		this.getCourseData(i, (resp)=>{
+		this.getCourseData(index, (resp)=>{
 			let arrs = this.state.courseData;
-			arrs[i] = resp._list;
+			arrs[index] = resp._list;
 			this.setState({
 				courseData: arrs
 			});
