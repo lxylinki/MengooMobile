@@ -158,6 +158,7 @@ class CourseDetail extends Component {
 						size={30}
 						color={'#999'}/>
 				</TouchableOpacity>
+				<ScrollView>
 				<Image 
 					resizeMode='cover' 
 					style={styles.img} 
@@ -196,7 +197,7 @@ class CourseDetail extends Component {
 					ref={'pageScroll'}
 					onMomentumScrollEnd={this.scrollEnd}>
 					<View style={styles.detailPanel}>
-						<ScrollView>
+						{/*<ScrollView>*/}
 							<View style={styles.titlePanel}>
 								<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
 								<View style={styles.teacherList}>
@@ -224,7 +225,7 @@ class CourseDetail extends Component {
 										this.state.courseDetail.syllabus:'<p></p>'} />
 								</View>							
 							</View>
-						</ScrollView>
+						{/*</ScrollView>*/}
 					</View>
 					<View style={styles.commentPanel}>
 						<View style={styles.commentTitlePanel}>
@@ -253,6 +254,7 @@ class CourseDetail extends Component {
 							}}
 							/>
 					</View>
+				</ScrollView>
 				</ScrollView>
 
 				<View style={styles.studyBtnView}>
