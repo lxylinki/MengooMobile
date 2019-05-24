@@ -4,13 +4,16 @@ import {
 	Text,
 	View,
 	ScrollView,
-	Dimensions
+	Dimensions,
+	TouchableOpacity
 } from 'react-native';
 
 import Utils from '../../common/Utils';
 import ShallowLineBtn from '../../components/button/ShallowLineBtn';
 import TitleHeader from '../../components/head/TitleHeader';
 import CourseView from '../../components/list/course/CourseView';
+import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 var {height, width} = Dimensions.get('window');
@@ -56,10 +59,21 @@ export default class CatagDetail extends Component {
 			activeIndex: index,
 			catagBtns: this.genCatagBtns(index)
 		}, ()=>{
-			// console.log(this.state.activeIndex);
-			// console.log(this.state.catagBtns);
 			this.refs.pageScroll.scrollTo({x:index*width, animated:true});
 		});
+	}
+
+	scrollToPage(index) {
+		this.setState({
+			activeIndex: index,
+			catagBtns: this.genCatagBtns(index)
+		}, ()=>{
+			if(index === 0) {
+				this.refs.btnScroll.scrollTo({x:0, animated:true});
+			} else if(index > 2) {
+				this.refs.btnScroll.scrollTo({x:width, animated:true});
+			}
+		});		
 	}
 
 	setPageArr(){
@@ -186,19 +200,46 @@ export default class CatagDetail extends Component {
 		return views;
 	}
 
+	scrollEnd = (param)=> {
+		let index = Math.round(param.nativeEvent.contentOffset.x/width);
+		this.scrollToPage(index);
+	};
+
 	render(){
 		return(
 			<View style={styles.rootView}>
 				<TitleHeader style={styles.headerView} title={this.item.name}/>
-				
-				<ScrollView horizontal={true}>
+                
+                <TouchableOpacity 
+                    style={styles.backBtn}
+                    onPress={()=>{this.props.navigation.goBack()}}>
+                    <Entypo 
+                        name={'chevron-thin-left'}
+                        size={25}
+                        color={'white'}/>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.searchBtn}
+                    onPress={()=>{this.props.navigation.navigate('CourseSearch')}}>
+                    <AntDesign 
+                        name={'search1'}
+                        size={25}
+                        color={'white'}/>
+                </TouchableOpacity>
+
+				<ScrollView 
+					style={styles.btnScroll}
+					ref={'btnScroll'}
+					horizontal={true}>
 					{this.state.catagBtns}
 				</ScrollView>
 
 				<ScrollView 
 					ref={'pageScroll'}
 					horizontal={true}
-					pagingEnabled={true}>
+					pagingEnabled={true}
+					onMomentumScrollEnd={this.scrollEnd}>
 					{this.genListViews()}
 				</ScrollView>
 			</View>
@@ -211,6 +252,20 @@ let styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#f5f6fa',		
 	},
+    
+    backBtn: {
+        position: 'absolute',
+        top: 20,
+        left: 15,
+        zIndex: 10
+    },
+    
+    searchBtn: {
+        position: 'absolute',
+        top: 20,
+        right: 15,
+        zIndex: 10
+    },
 
 	headerView: {
 		height: 70
@@ -219,7 +274,10 @@ let styles = StyleSheet.create({
 	catagBtn: {
         width: 120,
         height: 45,
-        margin: 10
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 20
 	},
 
 	catagBtnText: {
