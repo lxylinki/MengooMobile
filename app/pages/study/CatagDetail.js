@@ -160,6 +160,13 @@ export default class CatagDetail extends Component {
 					});
 				});
 			}
+		} else {
+			this.getCourseData(0, (resp)=>{
+				arrs[0] = resp._list;
+				this.setState({
+					courseData: arrs
+				});
+			});			
 		}
 	}
 
