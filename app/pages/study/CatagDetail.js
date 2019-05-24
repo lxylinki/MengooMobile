@@ -21,16 +21,17 @@ export default class CatagDetail extends Component {
 		this.utils = new Utils();
 		this.item = this.props.navigation.getParam('item', null);
 
-		this.page = 1;
+		this.page = [];
 		this.pageSize = 5;
-		this.totalPage = 0;
+		this.totalPage = [];
 
 		this.state = {
 			subCatags: [],
 			catagBtns: [],
 			courseData: [],
 			views: [],
-			activeIndex: 0
+			activeIndex: 0,
+			refreshing: false
 		};
 	}
 
@@ -44,6 +45,7 @@ export default class CatagDetail extends Component {
 				subCatags: resp
 			}, ()=>{
 				this.fillCourseData();
+				this.setPageArr();
 				this.setState({catagBtns: this.genCatagBtns(index)});
 			});
 		});
@@ -54,10 +56,19 @@ export default class CatagDetail extends Component {
 			activeIndex: index,
 			catagBtns: this.genCatagBtns(index)
 		}, ()=>{
-			console.log(this.state.activeIndex);
-			console.log(this.state.catagBtns);
+			// console.log(this.state.activeIndex);
+			// console.log(this.state.catagBtns);
 			this.refs.pageScroll.scrollTo({x:index*width, animated:true});
 		});
+	}
+
+	setPageArr(){
+		this.page.push(1);
+		this.totalPage.push(0);
+		for(let i in this.state.subCatags) {
+			this.page.push(1);
+			this.totalPage.push(0);
+		}
 	}
 
 	//index is selected
@@ -100,13 +111,22 @@ export default class CatagDetail extends Component {
 
 	getCourseData(index, callback) {
 		let cid;
-		if(index === 0) {
+		if(Number(index) === 0) {
 			cid = this.item.id;
 		} else {
-			cid = this.state.subCatags[index-1].id;
+			cid = this.state.subCatags[Number(index)-1].id;
 		}
+		
+		//console.log('cid:', cid);
+
 		this.utils.getCatagCourseList(cid, this.page, this.pageSize, (resp)=>{
-			callback(cid, resp);
+			if(this.totalPage[index] === 0) {
+				this.totalPage[index] = resp.total_page;
+			}
+			if(this.stopRefresh) {
+				this.stopRefresh();
+			}
+			callback(resp);
 		});
 	}
 
@@ -114,7 +134,7 @@ export default class CatagDetail extends Component {
 		let arrs = [];
 		if(this.state.subCatags.length > 0) {
 			for(let i=0; i<=this.state.subCatags.length; i++) {
-				this.getCourseData(i, (cid, resp)=>{
+				this.getCourseData(i, (resp)=>{
 					arrs[i] = resp._list;
 					this.setState({
 						courseData: arrs
@@ -133,6 +153,32 @@ export default class CatagDetail extends Component {
 						key={i}
 						navigation={this.props.navigation}
 						data={this.state.courseData[i]}
+						onEndReached={()=>{
+							console.log('on end reached' + i);
+							if(this.state.courseData[i].length>=this.pageSize) {
+								if(this.page[i] < this.totalPage[i]) {
+									this.page[i] += 1;										
+									this.getCourseData(i, (resp)=>{
+										let arrs = this.state.courseData;
+										arrs[i] = arrs[i].concat(resp._list);
+										this.setState({
+											courseData: arrs
+										})
+									});
+								}
+							}
+						}} 
+						onRefresh={(callback)=>{
+							this.page[i] = 1;
+							this.stopRefresh = callback;
+							this.getCourseData(i, (resp)=>{
+								let arrs = this.state.courseData;
+								arrs[i] = resp._list;
+								this.setState({
+									courseData: arrs
+								});
+							});
+						}}
 					/>
 				);
 			}
@@ -141,7 +187,6 @@ export default class CatagDetail extends Component {
 	}
 
 	render(){
-		console.log('render');
 		return(
 			<View style={styles.rootView}>
 				<TitleHeader style={styles.headerView} title={this.item.name}/>
