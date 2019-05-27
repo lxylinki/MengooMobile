@@ -7,7 +7,8 @@ import {
 	Image,
 	Dimensions,
 	ScrollView,
-	TouchableOpacity
+	TouchableOpacity,
+	Animated
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -32,7 +33,8 @@ class CourseDetail extends Component {
 			courseView: {},
 			courseDetail: {},
 			teachers: [],
-			commentData: []
+			commentData: [],
+			showHeadBanner: false
 		}
 		this.utils = new Utils();
 		this.page = 1;
@@ -145,6 +147,19 @@ class CourseDetail extends Component {
 		}
 	};
 
+	pageScroll = (event)=> {
+		//console.log(event.nativeEvent.contentOffset.y);
+		if(event.nativeEvent.contentOffset.y > 0) {
+			this.setState({
+				showHeadBanner: true
+			});
+		} else if(event.nativeEvent.contentOffset.y <= 0) {
+			this.setState({
+				showHeadBanner: false
+			});
+		}
+	};
+
 	render(){
 		//suggested time
 		let stime = this.getDate(this.state.courseView.time);
@@ -159,7 +174,13 @@ class CourseDetail extends Component {
 						color={'#999'}/>
 				</TouchableOpacity>
 				
-				<ScrollView>
+				<Animated.View 
+					style={this.state.showHeadBanner? [styles.headBanner]: {display: 'none'}}>
+					<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
+				</Animated.View>
+
+				<ScrollView
+					onScroll={this.pageScroll}>
 					<Image 
 						resizeMode='cover' 
 						style={styles.img} 
@@ -301,7 +322,17 @@ let styles = StyleSheet.create({
 		position: 'absolute',
 		top: 15,
 		left: 15,
-		zIndex: 10
+		zIndex: 20
+	},
+
+	headBanner: {
+		position: 'absolute',
+		width: width,
+		height: 60,
+		zIndex: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'white'
 	},
 
 	img: {

@@ -81,16 +81,12 @@ export default class CourseHome extends Component {
 		// }
 
 		this._panResponder = PanResponder.create({
-			// 要求成为响应者：
 			onStartShouldSetPanResponder: (evt, gestureState) => true,
 			onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
 			onMoveShouldSetPanResponder: (evt, gestureState) => true,
 			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 			//onPanResponderGrant: (evt, gestureState) => {},
 			onPanResponderMove: (evt, gestureState) => {
-			// 最近一次的移动距离为gestureState.move{X,Y}
-
-			// 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
 				console.log(gestureState.dy);
 		        if(gestureState.dy > 5) {
 		        	this.scrollDown();
