@@ -34,7 +34,8 @@ class CourseDetail extends Component {
 			courseDetail: {},
 			teachers: [],
 			commentData: [],
-			showHeadBanner: false
+			showHeadBanner: false,
+			scrollY: new Animated.Value(0),
 		}
 		this.utils = new Utils();
 		this.page = 1;
@@ -147,17 +148,25 @@ class CourseDetail extends Component {
 		}
 	};
 
-	pageScroll = (event)=> {
+	scrollPage = (event)=> {
 		//console.log(event.nativeEvent.contentOffset.y);
-		if(event.nativeEvent.contentOffset.y > 0) {
+		if(event.nativeEvent.contentOffset.y > 90) {
 			this.setState({
 				showHeadBanner: true
 			});
-		} else if(event.nativeEvent.contentOffset.y <= 0) {
+		} else if(event.nativeEvent.contentOffset.y <= 90) {
 			this.setState({
 				showHeadBanner: false
 			});
 		}
+
+		Animated.event(
+			[{ nativeEvent: 
+				{ contentOffset: 
+					{ y: this.state.scrollY } 
+				} 
+			}],
+		)(event);
 	};
 
 	render(){
@@ -179,38 +188,45 @@ class CourseDetail extends Component {
 					<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
 				</Animated.View>
 
+
+				<Animated.View style={[styles.indexBtnView, {
+					top: this.state.scrollY.interpolate({
+							inputRange: [-1, 0, 10, 90, 100, 150],
+							outputRange: [150, 150, 140, 60, 60, 60]
+						})}
+				]}>
+					<LineBtn 
+						style={styles.indexBtn} 
+						textStyle={styles.indexBtnText}
+						text={'课程详情'}
+						ref={'detailBtn'}
+						if_active={true}
+						action={()=>{
+							this.refs.detailBtn.setState({active: true});
+							this.refs.commentBtn.setState({active: false});
+							this.refs.pageScroll.scrollTo({x:0*width, animated:true});
+						}}/>
+						
+					<LineBtn 
+						style={this.state.courseView.comment_count?styles.indexBtn:{display: 'none'}} 
+						textStyle={styles.indexBtnText}
+						text={'评价 ('+ this.state.courseView.comment_count +')'}
+						ref={'commentBtn'}
+						if_active={false}
+						action={()=>{
+							this.refs.detailBtn.setState({active: false});
+							this.refs.commentBtn.setState({active: true});
+							this.refs.pageScroll.scrollTo({x:1*width, animated:true});							
+						}}/>
+				</Animated.View>
+
+
 				<ScrollView
-					onScroll={this.pageScroll}>
+					onScroll={this.scrollPage}>
 					<Image 
 						resizeMode='cover' 
 						style={styles.img} 
 						source={{uri: global_.url_prefix + this.state.courseView.img}} />
-
-					<View style={styles.indexBtnView}>
-						<LineBtn 
-							style={styles.indexBtn} 
-							textStyle={styles.indexBtnText}
-							text={'课程详情'}
-							ref={'detailBtn'}
-							if_active={true}
-							action={()=>{
-								this.refs.detailBtn.setState({active: true});
-								this.refs.commentBtn.setState({active: false});
-								this.refs.pageScroll.scrollTo({x:0*width, animated:true});
-							}}/>
-							
-						<LineBtn 
-							style={this.state.courseView.comment_count?styles.indexBtn:{display: 'none'}} 
-							textStyle={styles.indexBtnText}
-							text={'评价 ('+ this.state.courseView.comment_count +')'}
-							ref={'commentBtn'}
-							if_active={false}
-							action={()=>{
-								this.refs.detailBtn.setState({active: false});
-								this.refs.commentBtn.setState({active: true});
-								this.refs.pageScroll.scrollTo({x:1*width, animated:true});							
-							}}/>
-					</View>
 
 					<ScrollView 
 						style={styles.scroll}
@@ -315,7 +331,8 @@ export default connect(mapStateToProps)(CourseDetail);
 let styles = StyleSheet.create({
 	rootView: { 
 		flex: 1,
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		alignItems: 'center'
 	},
 
 	backBtn: {
@@ -342,13 +359,17 @@ let styles = StyleSheet.create({
 
 	indexBtnView: {
 		height: 55,
+		width: width,
 		flexDirection: 'row',
 		alignItems: 'baseline',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		zIndex: 10,
+		backgroundColor: 'white',
+		position: 'absolute'
 	},
 
 	scroll: {
-
+		top: 60
 	},
 
 	// contentContainer: {

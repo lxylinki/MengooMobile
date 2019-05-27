@@ -39,65 +39,9 @@ export default class CourseHome extends Component {
 		this.state = {
 			courseData: [],
 			catagData: [],
-			bottomHeight: new Animated.Value(this.height),
+			scrollY: new Animated.Value(0),
+			//bottomHeight: new Animated.Value(this.height),
 		}
-	}
-
-	scrollDown(){
-		Animated.timing(
-		this.state.bottomHeight,
-			{
-				toValue: height*0.4,
-				duration: 1500
-			}
-		).start();
-	}
-
-	scrollUp(){
-		Animated.timing(
-			this.state.bottomHeight,
-			{
-				toValue: height*0.7,
-				duration: 1500
-			}
-		).start();
-	}
-
-	componentWillMount() {
-		this.setPanelScrollTop();
-		// this.animatedEvent = Animated.event([
-		// 	//this.state.bottomHeight = e.nativeEvent.contentOffset.y
-		// 	{
-		// 		nativeEvent: {
-		// 			contentOffset: { 
-		// 				y: this.state.bottomHeight, 
-		// 			}
-		// 		}
-		// 	}
-		// ]);
-
-		// this.animatedEvent = (event)=> {
-		// 	console.log(event.nativeEvent.contentOffset.y);
-		// }
-
-		this._panResponder = PanResponder.create({
-			onStartShouldSetPanResponder: (evt, gestureState) => true,
-			onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-			onMoveShouldSetPanResponder: (evt, gestureState) => true,
-			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-			//onPanResponderGrant: (evt, gestureState) => {},
-			onPanResponderMove: (evt, gestureState) => {
-				console.log(gestureState.dy);
-		        if(gestureState.dy > 5) {
-		        	this.scrollDown();
-
-		        } else if(gestureState.dy < -5) {
-		        	this.scrollUp();
-		        }
-			},
-			//onPanResponderEnd: (evt, gestureState)=> {}
-		});
-
 	}
 
 
@@ -161,17 +105,16 @@ export default class CourseHome extends Component {
 		}
 	};
 
-	setPanelScrollTop(){
-		// this.listHeight = this.state.bottomHeight.interpolate({
-		// 	inputRange: [0, height*0.25, height*0.5, height],
-		// 	outputRange: [height*0.45, height*0.6, height*0.7, height*0.7]
-		// });
 
-		this.listTop = this.state.bottomHeight.interpolate({
-			inputRange: [height*0.4, height*0.7],
-			outputRange: [0, -50]
-		});		
-	}
+	scrollPage = (event)=> {
+		Animated.event(
+			[{ nativeEvent: 
+				{ contentOffset: 
+					{ y: this.state.scrollY } 
+				} 
+			}],
+		)(event);
+	};
 
 	render(){
 		let { bottomHeight, bottomTop } = this.state;
@@ -180,78 +123,86 @@ export default class CourseHome extends Component {
 				<Header style={styles.headerView} />
 				<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
 						
-				<View style={styles.searchBadges}>
-					<Text>热搜</Text>
-					<BadgeBtn
-						style={{width: 70}}
-						text={'测试课程1'} 
+
+				<Animated.View style={[styles.indexBtns, {
+					top: this.state.scrollY.interpolate({
+							inputRange: [-1, 0, 10, 50, 150, 170, 180],
+							outputRange: [290, 290, 280, 240, 140, 120, 120]
+						})}
+				]}>
+					<RegularBtn 
+						style={styles.indexBtn} 
+						inactStyle={styles.indexBtnFade}
+						textStyle={styles.indexBtnText}
+						text={'推荐课程'}
+						ref={'courseBtn'}
+						if_active={true}
 						action={()=>{
-							this.props.navigation.navigate('CourseDetail', {id: '41'});
+							this.refs.courseBtn.setState({active: true});
+							this.refs.catagBtn.setState({active: false});
+							this.refs.pageScroll.scrollTo({x:0*width, animated:true});
 						}}/>
-					<BadgeBtn 
-						style={{width: 120}}
-						text={'课程虚拟仿真实验'}
+						
+					<RegularBtn 
+						style={styles.indexBtn} 
+						inactStyle={styles.indexBtnFade}
+						textStyle={styles.indexBtnText}
+						text={'课程分类'}
+						ref={'catagBtn'}
+						if_active={false}
 						action={()=>{
-							this.props.navigation.navigate('CourseDetail', {id: 'B3'});
-						}}
-					/>
-					{/*
-					<BadgeBtn 
-						text={'3'}
-						action={()=>{
-							this.props.navigation.navigate('CourseSearch', {keyword: '3'});
-						}}
-					/>*/}
-				</View>
+							this.refs.courseBtn.setState({active: false});
+							this.refs.catagBtn.setState({active: true});
+							this.refs.pageScroll.scrollTo({x:1*width, animated:true});
+						}}/>
+				</Animated.View>
 				
-				<HomeSwiper style={styles.swiper}/>
+
 				
-				<Animated.View 
-					style={[styles.bottomView, {top: this.listTop, height: this.state.bottomHeight}]}
-					scrollEventThrottle={16}>
-					
-					<View style={styles.indexBtns}>
-						<RegularBtn 
-							style={styles.indexBtn} 
-							inactStyle={styles.indexBtnFade}
-							textStyle={styles.indexBtnText}
-							text={'推荐课程'}
-							ref={'courseBtn'}
-							if_active={true}
+				<ScrollView 
+					style={[styles.bottomView]}
+					onScroll={this.scrollPage}>
+
+					<View style={styles.searchBadges}>
+						<Text>热搜</Text>
+						<BadgeBtn
+							style={{width: 70}}
+							text={'测试课程1'} 
 							action={()=>{
-								this.refs.courseBtn.setState({active: true});
-								this.refs.catagBtn.setState({active: false});
-								this.refs.pageScroll.scrollTo({x:0*width, animated:true});
+								this.props.navigation.navigate('CourseDetail', {id: '41'});
 							}}/>
-							
-						<RegularBtn 
-							style={styles.indexBtn} 
-							inactStyle={styles.indexBtnFade}
-							textStyle={styles.indexBtnText}
-							text={'课程分类'}
-							ref={'catagBtn'}
-							if_active={false}
+						<BadgeBtn 
+							style={{width: 120}}
+							text={'课程虚拟仿真实验'}
 							action={()=>{
-								this.refs.courseBtn.setState({active: false});
-								this.refs.catagBtn.setState({active: true});
-								this.refs.pageScroll.scrollTo({x:1*width, animated:true});
-							}}/>
+								this.props.navigation.navigate('CourseDetail', {id: 'B3'});
+							}}
+						/>
+						{/*
+						<BadgeBtn 
+							text={'3'}
+							action={()=>{
+								this.props.navigation.navigate('CourseSearch', {keyword: '3'});
+							}}
+						/>*/}
 					</View>
 
+					<HomeSwiper style={styles.swiper}/>
+
 					<ScrollView
+						style={styles.bottomScroll}
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}
-						{...this._panResponder.panHandlers}>
+						//{...this._panResponder.panHandlers}
+					>
 
 						<CourseView 
-							//onScroll={this.animatedEvent}
 							hasSkeleton={true}
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{
-								//console.log('on end reached');
 								if(this.state.courseData.length>=this.pageSize) {
 									if(this.page < this.totalPage) {
 										this.page += 1;										
@@ -267,13 +218,12 @@ export default class CourseHome extends Component {
 						/>
 
 						<CatagView 
-							//onScroll={this.animatedEvent}
 							data={this.state.catagData}
 							navigation={this.props.navigation}
 						/>
 
 					</ScrollView>
-				</Animated.View>
+				</ScrollView>
 
 			</View>
 		);
@@ -291,10 +241,8 @@ let styles = StyleSheet.create({
 	},
 
 	swiper: {
-		position: 'absolute',
 		width: width,
-		height: 120,
-		top: 0
+		height: 120
 	},
 
 	bottomView: {
@@ -316,10 +264,14 @@ let styles = StyleSheet.create({
 	},
 
 	indexBtns: {
+		width: width,
 		height: 55,
 		flexDirection: 'row',
 		alignItems: 'baseline',
-		paddingLeft: 10
+		paddingLeft: 10,
+		position: 'absolute',
+		zIndex: 10,
+		backgroundColor: '#f5f6fa'
 	},
 
 	indexBtn: {
@@ -327,13 +279,19 @@ let styles = StyleSheet.create({
 		height: 34,
 		backgroundColor: '#c9151e'
 	},
+
 	indexBtnFade: {
 		width: 100,
 		height: 34,
 		backgroundColor: 'transparent'
 	},
+
 	indexBtnText: {
 		fontSize: 16
+	},
+
+	bottomScroll: {
+		marginTop: 55
 	}
 
 });
