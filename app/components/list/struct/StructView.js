@@ -37,20 +37,6 @@ export default class StructView extends PureComponent {
 	};
 
 
-	// addHeight = (itemHeight)=> {
-	// 	if(this.itemCount <= this.props.data.length) {
-	// 		this.setState({
-	// 			maxHeight: this.state.maxHeight + itemHeight
-	// 		}, ()=>{console.log('maxHeight:', this.state.maxHeight)});
-	// 		this.itemCount += 1;
-	// 	}
-	// };
-
-
-	// layout=(e)=>{
-	// 	console.log('StructView height:', e.layout.height);
-	// }
-
 	render(){
 		let key = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
@@ -94,7 +80,6 @@ export default class StructView extends PureComponent {
 let styles = StyleSheet.create({
 	list: {
 		width: width,
-		height: 360
 	},
 
 	separatorLine: {

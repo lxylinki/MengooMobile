@@ -6,7 +6,8 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Animated
 } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -31,7 +32,9 @@ export default class CourseStruct extends Component {
         this.utils = new Utils();
         this.state = {
             structData: [],
-            examData: {}
+            examData: {},
+            showHeadBanner: false,
+            scrollY: new Animated.Value(0),
         }
 	}
 
@@ -105,28 +108,43 @@ export default class CourseStruct extends Component {
         });
     }
 
+
+
+    scrollPage = (event)=> {
+        console.log('scrollPage');
+        if(event.nativeEvent.contentOffset.y > 90) {
+            this.setState({
+                showHeadBanner: true
+            });
+        } else if(event.nativeEvent.contentOffset.y <= 90) {
+            this.setState({
+                showHeadBanner: false
+            });
+        }
+        Animated.event(
+            [{ nativeEvent: 
+                { contentOffset: 
+                    { y: this.state.scrollY } 
+                } 
+            }],
+        )(event);
+    };
+
+
 	render(){
 		return(
 			<View style={styles.rootView}>
-                <Image style={styles.image} resizeMode={'cover'} source={{uri: this.imgSrc}}/>
-                <TouchableOpacity 
-                    style={styles.backBtn}
-                    onPress={()=>{this.props.navigation.navigate('CourseDetail')}}>
-                    <AntDesign 
-                        name={'leftcircle'}
-                        size={30}
-                        color={'#999'}/>
-                </TouchableOpacity>
-				<View style={styles.infoBar}>
-                </View>
-                <View style={styles.infoContent}>
-                    <Text style={styles.courseTitle}>{this.courseName}</Text>
-                    <View style={styles.teacherList}>
-                        {this.listTeachers()}
-                    </View>
-                </View>
+                <Animated.View 
+                    style={this.state.showHeadBanner? [styles.headBanner]: {display: 'none'}}>
+                    <Text style={styles.courseTitleDark}>{this.courseName}</Text>
+                </Animated.View>            
 
-                <View style={styles.indexBtnView}>
+                <Animated.View style={[styles.indexBtnView, {
+                    top: this.state.scrollY.interpolate({
+                        inputRange: [-1, 0, 10, 140, 150],
+                        outputRange: [200, 200, 190, 60, 60]                        
+                    })
+                }]}>
                     <LineBtn 
                         style={styles.indexBtn} 
                         textStyle={styles.indexBtnText}
@@ -182,44 +200,70 @@ export default class CourseStruct extends Component {
                             this.refs.discussBtn.setState({active: true});
                             this.refs.pageScroll.scrollTo({x:3*width, animated:true});
                         }}/>                   
-                </View>
+                </Animated.View>  
+
+                <TouchableOpacity 
+                    style={styles.backBtn}
+                    onPress={()=>{this.props.navigation.navigate('CourseDetail')}}>
+                    <AntDesign 
+                        name={'leftcircle'}
+                        size={30}
+                        color={'#999'}/>
+                </TouchableOpacity>          
 
                 <ScrollView
-                    ref={'pageScroll'}
-                    pagingEnabled={true}
-                    horizontal={true}
-                    onMomentumScrollEnd={this.scrollEnd}>
+                    onScroll={this.scrollPage}>
 
-                    <StructView 
-                        navigation={this.props.navigation}
-                        courseId={this.courseId} 
-                        exams={this.state.examData} 
-                        data={this.state.structData}
+                    <Image style={styles.image} resizeMode={'cover'} source={{uri: this.imgSrc}}/>
 
-                        onEndReached={()=>{
-                            //console.log('on end reached');
-                            if(this.state.structData.length>=this.pageSize) {
-                                if(this.page < this.totalPage) {
-                                    this.page += 1;                                     
-                                    this.getStructData();
+    				<View style={styles.infoBar}>
+                    </View>
+
+                    <View style={styles.infoContent}>
+                        <Text style={styles.courseTitle}>{this.courseName}</Text>
+                        <View style={styles.teacherList}>
+                            {this.listTeachers()}
+                        </View>
+                    </View>
+
+
+                    <ScrollView
+                        style={styles.bottomScroll}
+                        ref={'pageScroll'}
+                        pagingEnabled={true}
+                        horizontal={true}
+                        onMomentumScrollEnd={this.scrollEnd}>
+
+                        <StructView 
+                            navigation={this.props.navigation}
+                            courseId={this.courseId} 
+                            exams={this.state.examData} 
+                            data={this.state.structData}
+
+                            onEndReached={()=>{
+                                if(this.state.structData.length>=this.pageSize) {
+                                    if(this.page < this.totalPage) {
+                                        this.page += 1;                                     
+                                        this.getStructData();
+                                    }
                                 }
-                            }
-                        }} 
-                        onRefresh={(callback)=>{
-                            this.page = 1;
-                            this.stopRefresh = callback;
-                            this.getStructData();
-                        }}
+                            }} 
+                            onRefresh={(callback)=>{
+                                this.page = 1;
+                                this.stopRefresh = callback;
+                                this.getStructData();
+                            }}
+                            />
+                        
+                        
+                        <NoticeView 
+                            navigation={this.props.navigation}
+                            courseId={this.courseId} 
                         />
-                    
-                    
-                    <NoticeView 
-                        navigation={this.props.navigation}
-                        courseId={this.courseId} 
-                    />
 
-                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
-                    <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
+                        <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
+                        <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
+                    </ScrollView>
                 </ScrollView>
 			</View>
 		);
@@ -235,7 +279,7 @@ let styles = StyleSheet.create({
         position: 'absolute',
         top: 15,
         left: 15,
-        zIndex: 10
+        zIndex: 20
     },
     infoBar: {
         width: width,
@@ -265,11 +309,19 @@ let styles = StyleSheet.create({
         color: 'white',
         fontSize: 18
     },
+    courseTitleDark: {
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
     indexBtnView: {
         height: 54,
+        width: width,
         flexDirection: 'row',
         alignItems: 'baseline',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        position: 'absolute',
+        zIndex: 10
     },
     indexBtn: {
         width: 80,
@@ -279,5 +331,19 @@ let styles = StyleSheet.create({
 
     indexBtnText: {
         fontSize: 16
+    },
+
+    bottomScroll: {
+        marginTop: 54
+    },
+
+    headBanner: {
+        position: 'absolute',
+        width: width,
+        height: 60,
+        zIndex: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
     }
 });
