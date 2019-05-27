@@ -32,46 +32,78 @@ export default class CourseHome extends Component {
 		this.pageSize = 5;
 		this.totalPage = 0;
 		this.utils = new Utils();
+
+		this.height = height*0.4;
+		this.listTop = 0;
+
 		this.state = {
 			courseData: [],
 			catagData: [],
-			bottomHeight: new Animated.Value(0),
+			bottomHeight: new Animated.Value(this.height),
 		}
 	}
 
-	componentWillMount() {
-		this.setCoursePanelScroll();
-		//this.setCatagPanelScroll();
-		this.animatedEvent = Animated.event([
-			//this.state.bottomHeight = e.nativeEvent.contentOffset.y
+	scrollDown(){
+		Animated.timing(
+		this.state.bottomHeight,
 			{
-				nativeEvent: {
-					contentOffset: { 
-						y: this.state.bottomHeight, 
-					}
-				}
+				toValue: height*0.4,
+				duration: 1500
 			}
-		]);
+		).start();
+	}
+
+	scrollUp(){
+		Animated.timing(
+			this.state.bottomHeight,
+			{
+				toValue: height*0.7,
+				duration: 1500
+			}
+		).start();
+	}
+
+	componentWillMount() {
+		this.setPanelScrollTop();
+		// this.animatedEvent = Animated.event([
+		// 	//this.state.bottomHeight = e.nativeEvent.contentOffset.y
+		// 	{
+		// 		nativeEvent: {
+		// 			contentOffset: { 
+		// 				y: this.state.bottomHeight, 
+		// 			}
+		// 		}
+		// 	}
+		// ]);
 
 		// this.animatedEvent = (event)=> {
 		// 	console.log(event.nativeEvent.contentOffset.y);
 		// }
 
-		// this._panResponder = PanResponder.create({
-		// 	// 要求成为响应者：
-		// 	onStartShouldSetPanResponder: (evt, gestureState) => true,
-		// 	onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-		// 	onMoveShouldSetPanResponder: (evt, gestureState) => true,
-		// 	onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-		// 	onPanResponderMove: (evt, gestureState) => {
-		// 	// 最近一次的移动距离为gestureState.move{X,Y}
+		this._panResponder = PanResponder.create({
+			// 要求成为响应者：
+			onStartShouldSetPanResponder: (evt, gestureState) => true,
+			onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+			onMoveShouldSetPanResponder: (evt, gestureState) => true,
+			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+			//onPanResponderGrant: (evt, gestureState) => {},
+			onPanResponderMove: (evt, gestureState) => {
+			// 最近一次的移动距离为gestureState.move{X,Y}
 
-		// 	// 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
-		// 		console.log('dy:', gestureState.dy);
-		// 	}
-		// });
+			// 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
+				console.log(gestureState.dy);
+		        if(gestureState.dy > 5) {
+		        	this.scrollDown();
+
+		        } else if(gestureState.dy < -5) {
+		        	this.scrollUp();
+		        }
+			},
+			//onPanResponderEnd: (evt, gestureState)=> {}
+		});
 
 	}
+
 
 	componentDidMount(){
 		this.getCourseData();
@@ -133,29 +165,17 @@ export default class CourseHome extends Component {
 		}
 	};
 
-	setCoursePanelScroll(){
-		this.listHeight = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [height*0.45, height*0.6, height*0.7, height*0.7]
-		});
+	setPanelScrollTop(){
+		// this.listHeight = this.state.bottomHeight.interpolate({
+		// 	inputRange: [0, height*0.25, height*0.5, height],
+		// 	outputRange: [height*0.45, height*0.6, height*0.7, height*0.7]
+		// });
 
 		this.listTop = this.state.bottomHeight.interpolate({
-			inputRange: [0, height*0.25, height*0.5, height],
-			outputRange: [0, 0, -45, -45]
+			inputRange: [height*0.4, height*0.7],
+			outputRange: [0, -50]
 		});		
 	}
-
-	// setCatagPanelScroll(){
-	// 	this.listHeight = this.state.bottomHeight.interpolate({
-	// 		inputRange: [0, height*0.25, height*0.5, height],
-	// 		outputRange: [height*0.40, height*0.7, height*0.7, height*0.7]
-	// 	});
-
-	// 	this.listTop = this.state.bottomHeight.interpolate({
-	// 		inputRange: [0, height*0.25, height*0.5, height],
-	// 		outputRange: [0, -45, -100, -100]
-	// 	});				
-	// }
 
 	render(){
 		let { bottomHeight, bottomTop } = this.state;
@@ -191,8 +211,8 @@ export default class CourseHome extends Component {
 				<HomeSwiper style={styles.swiper}/>
 				
 				<Animated.View 
-					//{...this._panResponder.panHandlers}
-					style={[styles.bottomView, {top: this.listTop}, {height: this.listHeight}]}>
+					style={[styles.bottomView, {top: this.listTop, height: this.state.bottomHeight}]}
+					scrollEventThrottle={16}>
 					
 					<View style={styles.indexBtns}>
 						<RegularBtn 
@@ -226,10 +246,11 @@ export default class CourseHome extends Component {
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
-						onMomentumScrollEnd={this.scrollEnd}>
+						onMomentumScrollEnd={this.scrollEnd}
+						{...this._panResponder.panHandlers}>
 
 						<CourseView 
-							onScroll={this.animatedEvent}
+							//onScroll={this.animatedEvent}
 							hasSkeleton={true}
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
@@ -250,7 +271,7 @@ export default class CourseHome extends Component {
 						/>
 
 						<CatagView 
-							onScroll={this.animatedEvent}
+							//onScroll={this.animatedEvent}
 							data={this.state.catagData}
 							navigation={this.props.navigation}
 						/>

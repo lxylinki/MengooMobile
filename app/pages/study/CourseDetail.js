@@ -158,103 +158,104 @@ class CourseDetail extends Component {
 						size={30}
 						color={'#999'}/>
 				</TouchableOpacity>
+				
 				<ScrollView>
-				<Image 
-					resizeMode='cover' 
-					style={styles.img} 
-					source={{uri: global_.url_prefix + this.state.courseView.img}} />
+					<Image 
+						resizeMode='cover' 
+						style={styles.img} 
+						source={{uri: global_.url_prefix + this.state.courseView.img}} />
 
-				<View style={styles.indexBtnView}>
-					<LineBtn 
-						style={styles.indexBtn} 
-						textStyle={styles.indexBtnText}
-						text={'课程详情'}
-						ref={'detailBtn'}
-						if_active={true}
-						action={()=>{
-							this.refs.detailBtn.setState({active: true});
-							this.refs.commentBtn.setState({active: false});
-							this.refs.pageScroll.scrollTo({x:0*width, animated:true});
-						}}/>
-						
-					<LineBtn 
-						style={this.state.courseView.comment_count?styles.indexBtn:{display: 'none'}} 
-						textStyle={styles.indexBtnText}
-						text={'评价 ('+ this.state.courseView.comment_count +')'}
-						ref={'commentBtn'}
-						if_active={false}
-						action={()=>{
-							this.refs.detailBtn.setState({active: false});
-							this.refs.commentBtn.setState({active: true});
-							this.refs.pageScroll.scrollTo({x:1*width, animated:true});							
-						}}/>
-				</View>
-
-				<ScrollView 
-					style={styles.scroll}
-					pagingEnabled={true}
-					horizontal={true}
-					ref={'pageScroll'}
-					onMomentumScrollEnd={this.scrollEnd}>
-					<View style={styles.detailPanel}>
-						{/*<ScrollView>*/}
-							<View style={styles.titlePanel}>
-								<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
-								<View style={styles.teacherList}>
-									{this.listTeachers()}
-								</View>
-								<View>
-									<Text style={styles.suggestTime}>
-										建议学习时长：
-										{(stime.D?(stime.D+'天'):'')+(stime.h?(stime.h+'小时'):'')+(stime.m?(stime.m+'分'):'')}
-									</Text>
-								</View>
-							</View>
-							<View style={styles.introPanel}>						
-								<View style={styles.intro}>
-									<Text style={styles.introTitle}>课程概述</Text>
-									<HTML
-										html={this.state.courseDetail.intro?
-										this.state.courseDetail.intro.replace( /(<img.+?src=")(.*?)/, '$1'+ global_.main_url +'$2'):'<p></p>'} />
+					<View style={styles.indexBtnView}>
+						<LineBtn 
+							style={styles.indexBtn} 
+							textStyle={styles.indexBtnText}
+							text={'课程详情'}
+							ref={'detailBtn'}
+							if_active={true}
+							action={()=>{
+								this.refs.detailBtn.setState({active: true});
+								this.refs.commentBtn.setState({active: false});
+								this.refs.pageScroll.scrollTo({x:0*width, animated:true});
+							}}/>
 							
+						<LineBtn 
+							style={this.state.courseView.comment_count?styles.indexBtn:{display: 'none'}} 
+							textStyle={styles.indexBtnText}
+							text={'评价 ('+ this.state.courseView.comment_count +')'}
+							ref={'commentBtn'}
+							if_active={false}
+							action={()=>{
+								this.refs.detailBtn.setState({active: false});
+								this.refs.commentBtn.setState({active: true});
+								this.refs.pageScroll.scrollTo({x:1*width, animated:true});							
+							}}/>
+					</View>
+
+					<ScrollView 
+						style={styles.scroll}
+						pagingEnabled={true}
+						horizontal={true}
+						ref={'pageScroll'}
+						onMomentumScrollEnd={this.scrollEnd}>
+						<View style={styles.detailPanel}>
+							{/*<ScrollView>*/}
+								<View style={styles.titlePanel}>
+									<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
+									<View style={styles.teacherList}>
+										{this.listTeachers()}
+									</View>
+									<View>
+										<Text style={styles.suggestTime}>
+											建议学习时长：
+											{(stime.D?(stime.D+'天'):'')+(stime.h?(stime.h+'小时'):'')+(stime.m?(stime.m+'分'):'')}
+										</Text>
+									</View>
 								</View>
-								<View style={styles.syllabus}>
-									<Text style={styles.syllabusTitle}>课程大纲</Text>			
-									<HTML 
-										html={this.state.courseDetail.syllabus?
-										this.state.courseDetail.syllabus:'<p></p>'} />
-								</View>							
-							</View>
-						{/*</ScrollView>*/}
-					</View>
-					<View style={styles.commentPanel}>
-						<View style={styles.commentTitlePanel}>
-							<CommentTitle
-							    courseId={this.courseId}
-								navigation={this.props.navigation}
-								score={this.state.courseView.score?this.state.courseView.score: 0}/>
+								<View style={styles.introPanel}>						
+									<View style={styles.intro}>
+										<Text style={styles.introTitle}>课程概述</Text>
+										<HTML
+											html={this.state.courseDetail.intro?
+											this.state.courseDetail.intro.replace( /(<img.+?src=")(.*?)/, '$1'+ global_.main_url +'$2'):'<p></p>'} />
+								
+									</View>
+									<View style={styles.syllabus}>
+										<Text style={styles.syllabusTitle}>课程大纲</Text>			
+										<HTML 
+											html={this.state.courseDetail.syllabus?
+											this.state.courseDetail.syllabus:'<p></p>'} />
+									</View>							
+								</View>
+							{/*</ScrollView>*/}
 						</View>
-						<CommentView
-							courseId={this.courseId}
-							userId={this.userId}
-							data={this.state.commentData}
-							navigation={this.props.navigation}
-							onRefresh={(callback)=>{
-								this.page = 1;
-								this.stopRefresh = callback;
-								this.getComments();
-							}}
-							onEndReached={()=>{
-								if(this.state.commentData.length >= this.pageSize){
-									if(this.page < this.totalPage) {
-										this.page += 1;
-										this.getComments();
+						<View style={styles.commentPanel}>
+							<View style={styles.commentTitlePanel}>
+								<CommentTitle
+								    courseId={this.courseId}
+									navigation={this.props.navigation}
+									score={this.state.courseView.score?this.state.courseView.score: 0}/>
+							</View>
+							<CommentView
+								courseId={this.courseId}
+								userId={this.userId}
+								data={this.state.commentData}
+								navigation={this.props.navigation}
+								onRefresh={(callback)=>{
+									this.page = 1;
+									this.stopRefresh = callback;
+									this.getComments();
+								}}
+								onEndReached={()=>{
+									if(this.state.commentData.length >= this.pageSize){
+										if(this.page < this.totalPage) {
+											this.page += 1;
+											this.getComments();
+										}
 									}
-								}
-							}}
-							/>
-					</View>
-				</ScrollView>
+								}}
+								/>
+						</View>
+					</ScrollView>
 				</ScrollView>
 
 				<View style={styles.studyBtnView}>
