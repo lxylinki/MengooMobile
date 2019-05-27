@@ -19,11 +19,13 @@ import Iconfont from 'react-native-vector-icons/Iconfont';
 
 import LoginPage from '../../pages/login/LoginPage';
 
+import Pending from '../../pages/Pending';
+
 import MsgHome from '../../pages/message/MsgHome';
-import MsgDetail from '../../pages/message/MsgDetail';
+//import MsgDetail from '../../pages/message/MsgDetail';
 
 import FollowHome from '../../pages/follow/FollowHome';
-import FollowDetail from '../../pages/follow/FollowDetail';
+//import FollowDetail from '../../pages/follow/FollowDetail';
 
 import CourseHome from '../../pages/study/CourseHome';
 import CourseDetail from '../../pages/study/CourseDetail';
@@ -41,17 +43,17 @@ import CatagDetail from '../../pages/study/CatagDetail';
 
 
 import VidHome from '../../pages/vidstudy/VidHome';
-import VidDetail from '../../pages/vidstudy/VidDetail';
+//import VidDetail from '../../pages/vidstudy/VidDetail';
 
 import MineHome from '../../pages/mine/MineHome';
-import MineDetail from '../../pages/mine/MineDetail';
+//import MineDetail from '../../pages/mine/MineDetail';
 
 
 
 const msgStack = createStackNavigator(
 	{
-		MsgHome: MsgHome,
-		MsgDetail: MsgDetail
+		MsgHome: Pending,
+		//MsgDetail: MsgDetail
 	},
 	{
 		initialRouteName: 'MsgHome',
@@ -61,8 +63,8 @@ const msgStack = createStackNavigator(
 
 const followStack = createStackNavigator(
 	{
-		FollowHome: FollowHome,
-		FollowDetail: FollowDetail
+		FollowHome: Pending,
+		//FollowDetail: FollowDetail
 	},
 	{
 		initialRouteName: 'FollowHome',
@@ -83,7 +85,8 @@ const studyStack = createStackNavigator(
 		CourseExp: CourseExp,
 		CourseImage: CourseImage,
 		NoticeDetail: NoticeDetail,
-		CatagDetail: CatagDetail
+		CatagDetail: CatagDetail,
+		Pending: Pending
 	},
 	{
 		initialRouteName: 'CourseHome',
@@ -99,8 +102,8 @@ studyStack.navigationOptions = ({ navigation }) => {
 
 const vidstudyStack = createStackNavigator(
 	{
-		VidHome: VidHome,
-		VidDetail: VidDetail
+		VidHome: Pending,
+		//VidDetail: VidDetail
 	},
 	{
 		initialRouteName: 'VidHome',
@@ -111,8 +114,8 @@ const vidstudyStack = createStackNavigator(
 
 const mineStack = createStackNavigator(
 	{
-		MineHome: MineHome,
-		MineDetail: MineDetail
+		MineHome: Pending,
+		//MineDetail: MineDetail
 	},
 	{
 		initialRouteName: 'MineHome',

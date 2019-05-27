@@ -72,7 +72,7 @@ export default class ExamItem extends PureComponent {
 				</TouchableOpacity>
 
 				<Animated.View style={[styles.examNameBar, {height: this.secHeight}]}>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={()=>{this.props.navigation.navigate('Pending')}}>
 						<View style={styles.examName}>
 							<View style={[styles.iconBg, {backgroundColor: '#00caba'}]}>
 								<Iconfont style={styles.icon} name={'exam'} size={40} color={'white'}/>

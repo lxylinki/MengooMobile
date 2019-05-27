@@ -261,8 +261,14 @@ export default class CourseStruct extends Component {
                             courseId={this.courseId} 
                         />
 
-                        <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'skyblue'}}></View>
-                        <View style={{width: width, height: 1600, opacity: 0.5, backgroundColor: 'powderblue'}}></View>
+                        <View style={{width: width, height: 1600, alignItems:'center'}}>
+                            <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
+                            <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>
+                        </View>
+                        <View style={{width: width, height: 1600, alignItems: 'center'}}>
+                            <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
+                            <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>                        
+                        </View>
                     </ScrollView>
                 </ScrollView>
 			</View>
@@ -345,5 +351,14 @@ let styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white'
+    },
+    pendingImage: {
+        width: 200,
+    },
+
+    pendingText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#ddd'
     }
 });
