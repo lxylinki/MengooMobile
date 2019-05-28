@@ -389,7 +389,8 @@ let styles = StyleSheet.create({
 
 	commentTitlePanel: {
 		height: 100,
-		borderBottomWidth: 0.1
+		borderBottomWidth: 0.3,
+		borderBottomColor: '#ddd'
 	},
 
 	titlePanel: {

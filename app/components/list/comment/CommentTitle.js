@@ -56,7 +56,7 @@ export default class CommentTitle extends Component {
 let styles = StyleSheet.create({
 	rootView: {
 		flexDirection: 'row',
-		padding: 10
+		padding: 10,
 	},
 
 	scoreTitle: {
