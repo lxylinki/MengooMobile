@@ -15,8 +15,9 @@ export default class CommentTitle extends Component {
 				<View style={styles.scoreView}>
 					<Text style={styles.scoreTitle}>课程评价</Text>
 					<View style={styles.scoreLine}>
-						<Text style={styles.ratingTitle}>{this.props.score + '分'}</Text>
-						<View>
+						<Text style={styles.ratingTitle}>{Number(this.props.score).toFixed(1)}</Text>
+						<Text style={styles.ratingUnit}>{'分'}</Text>
+						<View style={styles.ratingStars}>
 							<View style={styles.ratingBg}>
 								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
 								<FontAwesome name={'star'} style={styles.star} size={15} color={'#ddd'}/>
@@ -65,7 +66,7 @@ let styles = StyleSheet.create({
 
 	scoreLine: {
 		flexDirection: 'row',
-		alignItems: 'baseline',
+		alignItems: 'center',
 		marginTop: 30
 	},
 
@@ -98,20 +99,35 @@ let styles = StyleSheet.create({
 		flexDirection: 'row',
 		overflow: 'hidden',
 		position: 'absolute',
-		left: 45,
-		top: 3
+		left: 50,
+		top: -5
 	},
 
 	ratingTitle: {
-		color: '#c9151e',
+		color: '#3296fa',
 		position: 'absolute',
+		fontWeight: 'bold',
+		fontSize: 24,
+		bottom: -15,
+		textAlign: 'right'
+	},
+
+	ratingUnit: {
+		color: '#3296fa',
+		position: 'absolute',
+		left: 35,
+		fontWeight: 'bold',
 		fontSize: 16
+	},
+
+	ratingStars: {
+		marginLeft: 10
 	},
 
 	ratingBg: {
 		flexDirection: 'row',
 		position: 'absolute',
-		left: 45,
-		top: 3
+		left: 50,
+		top: -5
 	},
 });

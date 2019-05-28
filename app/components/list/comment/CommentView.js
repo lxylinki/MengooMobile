@@ -69,7 +69,7 @@ let styles = StyleSheet.create({
 	},
 
 	separatorLine: {
-		height: 0.5,
-		backgroundColor: 'gray',
+		height: 0.1,
+		backgroundColor: '#ddd',
 	}
 });

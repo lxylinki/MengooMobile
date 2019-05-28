@@ -234,6 +234,7 @@ class CourseDetail extends Component {
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
+
 						<View style={styles.detailPanel}>
 							{/*<ScrollView>*/}
 								<View style={styles.titlePanel}>
@@ -265,6 +266,7 @@ class CourseDetail extends Component {
 								</View>
 							{/*</ScrollView>*/}
 						</View>
+
 						<View style={styles.commentPanel}>
 							<View style={styles.commentTitlePanel}>
 								<CommentTitle
@@ -364,7 +366,7 @@ let styles = StyleSheet.create({
 		alignItems: 'baseline',
 		justifyContent: 'center',
 		zIndex: 10,
-		backgroundColor: 'white',
+		backgroundColor: '#f5f6fa',
 		position: 'absolute'
 	},
 
@@ -377,7 +379,8 @@ let styles = StyleSheet.create({
 	// },
 
 	detailPanel: {
-		width: width
+		width: width,
+		overflow: 'hidden'
 	},
 
 	commentPanel: {
@@ -386,15 +389,14 @@ let styles = StyleSheet.create({
 
 	commentTitlePanel: {
 		height: 100,
-		borderTopWidth: 0.3,
-		borderBottomWidth: 0.3
+		borderBottomWidth: 0.1
 	},
 
 	titlePanel: {
 		flex: 1,
-		borderTopWidth: 0.3,
-		borderBottomWidth: 0.3,
-		//borderBottomColor: '#ddd',
+		//borderTopWidth: 0.3,
+		borderBottomWidth: 10,
+		borderBottomColor: '#f5f6fa',
 		padding: 10
 	},
 
@@ -446,11 +448,11 @@ let styles = StyleSheet.create({
 
 	studyBtnView: {
 		height: 70,
+		width: width,
 		flexDirection: 'row',
 		backgroundColor: 'white',
 		justifyContent: 'center',
-		alignItems: 'baseline',
-		borderTopWidth: 0.3
+		alignItems: 'baseline'
 	},
 
 	studyBtn: {
