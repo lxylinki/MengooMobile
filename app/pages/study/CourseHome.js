@@ -40,10 +40,31 @@ export default class CourseHome extends Component {
 			courseData: [],
 			catagData: [],
 			scrollY: new Animated.Value(0),
+			scrollable: true,
 			//bottomHeight: new Animated.Value(this.height),
 		}
 	}
 
+	componentWillMount(){
+		this._panResponder = PanResponder.create({
+			onStartShouldSetPanResponder: (evt, gestureState) => true,
+			onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+			onMoveShouldSetPanResponder: (evt, gestureState) => true,
+			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+			onPanResponderMove: (evt, gestureState) => {
+				//console.log('dy:', gestureState.dy);
+				if(gestureState.dy > 0 && this.state.scrollYVal <= 0) {
+					this.setState({
+						scrollable: false
+					});
+				} else {
+					this.setState({
+						scrollable: true
+					})
+				}
+			}
+		});
+	}
 
 	componentDidMount(){
 		this.getCourseData();
@@ -114,12 +135,17 @@ export default class CourseHome extends Component {
 				} 
 			}],
 		)(event);
+
+		this.setState({
+			scrollYVal: event.nativeEvent.contentOffset.y
+		});
 	};
 
 	render(){
 		let { bottomHeight, bottomTop } = this.state;
 		return(
-			<View style={styles.rootView}>		
+			<View 
+				style={styles.rootView}>		
 				<Header style={styles.headerView} />
 				<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
 						
@@ -161,7 +187,8 @@ export default class CourseHome extends Component {
 				
 				<ScrollView 
 					style={[styles.bottomView]}
-					onScroll={this.scrollPage}>
+					onScroll={this.scrollPage}
+					scrollEnabled={this.state.scrollable}>
 
 					<View style={styles.searchBadges}>
 						<Text>热搜</Text>
@@ -195,7 +222,7 @@ export default class CourseHome extends Component {
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}
-						//{...this._panResponder.panHandlers}
+						{...this._panResponder.panHandlers}
 					>
 
 						<CourseView 
