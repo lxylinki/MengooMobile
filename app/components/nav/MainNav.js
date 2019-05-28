@@ -18,6 +18,7 @@ import Iconfont from 'react-native-vector-icons/Iconfont';
 
 
 import LoginPage from '../../pages/login/LoginPage';
+import Preface from '../../pages/login/Preface';
 
 import Pending from '../../pages/Pending';
 
@@ -123,6 +124,18 @@ const mineStack = createStackNavigator(
 	}
 );
 
+
+const loginStack = createStackNavigator(
+	{
+		LoginPage: LoginPage,
+		Preface: Preface
+	},
+	{
+		initialRouteName: 'Preface',
+		headerMode: 'none'
+	}
+);
+
 const getTabBarIcon = (navigation, focused, tintColor) => {
 	const { routeName } = navigation.state;
 	let iconName;
@@ -206,7 +219,7 @@ const tabStack = createBottomTabNavigator(
 
 const AppNavigator = createSwitchNavigator(
 	{
-		Login: LoginPage,
+		Login: loginStack,
 		Tab: tabStack
 	},
 	{
