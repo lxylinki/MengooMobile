@@ -239,8 +239,8 @@ export default class MainNav extends Component {
 
 let styles = StyleSheet.create({
 	homeIcon: {
-		width: 45,
-		height: 45,
+		width: 40,
+		height: 40,
 		position: 'absolute',
 		top: 8
 	}

@@ -7,14 +7,17 @@ import {
 	Dimensions
 } from 'react-native';
 
+import Orientation from 'react-native-orientation';
+
 var {height, width} = Dimensions.get('window');
 
 export default class Preface extends Component {
     //加载计时器
     componentDidMount(){
+    	Orientation.lockToPortrait();
         this.timer = setTimeout(()=>{
             this.props.navigation.navigate('LoginPage');
-        }, 5000);
+        }, 3000);
     }
 
     //卸载计时器

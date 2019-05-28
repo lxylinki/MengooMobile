@@ -40,8 +40,7 @@ export default class CourseHome extends Component {
 			courseData: [],
 			catagData: [],
 			scrollY: new Animated.Value(0),
-			scrollable: true,
-			//bottomHeight: new Animated.Value(this.height),
+			scrollable: true
 		}
 	}
 
@@ -52,8 +51,8 @@ export default class CourseHome extends Component {
 			onMoveShouldSetPanResponder: (evt, gestureState) => true,
 			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 			onPanResponderMove: (evt, gestureState) => {
-				//console.log('dy:', gestureState.dy);
-				if(gestureState.dy > 0 && this.state.scrollYVal <= 0) {
+				//console.log('dy:', gestureState.dy, this.state.scrollY._value);
+				if(gestureState.dy > 0 && this.state.scrollY._value <= 0) {
 					this.setState({
 						scrollable: false
 					});
@@ -136,9 +135,9 @@ export default class CourseHome extends Component {
 			}],
 		)(event);
 
-		this.setState({
-			scrollYVal: event.nativeEvent.contentOffset.y
-		});
+		// this.setState({
+		// 	scrollYVal: event.nativeEvent.contentOffset.y
+		// });
 	};
 
 	render(){
