@@ -60,7 +60,7 @@ class LoginPage extends Component {
 
 			if(resp.status===200||resp.status===201||resp.status===204) {
 				let respJson = await resp.json();
-				//console.log(respJson);
+				console.log(respJson);
 				//Storage.save('user_info', respJson);
 				this.props.setVal(respJson);
 				//this.props.dispatch(setVal(respJson));

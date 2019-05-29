@@ -115,7 +115,7 @@ const vidstudyStack = createStackNavigator(
 
 const mineStack = createStackNavigator(
 	{
-		MineHome: Pending,
+		MineHome: MineHome,
 		//MineDetail: MineDetail
 	},
 	{
