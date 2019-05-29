@@ -12,6 +12,8 @@ import {
 import { connect } from 'react-redux';
 import global_ from '../../common/Global';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import LinearGradient from 'react-native-linear-gradient';
+import Iconfont from 'react-native-vector-icons/Iconfont';
 
 var {height, width} = Dimensions.get('window');
 
@@ -49,7 +51,64 @@ class MineHome extends Component {
 						</TouchableOpacity>
 					</View>
 
+					<View style={styles.creditView}>
+						<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#fec532', '#fca130']} style={styles.creditBanner}>
+							<Iconfont name={'credits'} size={30} color={'white'} />
+							<Text style={styles.creditText}>{'学习积分'}</Text>
+							<Text style={styles.creditText}>{'105'}</Text>
+						</LinearGradient>
+					</View>
 
+				</View>
+
+				<View style={styles.studyView}>
+					<View style={styles.studyTitle}>
+						<View style={styles.decor}></View>
+						<Text style={styles.studyTitleText}>{'我的学习'}</Text>	
+					</View>
+					<View style={styles.studyBtns}>
+						<TouchableOpacity style={styles.studyBtn}>
+							<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-course.png')}/>
+							<Text style={styles.studyBtnText}>{'我的课程'}</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.studyBtn}>
+							<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-exam.png')}/>
+							<Text style={styles.studyBtnText}>{'我的考试'}</Text>							
+						</TouchableOpacity>		
+						<TouchableOpacity style={styles.studyBtn}>
+							<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/moral-stats.png')}/>
+							<Text style={styles.studyBtnText}>{'德育统计'}</Text>							
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.studyBtn}>
+							<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/exp-report.png')}/>
+							<Text style={styles.studyBtnText}>{'实验报告'}</Text>							
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.studyBtn}>
+							<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-discuss.png')}/>
+							<Text style={styles.studyBtnText}>{'我的讨论'}</Text>							
+						</TouchableOpacity>				
+					</View>
+				</View>
+
+				<View style={styles.sysOpView}>
+					<View style={styles.studyTitle}>
+						<View style={styles.decor}></View>
+						<Text style={styles.studyTitleText}>{'系统操作'}</Text>
+					</View>		
+					<View style={styles.sysOpBtns}>
+						<TouchableOpacity style={styles.feedbackBtn}>
+							<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={['#50a7dd', '#4fbbe9']} style={styles.sysOpBtnIcon}>
+								<Iconfont name={'feedback'} size={35} color={'white'} />
+							</LinearGradient>
+							<Text style={styles.studyBtnText}>{'建议反馈'}</Text>		
+						</TouchableOpacity>		
+						<TouchableOpacity style={styles.usageBtn}>
+							<LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={['#3bcb51', '#4ddc60']} style={styles.sysOpBtnIcon}>
+								<Iconfont name={'usage'} size={35} color={'white'} />
+							</LinearGradient>
+							<Text style={styles.studyBtnText}>{'使用手册'}</Text>		
+						</TouchableOpacity>			
+					</View>
 				</View>
 			</View>
 		);
@@ -68,6 +127,7 @@ let styles = StyleSheet.create({
 	rootView: { 
 		flex: 1, 
 		alignItems: 'center', 
+		backgroundColor: '#f5f6fa',
 		//justifyContent: 'center'
 	},
 
@@ -114,5 +174,99 @@ let styles = StyleSheet.create({
 		fontSize: 18,
 		color: 'white',
 		bottom: 10
+	},
+
+	creditView: {
+		flex: 1,
+		flexDirection: 'row-reverse',
+		alignItems: 'center',
+	},
+
+	creditBanner: {
+		width: 140,
+		height: 40,
+		//backgroundColor: 'yellow',
+		top: 40,
+		borderTopLeftRadius: 20,
+		borderBottomLeftRadius: 20,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-around'
+	},
+
+	creditText: {
+		color: 'white',
+		fontSize: 16
+	},
+
+	studyView: {
+		backgroundColor: 'white',
+		width: width*0.95,
+		height: 160,
+		margin: 10,
+		padding: 10
+	},
+	studyTitle: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	decor: {
+		width: 3,
+		height: 20,
+		backgroundColor: '#c9151e',
+		marginRight: 10
+	},
+	studyTitleText: {
+		fontSize: 18,
+		fontWeight: 'bold'
+	},
+	studyBtns: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		marginTop: 30
+	},
+
+	studyBtn: {
+		alignItems: 'center'
+	},
+	studyBtnIcon: {
+		width: 25,
+		height: 25
+	},
+
+	studyBtnText: {
+		fontSize: 14,
+		marginTop: 10
+	},
+
+	sysOpView: {
+		backgroundColor: 'white',
+		width: width*0.95,
+		height: 160,
+		margin: 10,
+		padding: 10
+	},
+
+	sysOpBtns: {
+		flexDirection: 'row',
+		marginTop: 30
+	},
+
+	sysOpBtnIcon: {
+		width: 35,
+		height: 35,
+		borderRadius: 18,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+
+	feedbackBtn: {
+		alignItems: 'center',
+		marginLeft: 10
+	},
+
+	usageBtn: {
+		alignItems: 'center',
+		marginLeft: 20	
 	}
 });
