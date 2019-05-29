@@ -157,6 +157,7 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 	} else if (routeName === 'follow') {
 		iconName = `follow${focused ? '' : ''}`;
 		return <Iconfont name={iconName} size={30} color={tintColor} />;
+		
 	} else if (routeName === 'vidstudy') {
 		iconName = `vidstudy${focused ? '' : ''}`;
 		return <Iconfont name={iconName} size={30} color={tintColor} />;		
