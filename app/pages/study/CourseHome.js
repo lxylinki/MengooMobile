@@ -141,7 +141,6 @@ export default class CourseHome extends Component {
 	};
 
 	render(){
-		let { bottomHeight, bottomTop } = this.state;
 		return(
 			<View 
 				style={styles.rootView}>		

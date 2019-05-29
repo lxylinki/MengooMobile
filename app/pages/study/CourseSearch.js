@@ -85,7 +85,7 @@ export default class CourseSearch extends Component {
 						text={'取消'} 
 						if_active={false} 
 						action={()=>{
-							this.props.navigation.navigate('CourseHome');
+							this.props.navigation.goBack();
 						}}/>
 				</View>
 

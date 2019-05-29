@@ -22,6 +22,7 @@ class MineHome extends Component {
 	getAvatarUrl(avatarUrl, size=100){
 		return avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
 	}
+
 	render(){
 		let avatar = this.getAvatarUrl(this.props.avatar);
 		return(
@@ -67,7 +68,9 @@ class MineHome extends Component {
 						<Text style={styles.studyTitleText}>{'我的学习'}</Text>	
 					</View>
 					<View style={styles.studyBtns}>
-						<TouchableOpacity style={styles.studyBtn}>
+						<TouchableOpacity 
+							style={styles.studyBtn}
+							onPress={()=>{this.props.navigation.navigate('MyCourse');}}>
 							<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-course.png')}/>
 							<Text style={styles.studyBtnText}>{'我的课程'}</Text>
 						</TouchableOpacity>

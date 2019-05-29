@@ -17,7 +17,7 @@ export default class Preface extends Component {
     	Orientation.lockToPortrait();
         this.timer = setTimeout(()=>{
             this.props.navigation.navigate('LoginPage');
-        }, 3000);
+        }, 2000);
     }
 
     //卸载计时器

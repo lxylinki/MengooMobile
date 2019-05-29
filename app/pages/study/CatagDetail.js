@@ -144,7 +144,6 @@ export default class CatagDetail extends Component {
 			if(this.stopRefresh) {
 				this.stopRefresh();
 			}
-
 			callback(resp);
 		}, this.state.condition);
 	}
