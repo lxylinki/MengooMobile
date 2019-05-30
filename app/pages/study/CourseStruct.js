@@ -111,7 +111,7 @@ export default class CourseStruct extends Component {
 
 
     scrollPage = (event)=> {
-        console.log('scrollPage');
+        //console.log('scrollPage');
         if(event.nativeEvent.contentOffset.y > 90) {
             this.setState({
                 showHeadBanner: true

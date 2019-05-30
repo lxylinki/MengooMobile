@@ -36,12 +36,14 @@ class CourseDetail extends Component {
 			commentData: [],
 			showHeadBanner: false,
 			scrollY: new Animated.Value(0),
+			scrollHeight: 0
 		}
 		this.utils = new Utils();
 		this.page = 1;
 		this.pageSize = 5;
 		this.totalPage = 0;
 		this.userId = this.props.user_id;
+		this.contentHeight = 0;
 	}
 
 	componentDidMount(){
@@ -138,10 +140,16 @@ class CourseDetail extends Component {
 		let index = Math.round(param.nativeEvent.contentOffset.x/width);
 		switch(index) {
 			case 0:
+				this.setState({
+					scrollHeight: this.contentHeight
+				});
 				this.refs.detailBtn.setState({active: true});
 				this.refs.commentBtn.setState({active: false});
 				break;
 			case 1:
+				this.setState({
+					scrollHeight: this.state.commentData.length*100 + 200
+				});
 				this.refs.detailBtn.setState({active: false});
 				this.refs.commentBtn.setState({active: true});
 				break;
@@ -167,6 +175,13 @@ class CourseDetail extends Component {
 				} 
 			}],
 		)(event);
+	};
+
+	layout=(e)=>{
+		if(e.layout.height >= this.contentHeight) {
+			this.contentHeight = e.layout.height;
+			//console.log('contentHeight:', this.contentHeight);
+		}
 	};
 
 	render(){
@@ -202,6 +217,9 @@ class CourseDetail extends Component {
 						ref={'detailBtn'}
 						if_active={true}
 						action={()=>{
+							this.setState({
+								scrollHeight: this.contentHeight
+							});
 							this.refs.detailBtn.setState({active: true});
 							this.refs.commentBtn.setState({active: false});
 							this.refs.pageScroll.scrollTo({x:0*width, animated:true});
@@ -214,6 +232,9 @@ class CourseDetail extends Component {
 						ref={'commentBtn'}
 						if_active={false}
 						action={()=>{
+							this.setState({
+								scrollHeight: this.state.commentData.length*100 + 200
+							});
 							this.refs.detailBtn.setState({active: false});
 							this.refs.commentBtn.setState({active: true});
 							this.refs.pageScroll.scrollTo({x:1*width, animated:true});							
@@ -229,13 +250,13 @@ class CourseDetail extends Component {
 						source={{uri: global_.url_prefix + this.state.courseView.img}} />
 
 					<ScrollView 
-						style={styles.scroll}
+						style={[styles.scroll, this.state.scrollHeight>0? {height: this.state.scrollHeight}: {}]}
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}>
 
-						<View style={styles.detailPanel}>
+						<View style={styles.detailPanel} onLayout={({nativeEvent:e})=>this.layout(e)}>
 							{/*<ScrollView>*/}
 								<View style={styles.titlePanel}>
 									<Text style={styles.courseTitle}>{this.state.courseView.name}</Text>
@@ -394,11 +415,12 @@ let styles = StyleSheet.create({
 	},
 
 	titlePanel: {
-		flex: 1,
+		height: 120,
 		//borderTopWidth: 0.3,
 		borderBottomWidth: 10,
 		borderBottomColor: '#f5f6fa',
-		padding: 10
+		padding: 10,
+
 	},
 
 	courseTitle: {
