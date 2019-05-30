@@ -55,7 +55,7 @@ let styles = StyleSheet.create({
 
 	text: {
 		fontSize: 16,
-		fontWeight: 'bold',
+		//fontWeight: 'bold',
 		color: '#999',
 		position: 'absolute',
 		bottom: 50

@@ -137,7 +137,8 @@ let styles = StyleSheet.create({
 
 	inp: {
 		flexDirection: 'row',
-		alignItems: 'baseline'
+		alignItems: 'baseline',
+		justifyContent: 'space-around'
 	},
 
 	headerView: {
@@ -160,8 +161,7 @@ let styles = StyleSheet.create({
 
 	cancel: {
 		width: 40,
-		height: 30,
-		margin: 0
+		height: 30
 	},
 
 	cancelText: {

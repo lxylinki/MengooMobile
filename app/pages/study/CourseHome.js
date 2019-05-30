@@ -40,7 +40,8 @@ export default class CourseHome extends Component {
 			courseData: [],
 			catagData: [],
 			scrollY: new Animated.Value(0),
-			scrollable: true
+			scrollable: true,
+			scrollHeight: 0
 		}
 	}
 
@@ -115,10 +116,17 @@ export default class CourseHome extends Component {
 		let index = Math.round(param.nativeEvent.contentOffset.x/width);
 		switch(index) {
 			case 0:
+				this.setState({
+					scrollHeight: this.state.courseData.length*120
+				});
 				this.refs.courseBtn.setState({active: true});
 				this.refs.catagBtn.setState({active: false});
 				break;
 			case 1:
+				this.setState({
+					scrollHeight: this.state.catagData.length*90
+				});
+
 				this.refs.courseBtn.setState({active: false});
 				this.refs.catagBtn.setState({active: true});
 				break;
@@ -146,8 +154,6 @@ export default class CourseHome extends Component {
 				style={styles.rootView}>		
 				<Header style={styles.headerView} />
 				<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
-						
-
 				<Animated.View style={[styles.indexBtns, {
 					top: this.state.scrollY.interpolate({
 							inputRange: [-1, 0, 10, 50, 150, 170, 180],
@@ -162,6 +168,9 @@ export default class CourseHome extends Component {
 						ref={'courseBtn'}
 						if_active={true}
 						action={()=>{
+							this.setState({
+								scrollHeight: this.state.courseData.length*120
+							});
 							this.refs.courseBtn.setState({active: true});
 							this.refs.catagBtn.setState({active: false});
 							this.refs.pageScroll.scrollTo({x:0*width, animated:true});
@@ -175,6 +184,9 @@ export default class CourseHome extends Component {
 						ref={'catagBtn'}
 						if_active={false}
 						action={()=>{
+							this.setState({
+								scrollHeight: this.state.catagData.length*90
+							});
 							this.refs.courseBtn.setState({active: false});
 							this.refs.catagBtn.setState({active: true});
 							this.refs.pageScroll.scrollTo({x:1*width, animated:true});
@@ -215,7 +227,7 @@ export default class CourseHome extends Component {
 					<HomeSwiper style={styles.swiper}/>
 
 					<ScrollView
-						style={styles.bottomScroll}
+						style={[styles.bottomScroll, this.state.scrollHeight>0? {height: this.state.scrollHeight}: {}]}
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
@@ -259,10 +271,12 @@ let styles = StyleSheet.create({
 	rootView: { 
 		flex: 1,
 		backgroundColor: '#f5f6fa',
+		alignItems: 'center'
 	},
 
 	headerView: {
-		height: 70
+		height: 70,
+		width: width
 	},
 
 	swiper: {

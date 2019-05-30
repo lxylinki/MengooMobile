@@ -38,7 +38,8 @@ let styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: 'white',
 		marginLeft: 10,
-		marginRight: 10
+		marginRight: 10,
+		height: 80
 	},
 	
 	leftIcon: {
