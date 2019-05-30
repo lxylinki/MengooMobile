@@ -5,13 +5,16 @@ import {
 	Text,
 	TouchableOpacity,
 	Dimensions,
-	ScrollView
+	ScrollView,
+    Image
 } from 'react-native';
 
 import TitleHeader from '../../components/head/TitleHeader';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import LineBtn from '../../components/button/LineBtn';
+import CourseView from '../../components/list/course/CourseView';
+import Utils from '../../common/Utils';
 
 
 
@@ -20,10 +23,45 @@ var {height, width} = Dimensions.get('window');
 export default class MyCourse extends Component {
 	constructor(props) {
 		super(props);
+        this.page = [1, 1, 1, 1];
+        this.pageSize = 5;
+        this.totalPage = [0, 0, 0, 0];
+        this.utils = new Utils();
 		this.state = {
-			pageTitle: '我的课程'
+			pageTitle: '我的课程',
+            myCourseData: [],
+            myRecordData: []
 		}
 	}
+
+    getMyCourseData(){
+        this.utils.getMyCourseList(this.page[0], this.pageSize, (resp)=> {
+            console.log(this.page[0], resp);
+            if(this.totalPage[0] === 0 && resp.total_page > 0) {
+                this.totalPage[0] = resp.total_page;
+            } 
+
+            if(this.page[0] === 1) {
+                this.setState({
+                    myCourseData: resp._list
+                });
+            } else {
+                this.setState({
+                    myCourseData: this.state.myCourseData.concat(resp._list)
+                });
+            }
+
+            if(this.stopRefresh) {
+                this.stopRefresh();
+            }
+        });
+    }
+
+
+
+    componentDidMount(){
+        this.getMyCourseData();
+    }
 
     scrollEnd = (param)=> {
         let index = Math.round(param.nativeEvent.contentOffset.x/width);
@@ -156,10 +194,38 @@ export default class MyCourse extends Component {
                     pagingEnabled={true}
                     horizontal={true}
                     onMomentumScrollEnd={this.scrollEnd}>
-                    <View style={{width: width, height: 1600, backgroundColor: 'pink'}}></View>
-                    <View style={{width: width, height: 1600, backgroundColor: 'yellowgreen'}}></View>
-                    <View style={{width: width, height: 1600, backgroundColor: 'skyblue'}}></View>
-                    <View style={{width: width, height: 1600, backgroundColor: 'powderblue'}}></View>
+
+                    <CourseView 
+                        hasSkeleton={true}
+                        navigation={this.props.navigation}
+                        data={this.state.myCourseData} 
+                        onEndReached={()=>{
+                            if(this.state.myCourseData.length>=this.pageSize) {
+                                if(this.page[0] < this.totalPage[0]) {
+                                    this.page[0] += 1;                                     
+                                    this.getMyCourseData();
+                                }
+                            }
+                        }} 
+                        onRefresh={(callback)=>{
+                            this.page[0] = 1;
+                            this.stopRefresh = callback;
+                            this.getMyCourseData();
+                        }}
+                    />
+
+                    <View style={{width: width, height: 1600, alignItems:'center'}}>
+                        <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
+                        <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>
+                    </View>
+                    <View style={{width: width, height: 1600, alignItems: 'center'}}>
+                        <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
+                        <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>                        
+                    </View>
+                    <View style={{width: width, height: 1600, alignItems: 'center'}}>
+                        <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
+                        <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>                        
+                    </View>
                 </ScrollView>
 
 			</View>
@@ -197,6 +263,7 @@ let styles = StyleSheet.create({
         alignItems: 'baseline',
         justifyContent: 'center',
         backgroundColor: 'white',
+        padding: 10
     },
 
     indexBtn: {
@@ -208,5 +275,13 @@ let styles = StyleSheet.create({
     indexBtnText: {
         fontSize: 16
     },
+    pendingImage: {
+        width: 200,
+    },
 
+    pendingText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#ddd'
+    }
 });

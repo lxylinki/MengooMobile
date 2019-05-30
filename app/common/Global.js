@@ -27,6 +27,7 @@ const course_load = url_prefix + 'resources/resource/load/';
 const course_notice = url_prefix + 'course/notice/list';
 
 const my_course_list = url_prefix + 'course/course/my-list';
+const my_learn_list = url_prefix + 'course/struct/learn-list';
 
 const super_admin_group = 0;
 const school_admin_group = 1;
@@ -66,5 +67,6 @@ export default {
 
 	course_notice,
 	
-	my_course_list
+	my_course_list,
+	my_learn_list
 }

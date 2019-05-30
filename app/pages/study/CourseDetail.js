@@ -263,10 +263,13 @@ class CourseDetail extends Component {
 									<View style={styles.teacherList}>
 										{this.listTeachers()}
 									</View>
-									<View>
+									<View style={styles.studyInfo}>
 										<Text style={styles.suggestTime}>
 											建议学习时长：
 											{(stime.D?(stime.D+'天'):'')+(stime.h?(stime.h+'小时'):'')+(stime.m?(stime.m+'分'):'')}
+										</Text>
+										<Text style={this.state.courseView.learn_count?styles.learnCount:{display: 'none'}}>
+											{'已学习：' + this.state.courseView.learn_count + '次'}
 										</Text>
 									</View>
 								</View>
@@ -335,9 +338,6 @@ class CourseDetail extends Component {
 									img_src:  global_.url_prefix + this.state.courseView.img
 								});
 						}}/>
-					<Text style={this.state.courseView.learn_count?styles.learnCount:{display: 'none'}}>
-						{'已学习：' + this.state.courseView.learn_count + '次'}
-					</Text>
 				</View>
 			</View>			
 		);
@@ -443,6 +443,7 @@ let styles = StyleSheet.create({
 	},
 
 	suggestTime: {
+		color:'#4da4fb'
 	},
 
 	introPanel: {
@@ -479,7 +480,7 @@ let styles = StyleSheet.create({
 	},
 
 	studyBtn: {
-		width: 240,
+		width: 280,
 		height: 45
 	},
 
@@ -492,5 +493,14 @@ let styles = StyleSheet.create({
 
 	indexBtnText: {
 		fontSize: 16
+	},
+
+	studyInfo: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+
+	learnCount: {
+		color: '#4da4fb'
 	}
 });

@@ -297,7 +297,7 @@ let styles = StyleSheet.create({
 	searchBadges: {
 		flexDirection: 'row',
 		alignItems: 'baseline',
-		width: 380,
+		width: 340,
 		height: 40,
 		marginLeft: 10
 	},

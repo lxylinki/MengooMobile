@@ -279,4 +279,14 @@ export default class Utils {
 		};
 		this.fetchRoutine(api, data, respProc);
 	}
+
+	getMyCourseList(page, pageSize, respProc){
+		let api = global_.my_course_list
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;	
+
+		this.fetchRoutine(api, {}, respProc);
+	}
 }

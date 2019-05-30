@@ -72,7 +72,7 @@ class MineHome extends Component {
 						<View style={styles.studyBtns}>
 							<TouchableOpacity 
 								style={styles.studyBtn}
-								//onPress={()=>{this.props.navigation.navigate('MyCourse');}}
+								onPress={()=>{this.props.navigation.navigate('MyCourse');}}
 								>
 								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-course.png')}/>
 								<Text style={styles.studyBtnText}>{'我的课程'}</Text>
@@ -234,7 +234,7 @@ let styles = StyleSheet.create({
 
 	studyBtn: {
 		alignItems: 'center',
-		margin: 18,
+		margin: width/30,
 	},
 	studyBtnIcon: {
 		width: 25,
@@ -269,7 +269,7 @@ let styles = StyleSheet.create({
 
 	feedbackBtn: {
 		alignItems: 'center',
-		marginLeft: 10
+		marginLeft: 15
 	},
 
 	usageBtn: {

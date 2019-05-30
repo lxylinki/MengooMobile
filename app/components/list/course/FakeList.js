@@ -4,26 +4,28 @@ import Placeholder, { Line, Media } from "rn-placeholder";
 
 
 export default class FakeList extends Component {
+	genHolders(num){
+		let holders = [];
+		for(let i=0; i<num; i++) {
+			holders.push(
+				<Placeholder
+					key={i}
+					animation="fade"
+					renderLeft={() => <Media style={styles.circle}/>}
+					renderRight={() => <Media style={styles.square}/>}
+				>
+					<Line style={styles.upperLine} width="70%" />
+					<Line style={styles.bottomLine} width="30%" />
+				</Placeholder>
+			)
+		}
+		return holders;
+	}
+
 	render(){
 		return (
 			<View style={this.props.style}>
-				<Placeholder
-					animation="fade"
-					renderLeft={() => <Media style={styles.circle}/>}
-					renderRight={() => <Media style={styles.square}/>}
-				>
-					<Line style={styles.upperLine} width="70%" />
-					<Line style={styles.bottomLine} width="30%" />
-				</Placeholder>
-
-				<Placeholder
-					animation="fade"
-					renderLeft={() => <Media style={styles.circle}/>}
-					renderRight={() => <Media style={styles.square}/>}
-				>
-					<Line style={styles.upperLine} width="70%" />
-					<Line style={styles.bottomLine} width="30%" />
-				</Placeholder>
+				{this.genHolders(4)}
 			</View>
 		);
 	}
