@@ -66,7 +66,7 @@ export default class MyCourse extends Component {
 
     getMyRecordData(){
         this.utils.getMyLearnList(this.page[1], this.pageSize, (resp)=> {
-            console.log(this.page[1], resp);
+            //console.log(this.page[1], resp);
             if(this.totalPage[1] === 0 && resp.total_page > 0) {
                 this.totalPage[1] = resp.total_page;
             }

@@ -43,7 +43,8 @@ class MineHome extends Component {
 					<View style={styles.infoView}>
 						<Text style={styles.nameText}>{this.props.realname}</Text>
 						<TouchableOpacity
-							style={styles.infoBtn}>
+							style={styles.infoBtn}
+							onPress={()=>{this.props.navigation.navigate('MyInfo', {});}}>
 							<Text style={styles.infoBtnText}>{'个人信息'}</Text>
 							<AntDesign
 								//style={styles.rightIcon} 

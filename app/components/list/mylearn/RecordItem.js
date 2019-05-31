@@ -41,7 +41,7 @@ export default class CourseItem extends PureComponent {
 				return 'discuss';
 				break;
 			case '8':
-				return 'report';
+				return 'expreport';
 				break;
 		}
 	}
@@ -70,7 +70,7 @@ export default class CourseItem extends PureComponent {
 						}>
 						<Text style={styles.btnText}>{'继续学习'}</Text>
 						<AntDesign
-							style={styles.rightIcon} 
+							//style={styles.rightIcon} 
 							size={10}
 							color={'#c9151e'}
 							name={'right'}/>

@@ -48,6 +48,7 @@ import VidHome from '../../pages/vidstudy/VidHome';
 
 import MineHome from '../../pages/mine/MineHome';
 import MyCourse from '../../pages/mine/MyCourse';
+import MyInfo from '../../pages/mine/MyInfo';
 
 
 
@@ -118,6 +119,7 @@ const mineStack = createStackNavigator(
 		MineHome: MineHome,
 		MyCourse: MyCourse,
 		CourseSearch: CourseSearch,
+		MyInfo: MyInfo
 	},
 	{
 		initialRouteName: 'MineHome',

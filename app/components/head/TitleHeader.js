@@ -9,8 +9,8 @@ import {
 export default class TitleHeader extends Component {
 	render(){
 		return (
-			<View style={[this.props.style, styles.headerBar]}>
-				<Text style={styles.headerText}>{this.props.title}</Text>
+			<View style={[styles.headerBar, this.props.style]}>
+				<Text style={[styles.headerText, this.props.textStyle]}>{this.props.title}</Text>
 			</View>
 		);
 	}
