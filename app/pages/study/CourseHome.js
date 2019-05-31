@@ -237,6 +237,7 @@ export default class CourseHome extends Component {
 
 						<CourseView 
 							hasSkeleton={true}
+							fakeLen={5}
 							navigation={this.props.navigation}
 							data={this.state.courseData} 
 							onEndReached={()=>{
@@ -332,5 +333,4 @@ let styles = StyleSheet.create({
 	bottomScroll: {
 		marginTop: 55
 	}
-
 });

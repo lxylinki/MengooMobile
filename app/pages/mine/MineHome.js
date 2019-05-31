@@ -46,7 +46,7 @@ class MineHome extends Component {
 							style={styles.infoBtn}>
 							<Text style={styles.infoBtnText}>{'个人信息'}</Text>
 							<AntDesign
-								style={styles.rightIcon} 
+								//style={styles.rightIcon} 
 								size={10}
 								color={'white'}
 								name={'right'}/>
@@ -229,12 +229,12 @@ let styles = StyleSheet.create({
 	studyBtns: {
 		flexDirection: 'row',
 		marginTop: 30,
-		flexWrap: 'wrap'
+		flexWrap: 'wrap',
 	},
 
 	studyBtn: {
 		alignItems: 'center',
-		margin: width/30,
+		margin: width/24,
 	},
 	studyBtnIcon: {
 		width: 25,

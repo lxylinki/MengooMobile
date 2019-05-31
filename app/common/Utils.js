@@ -289,4 +289,14 @@ export default class Utils {
 
 		this.fetchRoutine(api, {}, respProc);
 	}
+
+	getMyLearnList(page, pageSize, respProc) {
+		let api = global_.my_learn_list
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;	
+
+		this.fetchRoutine(api, {}, respProc);
+	}
 }

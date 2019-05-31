@@ -14,6 +14,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import LineBtn from '../../components/button/LineBtn';
 import CourseView from '../../components/list/course/CourseView';
+import RecordView from '../../components/list/mylearn/RecordView';
 import Utils from '../../common/Utils';
 
 
@@ -36,12 +37,17 @@ export default class MyCourse extends Component {
 
     getMyCourseData(){
         this.utils.getMyCourseList(this.page[0], this.pageSize, (resp)=> {
-            console.log(this.page[0], resp);
+            //console.log(this.page[0], resp);
             if(this.totalPage[0] === 0 && resp.total_page > 0) {
                 this.totalPage[0] = resp.total_page;
             } 
 
             if(this.page[0] === 1) {
+                // setTimeout(()=>{
+                //     this.setState({
+                //         myCourseData: resp._list
+                //     });                     
+                // }, 10000);
                 this.setState({
                     myCourseData: resp._list
                 });
@@ -58,9 +64,40 @@ export default class MyCourse extends Component {
     }
 
 
+    getMyRecordData(){
+        this.utils.getMyLearnList(this.page[1], this.pageSize, (resp)=> {
+            console.log(this.page[1], resp);
+            if(this.totalPage[1] === 0 && resp.total_page > 0) {
+                this.totalPage[1] = resp.total_page;
+            }
+
+            for(let item of resp._list) {
+                if(Object.keys(resp.courses).includes(item.course_id)) {
+                    item.course = resp.courses[item.course_id].name;
+                }
+            }
+
+            if(this.page[1] === 1) {
+                this.setState({
+                    myRecordData: resp._list
+                });
+            } else {
+                this.setState({
+                    myRecordData: this.state.myRecordData.concat(resp._list)
+                });
+            }
+
+            if(this.stopRefresh) {
+                this.stopRefresh();
+            }
+        });
+    }
+
+
 
     componentDidMount(){
         this.getMyCourseData();
+        this.getMyRecordData();
     }
 
     scrollEnd = (param)=> {
@@ -197,6 +234,7 @@ export default class MyCourse extends Component {
 
                     <CourseView 
                         hasSkeleton={true}
+                        fakeLen={4}
                         navigation={this.props.navigation}
                         data={this.state.myCourseData} 
                         onEndReached={()=>{
@@ -214,10 +252,25 @@ export default class MyCourse extends Component {
                         }}
                     />
 
-                    <View style={{width: width, height: 1600, alignItems:'center'}}>
-                        <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
-                        <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>
-                    </View>
+                    <RecordView 
+                        hasSkeleton={true}
+                        navigation={this.props.navigation}
+                        data={this.state.myRecordData} 
+                        onEndReached={()=>{
+                            if(this.state.myRecordData.length>=this.pageSize) {
+                                if(this.page[1] < this.totalPage[1]) {
+                                    this.page[1] += 1;                                     
+                                    this.getMyRecordData();
+                                }
+                            }
+                        }} 
+                        onRefresh={(callback)=>{
+                            this.page[1] = 1;
+                            this.stopRefresh = callback;
+                            this.getMyRecordData();
+                        }}
+                    />
+
                     <View style={{width: width, height: 1600, alignItems: 'center'}}>
                         <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
                         <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>                        
@@ -263,13 +316,11 @@ let styles = StyleSheet.create({
         alignItems: 'baseline',
         justifyContent: 'center',
         backgroundColor: 'white',
-        padding: 10
     },
 
     indexBtn: {
         width: 90,
         height: 45,
-        margin: 5
     },
 
     indexBtnText: {

@@ -25,7 +25,7 @@ export default class FakeList extends Component {
 	render(){
 		return (
 			<View style={this.props.style}>
-				{this.genHolders(4)}
+				{this.genHolders(this.props.len)}
 			</View>
 		);
 	}

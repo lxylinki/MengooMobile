@@ -42,19 +42,19 @@ export default class EditComment extends Component {
 				<View style={styles.ratingView}>
 					<View style={styles.rating}>
 						<TouchableOpacity onPress={()=>{this.setState({score: 1, text: '很失望'})}}>
-							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>0? '#ff3c00': '#ddd'}/>	
+							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>0? '#ffd161': '#ddd'}/>	
 						</TouchableOpacity>
 						<TouchableOpacity onPress={()=>{this.setState({score: 2, text: '比较失望'})}}>
-							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>1? '#ff3c00': '#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>1? '#ffd161': '#ddd'}/>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={()=>{this.setState({score: 3, text: '一般'})}}>
-							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>2? '#ff3c00': '#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>2? '#ffd161': '#ddd'}/>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={()=>{this.setState({score: 4, text: '还不错，有待提高'})}}>
-							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>3? '#ff3c00': '#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>3? '#ffd161': '#ddd'}/>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={()=>{this.setState({score: 5, text: '很棒'})}}>
-							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>4? '#ff3c00': '#ddd'}/>
+							<FontAwesome name={'star'} style={styles.star} size={25} color={ this.state.score>4? '#ffd161': '#ddd'}/>
 						</TouchableOpacity>
 					</View>	
 					<Text style={styles.text}>{this.state.score === 0? '点击星星进行评分': this.state.text}</Text>

@@ -7,28 +7,28 @@ import {
 	Dimensions 
 } from 'react-native';
 
-import CourseItem from './CourseItem';
+import RecordItem from './RecordItem';
 import FakeList from '../FakeList';
 
 
 var {height, width} = Dimensions.get('window');
 
-export default class CourseView extends PureComponent {
+export default class RecordView extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
 			refreshing: false
 		}
 	}
-	
+
 	render(){
 		if(this.props.data.length === 0 && this.props.hasSkeleton) {
 			return(
-				<FakeList len={this.props.fakeLen} style={styles.list}/>
+				<FakeList style={styles.list}/>
 			);
 		} else {
 			let key = 0;
-			this.props.data.forEach(function(item){item.key = String(key++);});
+			this.props.data.forEach(function(item){item.key = String(key++);});	
 			return (
 				<FlatList
 					//onScroll={this.props.onScroll}
@@ -36,11 +36,9 @@ export default class CourseView extends PureComponent {
 					data = {this.props.data}
 					renderItem = {({item})=>{
 						return(
-							<CourseItem 
-								data={item} 
-								inspectCourseItem={()=>{
-									this.props.navigation.navigate('CourseDetail', {id: item.id});
-								}}
+							<RecordItem 
+								data={item}
+								navigation={this.props.navigation}
 							/>
 						);
 					}}
@@ -63,11 +61,10 @@ export default class CourseView extends PureComponent {
 					onEndReached={this.props.onEndReached}
 					onEndReachedThreshold={0.5}
 				/>
-			);
-		}
-	}	
+			);		
+		}		
+	}
 }
-
 
 let styles = StyleSheet.create({
 	list: {
@@ -75,7 +72,7 @@ let styles = StyleSheet.create({
 	},
 
 	separatorLine: {
-		height: 10,
+		height: 20,
 		backgroundColor: '#f5f6fa',
 	}
 });
