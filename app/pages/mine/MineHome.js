@@ -70,25 +70,28 @@ class MineHome extends Component {
 							<Text style={styles.studyTitleText}>{'我的学习'}</Text>	
 						</View>
 						<View style={styles.studyBtns}>
-							<TouchableOpacity 
-								style={styles.studyBtn}
-								onPress={()=>{this.props.navigation.navigate('MyCourse');}}
-								>
-								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-course.png')}/>
-								<Text style={styles.studyBtnText}>{'我的课程'}</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.studyBtn}>
-								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-exam.png')}/>
-								<Text style={styles.studyBtnText}>{'我的考试'}</Text>							
-							</TouchableOpacity>		
-							<TouchableOpacity style={styles.studyBtn}>
-								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/moral-stats.png')}/>
-								<Text style={styles.studyBtnText}>{'德育统计'}</Text>							
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.studyBtn}>
-								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/exp-report.png')}/>
-								<Text style={styles.studyBtnText}>{'实验报告'}</Text>							
-							</TouchableOpacity>
+							<View style={styles.studyBtnsRow}>
+								<TouchableOpacity 
+									style={styles.studyBtn}
+									onPress={()=>{this.props.navigation.navigate('MyCourse');}}
+									>
+									<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-course.png')}/>
+									<Text style={styles.studyBtnText}>{'我的课程'}</Text>
+								</TouchableOpacity>
+								<TouchableOpacity style={styles.studyBtn}>
+									<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-exam.png')}/>
+									<Text style={styles.studyBtnText}>{'我的考试'}</Text>							
+								</TouchableOpacity>		
+								<TouchableOpacity style={styles.studyBtn}>
+									<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/moral-stats.png')}/>
+									<Text style={styles.studyBtnText}>{'德育统计'}</Text>							
+								</TouchableOpacity>
+								<TouchableOpacity style={styles.studyBtn}>
+									<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/exp-report.png')}/>
+									<Text style={styles.studyBtnText}>{'实验报告'}</Text>							
+								</TouchableOpacity>
+							</View>
+
 							<TouchableOpacity style={styles.studyBtn}>
 								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-discuss.png')}/>
 								<Text style={styles.studyBtnText}>{'我的讨论'}</Text>							
@@ -226,15 +229,21 @@ let styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: 'bold'
 	},
+
 	studyBtns: {
-		flexDirection: 'row',
 		marginTop: 30,
-		flexWrap: 'wrap',
+		alignItems: 'flex-start'
+	},
+
+	studyBtnsRow: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-around'
 	},
 
 	studyBtn: {
 		alignItems: 'center',
-		margin: width/24,
+		margin: width/30,
 	},
 	studyBtnIcon: {
 		width: 25,
