@@ -92,10 +92,12 @@ class MineHome extends Component {
 								</TouchableOpacity>
 							</View>
 
-							<TouchableOpacity style={styles.studyBtn}>
-								<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-discuss.png')}/>
-								<Text style={styles.studyBtnText}>{'我的讨论'}</Text>							
-							</TouchableOpacity>				
+							<View style={styles.studyBtnsRow}>
+								<TouchableOpacity style={styles.studyBtn}>
+									<Image resizeMode='stretch' style={styles.studyBtnIcon} source={require('../../../assets/img/my-discuss.png')}/>
+									<Text style={styles.studyBtnText}>{'我的讨论'}</Text>							
+								</TouchableOpacity>	
+							</View>			
 						</View>
 					</View>
 
@@ -238,12 +240,13 @@ let styles = StyleSheet.create({
 	studyBtnsRow: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'space-around'
+		justifyContent: 'space-between',
+		width: width-40,
+		padding: 10
 	},
 
 	studyBtn: {
-		alignItems: 'center',
-		margin: width/30,
+		alignItems: 'center'
 	},
 	studyBtnIcon: {
 		width: 25,
@@ -278,11 +281,11 @@ let styles = StyleSheet.create({
 
 	feedbackBtn: {
 		alignItems: 'center',
-		marginLeft: 15
+		marginLeft: 10
 	},
 
 	usageBtn: {
 		alignItems: 'center',
-		marginLeft: 20	
+		marginLeft: 35	
 	}
 });
