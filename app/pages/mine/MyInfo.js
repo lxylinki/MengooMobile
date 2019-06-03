@@ -57,6 +57,18 @@ class MyInfo extends Component {
 		return avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
 	}
 
+    uploadAvatar= (image)=>{
+        this.utils.setAvatar({uri:image.path, type: 'multipart/form-data', name:image.path.split('/').pop() }, 0, 0, 300, 300, 1, (resp)=>{
+            this.utils.getProfile((resp)=>{
+                this.props.setVal(resp);
+            });
+        this.setState({
+            showCover: false,
+        });
+        this.hideBottomSelect();
+        });
+    }
+
 	render(){
 		let avatar = this.getAvatarUrl(this.props.avatar);
 		return(
@@ -74,11 +86,7 @@ class MyInfo extends Component {
                                 height: 300,
                                 cropping: true
 
-                            }).then(image => {
-                                this.utils.setAvatar({uri:image.path, type: 'multipart/form-data', name:image.path.split('/').pop() }, 0, 0, 300, 300, 1, (resp)=>{
-                                    console.log(resp);
-                                });
-                            });
+                            }).then(this.uploadAvatar);
                         }}>
                         <Text style={styles.btnText}>{'相册'}</Text>
                     </TouchableOpacity>
@@ -90,9 +98,7 @@ class MyInfo extends Component {
                                 height: 300,
                                 cropping: true
 
-                            }).then(image => {
-                                console.log(image);
-                            });
+                            }).then(this.uploadAvatar);
                         }}>
                         <Text style={styles.btnText}>{'拍照'}</Text>
                     </TouchableOpacity>
@@ -162,7 +168,7 @@ const mapStateToProps = (state) => ({
 	school_name: state.school_name
 });
 
-export default connect(mapStateToProps)(MyInfo);
+export default connect(mapStateToProps, {setVal})(MyInfo);
 
 let styles = StyleSheet.create({
 	rootView: {

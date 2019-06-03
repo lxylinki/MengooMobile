@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import Header from '../../components/head/Header';
-import StickyHeader from '../../components/head/StickyHeader';
 import SearchInput from '../../components/input/SearchInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import BadgeBtn from '../../components/button/BadgeBtn';

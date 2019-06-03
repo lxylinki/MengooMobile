@@ -54,6 +54,8 @@ export default class Utils {
 		});		
 	}
 
+
+
 	fetchRoutine(api, data, respProc){
 		fetch(
 			api,
@@ -103,6 +105,13 @@ export default class Utils {
 			console.error(err);
 		});
 	}
+
+
+	getProfile(respProc){
+		let api = global_.mengoo_status_check;
+		this.fetchRoutine(api, {}, respProc);
+	}
+
 
 	getCourseList(keyword, page, pageSize, respProc){
 		let api = global_.course_list
