@@ -29,6 +29,8 @@ const course_notice = url_prefix + 'course/notice/list';
 const my_course_list = url_prefix + 'course/course/my-list';
 const my_learn_list = url_prefix + 'course/struct/learn-list';
 const my_avatar = url_prefix + 'user/user/avatar';
+const my_lab_stats = url_prefix + 'course/lab/user-list';
+const my_course_stats = url_prefix + 'course/stats/list-stats';
 
 const super_admin_group = 0;
 const school_admin_group = 1;
@@ -70,5 +72,7 @@ export default {
 	
 	my_course_list,
 	my_learn_list,
-	my_avatar
+	my_avatar,
+	my_lab_stats,
+	my_course_stats
 }

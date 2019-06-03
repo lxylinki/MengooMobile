@@ -35,6 +35,7 @@ export default class CourseStruct extends Component {
             examData: {},
             showHeadBanner: false,
             scrollY: new Animated.Value(0),
+            scrollHeight: 0,
         }
 	}
 
@@ -55,6 +56,9 @@ export default class CourseStruct extends Component {
         let index = Math.round(param.nativeEvent.contentOffset.x/width);
         switch(index) {
             case 0:
+                // this.setState({
+                //     scrollHeight: 1000
+                // });
                 this.refs.docBtn.setState({active: true});
                 this.refs.announceBtn.setState({active: false});
                 this.refs.examBtn.setState({active: false});
@@ -62,6 +66,9 @@ export default class CourseStruct extends Component {
                 break;
 
             case 1:
+                // this.setState({
+                //     scrollHeight: 100
+                // });
                 this.refs.docBtn.setState({active: false});
                 this.refs.announceBtn.setState({active: true});
                 this.refs.examBtn.setState({active: false});
@@ -228,7 +235,7 @@ export default class CourseStruct extends Component {
 
 
                     <ScrollView
-                        style={styles.bottomScroll}
+                        style={[styles.bottomScroll, this.state.scrollHeight>0? {height: this.state.scrollHeight}: {}]}
                         ref={'pageScroll'}
                         pagingEnabled={true}
                         horizontal={true}
@@ -255,17 +262,16 @@ export default class CourseStruct extends Component {
                             }}
                             />
                         
-                        
                         <NoticeView 
                             navigation={this.props.navigation}
                             courseId={this.courseId} 
                         />
 
-                        <View style={{width: width, height: 1600, alignItems:'center'}}>
+                        <View style={{width: width, alignItems:'center'}}>
                             <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
                             <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>
                         </View>
-                        <View style={{width: width, height: 1600, alignItems: 'center'}}>
+                        <View style={{width: width, alignItems: 'center'}}>
                             <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
                             <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>                        
                         </View>
@@ -340,7 +346,7 @@ let styles = StyleSheet.create({
     },
 
     bottomScroll: {
-        marginTop: 54
+        marginTop: 54,
     },
 
     headBanner: {

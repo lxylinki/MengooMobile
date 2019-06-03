@@ -17,7 +17,6 @@ import TitleHeader from '../../components/head/TitleHeader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ImagePicker from 'react-native-image-crop-picker';
 import Utils from '../../common/Utils';
-import RNFS from 'react-native-fs';
 
 
 
