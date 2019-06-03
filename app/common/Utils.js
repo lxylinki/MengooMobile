@@ -80,6 +80,30 @@ export default class Utils {
 		});
 	}
 
+	formDataFetchRoutine(api, data, respProc){
+		fetch(
+			api,
+			{
+				method: 'POST',
+				headers: {
+					'Accept': 'multipart/form-data',
+					'Content-Type': 'multipart/form-data'
+				},
+				body: data,
+				credentials:'include',
+				mode: 'cors'
+			}
+		).then((resp)=>
+			resp.json()
+			
+		).then((respJson)=>{
+			respProc(respJson);
+
+		}).catch((err)=>{
+			console.error(err);
+		});
+	}
+
 	getCourseList(keyword, page, pageSize, respProc){
 		let api = global_.course_list
 				+ '?page=' 
@@ -298,5 +322,18 @@ export default class Utils {
 				+ pageSize;	
 
 		this.fetchRoutine(api, {}, respProc);
+	}
+
+	setAvatar(file, x, y, w, h, zoom, respProc){
+		let api = global_.my_avatar;
+		let data = new FormData();
+		data.append("avatar", file);
+		data.append("x", x);
+		data.append("y", y);
+		data.append("w", w),
+		data.append("h", h);
+		data.append("zoom", zoom);
+		console.log(data);
+		this.formDataFetchRoutine(api, data, respProc);
 	}
 }

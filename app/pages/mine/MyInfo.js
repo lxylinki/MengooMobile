@@ -10,10 +10,15 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import { setVal } from '../../common/Actions';
 import global_ from '../../common/Global';
 import Entypo from 'react-native-vector-icons/Entypo';
 import TitleHeader from '../../components/head/TitleHeader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import ImagePicker from 'react-native-image-crop-picker';
+import Utils from '../../common/Utils';
+import RNFS from 'react-native-fs';
+
 
 
 var {height, width} = Dimensions.get('window');
@@ -21,9 +26,10 @@ var {height, width} = Dimensions.get('window');
 class MyInfo extends Component {
     constructor(props){
         super(props);
+        this.utils = new Utils();
         this.state = {
             showCover: false,
-            bottomHeight: new Animated.Value(0)
+            bottomHeight: new Animated.Value(0),
         }
     }
 
@@ -60,10 +66,34 @@ class MyInfo extends Component {
                 </View>
                 
                 <Animated.View style={[styles.bottomSelect, {height: this.state.bottomHeight}]}>
-                    <TouchableOpacity style={styles.albumBtn}>
+                    <TouchableOpacity 
+                        style={styles.albumBtn}
+                        onPress={()=>{
+                            ImagePicker.openPicker({
+                                width: 300,
+                                height: 300,
+                                cropping: true
+
+                            }).then(image => {
+                                this.utils.setAvatar({uri:image.path, type: 'multipart/form-data', name:image.path.split('/').pop() }, 0, 0, 300, 300, 1, (resp)=>{
+                                    console.log(resp);
+                                });
+                            });
+                        }}>
                         <Text style={styles.btnText}>{'相册'}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.photoBtn}>
+                    <TouchableOpacity 
+                        style={styles.photoBtn}
+                        onPress={()=>{
+                            ImagePicker.openCamera({
+                                width: 300,
+                                height: 300,
+                                cropping: true
+
+                            }).then(image => {
+                                console.log(image);
+                            });
+                        }}>
                         <Text style={styles.btnText}>{'拍照'}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
@@ -71,7 +101,6 @@ class MyInfo extends Component {
                         onPress={()=>{
                             this.setState({
                                 showCover: false,
-                                //bottomHeight: 200
                             });
                             this.hideBottomSelect();
                         }}>
@@ -100,7 +129,6 @@ class MyInfo extends Component {
                             onPress={()=>{
                                 this.setState({
                                     showCover: true,
-                                    //bottomHeight: 200
                                 });
                                 this.showBottomSelect();
                             }}>

@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import Header from '../../components/head/Header';
+import StickyHeader from '../../components/head/StickyHeader';
 import SearchInput from '../../components/input/SearchInput';
 import RegularBtn from '../../components/button/RegularBtn';
 import BadgeBtn from '../../components/button/BadgeBtn';
@@ -41,7 +42,8 @@ export default class CourseHome extends Component {
 			catagData: [],
 			scrollY: new Animated.Value(0),
 			scrollable: true,
-			scrollHeight: 0
+			scrollHeight: 0,
+			showFixedBar: false
 		}
 	}
 
@@ -142,10 +144,6 @@ export default class CourseHome extends Component {
 				} 
 			}],
 		)(event);
-
-		// this.setState({
-		// 	scrollYVal: event.nativeEvent.contentOffset.y
-		// });
 	};
 
 	render(){
@@ -154,51 +152,12 @@ export default class CourseHome extends Component {
 				style={styles.rootView}>		
 				<Header style={styles.headerView} />
 				<SearchInput placeholder='搜索课程' navigation={this.props.navigation}/>
-				<Animated.View style={[styles.indexBtns, {
-					top: this.state.scrollY.interpolate({
-							inputRange: [-1, 0, 10, 50, 150, 170, 180],
-							outputRange: [290, 290, 280, 240, 140, 120, 120]
-						})}
-				]}>
-					<RegularBtn 
-						style={styles.indexBtn} 
-						inactStyle={styles.indexBtnFade}
-						textStyle={styles.indexBtnText}
-						text={'推荐课程'}
-						ref={'courseBtn'}
-						if_active={true}
-						action={()=>{
-							this.setState({
-								scrollHeight: this.state.courseData.length*120
-							});
-							this.refs.courseBtn.setState({active: true});
-							this.refs.catagBtn.setState({active: false});
-							this.refs.pageScroll.scrollTo({x:0*width, animated:true});
-						}}/>
-						
-					<RegularBtn 
-						style={styles.indexBtn} 
-						inactStyle={styles.indexBtnFade}
-						textStyle={styles.indexBtnText}
-						text={'课程分类'}
-						ref={'catagBtn'}
-						if_active={false}
-						action={()=>{
-							this.setState({
-								scrollHeight: this.state.catagData.length*90
-							});
-							this.refs.courseBtn.setState({active: false});
-							this.refs.catagBtn.setState({active: true});
-							this.refs.pageScroll.scrollTo({x:1*width, animated:true});
-						}}/>
-				</Animated.View>
-				
-
 				
 				<ScrollView 
-					style={[styles.bottomView]}
+					style={styles.bottomView}
 					onScroll={this.scrollPage}
-					scrollEnabled={this.state.scrollable}>
+					scrollEnabled={this.state.scrollable}
+					stickyHeaderIndices={[2]}>
 
 					<View style={styles.searchBadges}>
 						<Text>热搜</Text>
@@ -226,12 +185,47 @@ export default class CourseHome extends Component {
 
 					<HomeSwiper style={styles.swiper}/>
 
+					<View style={styles.indexBtns}>
+						<RegularBtn 
+							style={styles.indexBtnCourse} 
+							inactStyle={styles.indexBtnFade}
+							textStyle={styles.indexBtnText}
+							text={'推荐课程'}
+							ref={'courseBtn'}
+							if_active={true}
+							action={()=>{
+								this.setState({
+									scrollHeight: this.state.courseData.length*120
+								});
+								this.refs.courseBtn.setState({active: true});
+								this.refs.catagBtn.setState({active: false});
+								this.refs.pageScroll.scrollTo({x:0*width, animated:true});
+							}}/>
+							
+						<RegularBtn 
+							style={styles.indexBtnCatag} 
+							inactStyle={[styles.indexBtnFade, {left: 120}]}
+							textStyle={styles.indexBtnText}
+							text={'课程分类'}
+							ref={'catagBtn'}
+							if_active={false}
+							action={()=>{
+								this.setState({
+									scrollHeight: this.state.catagData.length*90
+								});
+								this.refs.courseBtn.setState({active: false});
+								this.refs.catagBtn.setState({active: true});
+								this.refs.pageScroll.scrollTo({x:1*width, animated:true});
+							}}/>
+					</View>				
+
 					<ScrollView
 						style={[styles.bottomScroll, this.state.scrollHeight>0? {height: this.state.scrollHeight}: {}]}
 						pagingEnabled={true}
 						horizontal={true}
 						ref={'pageScroll'}
 						onMomentumScrollEnd={this.scrollEnd}
+						scrollEventThrottle={1}
 						{...this._panResponder.panHandlers}
 					>
 
@@ -309,21 +303,30 @@ let styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'baseline',
 		paddingLeft: 10,
-		position: 'absolute',
 		zIndex: 10,
 		backgroundColor: '#f5f6fa'
 	},
 
-	indexBtn: {
+	indexBtnCourse: {
 		width: 100,
 		height: 34,
-		backgroundColor: '#c9151e'
+		backgroundColor: '#c9151e',
+		position: 'absolute'
+	},
+
+	indexBtnCatag: {
+		width: 100,
+		height: 34,
+		backgroundColor: '#c9151e',
+		position: 'absolute',
+		left: 120
 	},
 
 	indexBtnFade: {
 		width: 100,
 		height: 34,
-		backgroundColor: 'transparent'
+		backgroundColor: 'transparent',
+		position: 'absolute'
 	},
 
 	indexBtnText: {
@@ -331,6 +334,6 @@ let styles = StyleSheet.create({
 	},
 
 	bottomScroll: {
-		marginTop: 55
+		//marginTop: 55
 	}
 });
