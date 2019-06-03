@@ -127,6 +127,12 @@ const mineStack = createStackNavigator(
 	}
 );
 
+mineStack.navigationOptions = ({ navigation })=> {
+	return {
+		tabBarVisible: navigation.state.index === 0,
+	};
+}
+
 
 const loginStack = createStackNavigator(
 	{

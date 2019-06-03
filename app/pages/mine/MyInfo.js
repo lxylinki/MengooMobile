@@ -5,7 +5,8 @@ import {
 	View,
 	TouchableOpacity,
 	Dimensions,
-	Image
+	Image,
+    Animated
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -18,6 +19,34 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 var {height, width} = Dimensions.get('window');
 
 class MyInfo extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showCover: false,
+            bottomHeight: new Animated.Value(0)
+        }
+    }
+
+    showBottomSelect = ()=> {
+        Animated.timing(
+            this.state.bottomHeight,
+            {
+                toValue: 200,
+                duration: 500
+            }
+        ).start();        
+    };
+
+    hideBottomSelect= ()=> {
+        Animated.timing(
+            this.state.bottomHeight,
+            {
+                toValue: 0,
+                duration: 500
+            }
+        ).start();          
+    }
+
 	getAvatarUrl(avatarUrl, size=100){
 		return avatarUrl ? global_.url_prefix + avatarUrl.replace(/\.jpg/, size + ".jpg").replace(/\.png/, size + ".png"): null;
 	}
@@ -26,6 +55,30 @@ class MyInfo extends Component {
 		let avatar = this.getAvatarUrl(this.props.avatar);
 		return(
 			<View style={styles.rootView}>
+                {/*shade*/}
+                <View style={this.state.showCover? styles.shade: {display: 'none'}}>
+                </View>
+                
+                <Animated.View style={[styles.bottomSelect, {height: this.state.bottomHeight}]}>
+                    <TouchableOpacity style={styles.albumBtn}>
+                        <Text style={styles.btnText}>{'相册'}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.photoBtn}>
+                        <Text style={styles.btnText}>{'拍照'}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.cancelBtn}
+                        onPress={()=>{
+                            this.setState({
+                                showCover: false,
+                                //bottomHeight: 200
+                            });
+                            this.hideBottomSelect();
+                        }}>
+                        <Text style={styles.btnText}>{'取消'}</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+
 				<TitleHeader 
 					style={styles.headerView}
 					textStyle={styles.headerText} 
@@ -42,7 +95,15 @@ class MyInfo extends Component {
                 <View style={styles.infoPanel}>
                 	<View style={styles.avatarView}>
                 		<Text style={styles.text}>{'头像'}</Text>
-                		<TouchableOpacity style={styles.avatarBtn}>
+                		<TouchableOpacity 
+                            style={styles.avatarBtn}
+                            onPress={()=>{
+                                this.setState({
+                                    showCover: true,
+                                    //bottomHeight: 200
+                                });
+                                this.showBottomSelect();
+                            }}>
 							<Image 
 								style={styles.image} 
 								resizeMode='cover' 
@@ -61,7 +122,6 @@ class MyInfo extends Component {
                 		<Text style={styles.text}>{this.props.school_name}</Text>
                 	</View>
                 </View>
-				
 			</View>
 		);
 	}
@@ -152,5 +212,56 @@ let styles = StyleSheet.create({
 	avatarBtn: {
 		flexDirection: 'row',
 		alignItems: 'center'
-	}
+	},
+
+    shade: {
+        position:'absolute', 
+        zIndex: 1000, 
+        top:0, 
+        left:0, 
+        width:width, 
+        height:height,
+        backgroundColor:'#000000', 
+        opacity: 0.3
+    },
+
+    bottomSelect: {
+        position: 'absolute',
+        zIndex: 2000,
+        bottom: 0,
+        left: 0,
+        width: width,
+        backgroundColor: 'transparent'
+    },
+
+    albumBtn: {
+        width: width,
+        height: 60,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 0.3,
+        borderBottomColor: '#ddd'
+    },
+
+    btnText: {
+        fontSize: 16
+    },
+
+    photoBtn: {
+        width: width,
+        height: 60,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    cancelBtn: {
+        width: width,
+        height: 60,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20
+    },
 });
