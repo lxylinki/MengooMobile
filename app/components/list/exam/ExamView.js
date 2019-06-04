@@ -39,13 +39,19 @@ export default class ExamView extends PureComponent {
 		}
 	};
 
+	onRefresh(callback){
+        this.page = 1;
+        this.stopRefresh = callback;
+        this.getExamData();
+	}
+
 	componentDidMount(){
 		this.getExamData();
 	}
 
 	getExamData(){
 		this.utils.getExam(this.props.courseId, this.page, this.pageSize, (resp)=>{
-            //console.log('getNoticeData', resp);
+            //console.log('getExamData', resp);
             if(this.totalPage === 0 && resp.total_page > 0) {
                 this.totalPage = resp.total_page;
             }
@@ -60,7 +66,7 @@ export default class ExamView extends PureComponent {
                 });               	
             }
 
-            //this.props.setHeight(this.state.exams.length*100);
+            this.props.setHeight(this.state.exams.length*230);
 
             if(this.stopRefresh) {
                 this.stopRefresh();
@@ -74,7 +80,7 @@ export default class ExamView extends PureComponent {
 		return(
 			<FlatList
 				style={styles.list}
-				data={this.props.data}
+				data={this.state.exams}
 				renderItem = {({item})=>{
 					return(
 						<ExamDetailItem 
@@ -86,11 +92,7 @@ export default class ExamView extends PureComponent {
 					return(<View style={styles.separatorLine}></View>);
 				}}
 				refreshing={this.state.refreshing} 
-				onRefresh={(callback)=>{
-	                this.page = 1;
-	                this.stopRefresh = callback;
-	                this.getExamData();}
-                }
+				onRefresh={this.refresh}
 				onEndReached={()=>{
 	                //console.log('on end reached');
 	                if(this.state.exams.length>=this.pageSize) {

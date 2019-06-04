@@ -167,7 +167,8 @@ let styles = StyleSheet.create({
 	},
 
 	itemText: {
-		fontSize: 14
+		fontSize: 14,
+		fontWeight: 'bold'
 	},
 
 	subText: {

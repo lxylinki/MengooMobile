@@ -43,7 +43,7 @@ let styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	titleText: {
-		fontSize: 16
+		fontSize: 14
 	},
 	dateView: {
 		height: 30,

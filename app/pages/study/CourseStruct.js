@@ -40,6 +40,7 @@ export default class CourseStruct extends Component {
             scrollHeight: 0,
             structViewHeight: 0,
             noticeViewHeight: 0,
+            examViewHeight: 0,
             scrollable: true
         }
 	}
@@ -102,6 +103,9 @@ export default class CourseStruct extends Component {
                 break;
 
             case 2:
+                this.setState({
+                    scrollHeight: this.state.examViewHeight
+                });
                 this.refs.docBtn.setState({active: false});
                 this.refs.announceBtn.setState({active: false});
                 this.refs.examBtn.setState({active: true});
@@ -141,13 +145,13 @@ export default class CourseStruct extends Component {
         });
     }
 
-    toArray(examData){
-        let arr = [];
-        for(let i in examData) {
-            arr.push(examData[i]);
-        }
-        return arr;
-    }
+    // toArray(examData){
+    //     let arr = [];
+    //     for(let i in examData) {
+    //         arr.push(examData[i]);
+    //     }
+    //     return arr;
+    // }
 
     scrollPage = (event)=> {
         //console.log('scrollPage');
@@ -318,6 +322,11 @@ export default class CourseStruct extends Component {
                         />
 
                         <ExamView 
+                            setHeight={(height)=>{
+                                this.setState({
+                                    examViewHeight: height
+                                });
+                            }}
                             navigation={this.props.navigation}
                             courseId={this.courseId}
                         />

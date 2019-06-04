@@ -321,7 +321,7 @@ export default class Utils {
 				+ pageSize;		
 		let data = {
 			course_id: id,
-			status: 1
+			//status: 1
 		};
 		this.fetchRoutine(api, data, respProc);		
 	}
@@ -355,7 +355,7 @@ export default class Utils {
 		data.append("w", w),
 		data.append("h", h);
 		data.append("zoom", zoom);
-		console.log(data);
+		//console.log(data);
 		this.formDataFetchRoutine(api, data, respProc);
 	}
 }
