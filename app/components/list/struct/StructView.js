@@ -17,9 +17,9 @@ export default class StructView extends PureComponent {
 		super(props);
 		this.state = {
 			refreshing: false,
-			maxHeight: 0
 		};
 		this.itemCount = 0;
+		this.maxHeight = 0;
 	}
 
 	refresh = ()=> {
@@ -38,7 +38,7 @@ export default class StructView extends PureComponent {
 
 
 	render(){
-		let key = 0;
+		let key = 0, count = 0;
 		this.props.data.forEach(function(item){item.key = String(key++);});
 		return (
 			<FlatList
@@ -49,7 +49,14 @@ export default class StructView extends PureComponent {
 					if(Object.keys(this.props.exams).includes(item.id)) {
 					 	return(
 					 		<ExamItem
-								//addHeight={this.addHeight}
+					 			addHeight={(height)=>{
+					 				count += 1;
+					 				this.maxHeight += height;
+					 				if(count === this.props.data.length) {
+					 					//console.log('StructView:', this.maxHeight);
+					 					this.props.setHeight(this.maxHeight);
+					 				}
+					 			}}
 								navigation={this.props.navigation}
 					 			exam={this.props.exams[item.id]}
 					 			data={item} />
@@ -57,7 +64,14 @@ export default class StructView extends PureComponent {
 					} else {
 					 	return(
 					 		<StructItem
-								//addHeight={this.addHeight}
+					 			addHeight={(height)=> {
+					 				count += 1;
+					 				this.maxHeight += height;
+					 				if(count === this.props.data.length) {
+					 					//console.log('StructView:', this.maxHeight);
+					 					this.props.setHeight(this.maxHeight);
+					 				}
+					 			}}
 								navigation={this.props.navigation}
 					 			courseId={this.props.courseId}
 					 			data={item} />

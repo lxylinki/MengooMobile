@@ -36,6 +36,8 @@ export default class CourseStruct extends Component {
             showHeadBanner: false,
             scrollY: new Animated.Value(0),
             scrollHeight: 0,
+            structViewHeight: 0,
+            noticeViewHeight: 0
         }
 	}
 
@@ -56,9 +58,9 @@ export default class CourseStruct extends Component {
         let index = Math.round(param.nativeEvent.contentOffset.x/width);
         switch(index) {
             case 0:
-                // this.setState({
-                //     scrollHeight: 1000
-                // });
+                this.setState({
+                    scrollHeight: this.state.structViewHeight
+                });
                 this.refs.docBtn.setState({active: true});
                 this.refs.announceBtn.setState({active: false});
                 this.refs.examBtn.setState({active: false});
@@ -66,9 +68,9 @@ export default class CourseStruct extends Component {
                 break;
 
             case 1:
-                // this.setState({
-                //     scrollHeight: 100
-                // });
+                this.setState({
+                    scrollHeight: this.state.noticeViewHeight
+                });
                 this.refs.docBtn.setState({active: false});
                 this.refs.announceBtn.setState({active: true});
                 this.refs.examBtn.setState({active: false});
@@ -159,6 +161,9 @@ export default class CourseStruct extends Component {
                         ref={'docBtn'}
                         if_active={true}
                         action={()=>{
+                            this.setState({
+                                scrollHeight: this.state.structViewHeight
+                            });
                             this.refs.docBtn.setState({active: true});
                             this.refs.announceBtn.setState({active: false});
                             this.refs.examBtn.setState({active: false});
@@ -173,6 +178,9 @@ export default class CourseStruct extends Component {
                         ref={'announceBtn'}
                         if_active={false}
                         action={()=>{
+                            this.setState({
+                                scrollHeight: this.state.noticeViewHeight
+                            });
                             this.refs.docBtn.setState({active: false});
                             this.refs.announceBtn.setState({active: true});
                             this.refs.examBtn.setState({active: false});
@@ -247,6 +255,11 @@ export default class CourseStruct extends Component {
                             exams={this.state.examData} 
                             data={this.state.structData}
 
+                            setHeight={(height)=>{
+                                this.setState({
+                                    structViewHeight: height
+                                });
+                            }}
                             onEndReached={()=>{
                                 if(this.state.structData.length>=this.pageSize) {
                                     if(this.page < this.totalPage) {
@@ -263,6 +276,11 @@ export default class CourseStruct extends Component {
                             />
                         
                         <NoticeView 
+                            setHeight={(height)=>{
+                                this.setState({
+                                    noticeViewHeight: height
+                                });
+                            }}
                             navigation={this.props.navigation}
                             courseId={this.courseId} 
                         />

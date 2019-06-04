@@ -60,6 +60,8 @@ export default class NoticeView extends Component {
                 });               	
             }
 
+            this.props.setHeight(this.state.notices.length*70);
+
             if(this.stopRefresh) {
                 this.stopRefresh();
             }
@@ -107,7 +109,6 @@ export default class NoticeView extends Component {
 let styles = StyleSheet.create({
 	list: {
 		width: width,
-		height: 360
 	},
 
 	separatorLine: {

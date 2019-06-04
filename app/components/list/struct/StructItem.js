@@ -118,6 +118,8 @@ export default class StructItem extends PureComponent {
 								inputRange: [0, 1],
 								outputRange: [0, this.maxHeight]
 							});
+							this.props.addHeight(this.maxHeight);
+							//console.log('StructItem ' + this.props.data.name, this.maxHeight );
 						}}
 						contentData={this.state.contentData}
 						data={this.state.secData}/>

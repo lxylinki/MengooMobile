@@ -19,6 +19,7 @@ export default class ExamItem extends PureComponent {
 		let _this = this;
 		this.state = {
 			showToggle: 1,
+			maxHeight: 0
 		}
 		this.spinValue = new Animated.Value(this.state.showToggle);
 	}
@@ -47,16 +48,16 @@ export default class ExamItem extends PureComponent {
         })
 	}
 
-	// layout=(e)=>{
-	// 	console.log('ExamItem height:', e.layout.height, this.props.exam.exam_name);
-	// 	this.props.addHeight(e.layout.height);
-	// };
+	layout=(e)=>{
+		//console.log('ExamItem ' + this.props.exam.exam_name, e.layout.height);
+		this.props.addHeight(e.layout.height);
+	};
 
 	render(){
 		return(
 			<View 
 				style={styles.rootView} 
-				//onLayout={({nativeEvent:e})=>this.layout(e)}
+				onLayout={({nativeEvent:e})=>this.layout(e)}
 				>
 				<TouchableOpacity onPress={()=>{
 					this.setState({
