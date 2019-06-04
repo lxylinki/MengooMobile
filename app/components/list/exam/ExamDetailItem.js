@@ -57,7 +57,9 @@ export default class ExamDetailItem extends PureComponent {
 						textStyle={styles.goBtnText}
 						text={'前往考试'}
 						if_active={true}
-						action={()=>{}}
+						action={()=>{
+							this.props.navigation.navigate('ExamDetail', {title: this.props.data.name, exam: this.props.exam});
+						}}
 					/>
 				</View>
 			</View>
@@ -81,26 +83,34 @@ let styles = StyleSheet.create({
 	examNameTag: {
 		padding: 10,
 		height: 40,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderBottomWidth: 0.3,
+		borderBottomColor: '#ddd'
 	},
 
 	timeTag: {
 		padding: 10,
 		height: 40,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderBottomWidth: 0.3,
+		borderBottomColor: '#ddd'
 	},
 
 	totalTag: {
 		padding: 10,
 		height: 40,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderBottomWidth: 0.3,
+		borderBottomColor: '#ddd'		
 	},
 
 	btnTag: {
 		padding: 10,
 		height: 70,
 		justifyContent: 'center',
-		alignItems: 'flex-end'
+		alignItems: 'flex-end',
+		borderBottomWidth: 0.3,
+		borderBottomColor: '#ddd'
 	},
 
 	timeText: {

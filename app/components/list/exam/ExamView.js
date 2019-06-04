@@ -83,7 +83,8 @@ export default class ExamView extends PureComponent {
 				data={this.state.exams}
 				renderItem = {({item})=>{
 					return(
-						<ExamDetailItem 
+						<ExamDetailItem
+							exam={this.props.exams[item.id]} 
 							navigation={this.props.navigation}
 							data={item}/>
 					);

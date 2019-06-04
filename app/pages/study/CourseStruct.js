@@ -327,6 +327,7 @@ export default class CourseStruct extends Component {
                                     examViewHeight: height
                                 });
                             }}
+                            exams={this.state.examData} 
                             navigation={this.props.navigation}
                             courseId={this.courseId}
                         />
