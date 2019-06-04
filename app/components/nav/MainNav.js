@@ -40,6 +40,7 @@ import CourseExp from '../../pages/study/CourseExp';
 import CourseImage from '../../pages/study/CourseImage';
 import NoticeDetail from '../../pages/study/NoticeDetail';
 import CatagDetail from '../../pages/study/CatagDetail';
+import ExamDetail from '../../pages/study/ExamDetail';
 
 
 
@@ -88,6 +89,7 @@ const studyStack = createStackNavigator(
 		CourseImage: CourseImage,
 		NoticeDetail: NoticeDetail,
 		CatagDetail: CatagDetail,
+		ExamDetail: ExamDetail,
 		Pending: Pending
 	},
 	{
