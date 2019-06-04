@@ -313,6 +313,19 @@ export default class Utils {
 		this.fetchRoutine(api, data, respProc);
 	}
 
+	getExam(id, page, pageSize, respProc) {
+		let api = global_.course_exam
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;		
+		let data = {
+			course_id: id,
+			status: 1
+		};
+		this.fetchRoutine(api, data, respProc);		
+	}
+
 	getMyCourseList(page, pageSize, respProc){
 		let api = global_.my_course_list
 				+ '?page=' 

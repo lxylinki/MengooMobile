@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -9,7 +9,7 @@ import {
 import Utils from '../../../common/Utils';
 
 
-export default class NoticeItem extends Component {
+export default class NoticeItem extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.utils = new Utils();

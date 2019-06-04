@@ -7,12 +7,12 @@ import {
 	FlatList
 } from 'react-native';
 
-import NoticeItem from './NoticeItem';
+import ExamDetailItem from './ExamDetailItem';
 import Utils from '../../../common/Utils';
 
 var {height, width} = Dimensions.get('window');
 
-export default class NoticeView extends PureComponent {
+export default class ExamView extends PureComponent {
 	constructor(props){
 		super(props);
 		this.page = 1;
@@ -21,7 +21,7 @@ export default class NoticeView extends PureComponent {
 		this.utils = new Utils();
 		this.state = {
 			refreshing: false,
-			notices: []
+			exams: []
 		}
 	}
 
@@ -40,11 +40,11 @@ export default class NoticeView extends PureComponent {
 	};
 
 	componentDidMount(){
-		this.getNoticeData();
+		this.getExamData();
 	}
 
-	getNoticeData(){
-		this.utils.getNotice(this.props.courseId, this.page, this.pageSize, (resp)=>{
+	getExamData(){
+		this.utils.getExam(this.props.courseId, this.page, this.pageSize, (resp)=>{
             //console.log('getNoticeData', resp);
             if(this.totalPage === 0 && resp.total_page > 0) {
                 this.totalPage = resp.total_page;
@@ -52,38 +52,32 @@ export default class NoticeView extends PureComponent {
 
             if(this.page === 1) {
 				this.setState({
-					notices: resp._list
+					exams: resp._list
 				});
             } else {
                 this.setState({
-                    notices: this.state.notices.concat(resp._list),
+                    exams: this.state.exams.concat(resp._list),
                 });               	
             }
 
-            this.props.setHeight(this.state.notices.length*70);
+            //this.props.setHeight(this.state.exams.length*100);
 
             if(this.stopRefresh) {
                 this.stopRefresh();
             }
 		});
-	}
-
-	onRefresh(callback){
-        this.page = 1;
-        this.stopRefresh = callback;
-        this.getNoticeData();
-	}
+	}	
 
 	render(){
 		let key = 0;
-		this.state.notices.forEach(function(item){item.key = String(key++);});
+		this.state.exams.forEach(function(item){item.key = String(key++);});
 		return(
 			<FlatList
 				style={styles.list}
-				data={this.state.notices}
+				data={this.props.data}
 				renderItem = {({item})=>{
 					return(
-						<NoticeItem 
+						<ExamDetailItem 
 							navigation={this.props.navigation}
 							data={item}/>
 					);
@@ -92,25 +86,29 @@ export default class NoticeView extends PureComponent {
 					return(<View style={styles.separatorLine}></View>);
 				}}
 				refreshing={this.state.refreshing} 
-				onRefresh={this.refresh}
+				onRefresh={(callback)=>{
+	                this.page = 1;
+	                this.stopRefresh = callback;
+	                this.getExamData();}
+                }
 				onEndReached={()=>{
 	                //console.log('on end reached');
-	                if(this.state.notices.length>=this.pageSize) {
+	                if(this.state.exams.length>=this.pageSize) {
 	                    if(this.page < this.totalPage) {
 	                        this.page += 1;                                     
-	                        this.getNoticeData();
+	                        this.getExamData();
 	                    }
 	                }
 				}}
 				onEndReachedThreshold={0.5}
 			/>
 		);
-	}
+	}	
 }
 
 let styles = StyleSheet.create({
 	list: {
-		width: width,
+		width: width
 	},
 
 	separatorLine: {

@@ -480,7 +480,7 @@ let styles = StyleSheet.create({
 	},
 
 	studyBtn: {
-		width: 280,
+		width: 340,
 		height: 45
 	},
 

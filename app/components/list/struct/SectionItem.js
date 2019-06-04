@@ -12,7 +12,6 @@ import {
 import Iconfont from 'react-native-vector-icons/Iconfont';
 import Utils from '../../../common/Utils';
 import global_ from '../../../common/Global';
-//import OpenFile from 'react-native-doc-viewer';
 import FileViewer from 'react-native-file-viewer';
 import RNFS from 'react-native-fs';
 

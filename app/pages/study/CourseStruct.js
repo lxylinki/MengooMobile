@@ -7,7 +7,8 @@ import {
     Dimensions,
     TouchableOpacity,
     ScrollView,
-    Animated
+    Animated,
+    PanResponder
 } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,6 +16,7 @@ import LineBtn from '../../components/button/LineBtn';
 import Utils from '../../common/Utils';
 import StructView from '../../components/list/struct/StructView';
 import NoticeView from '../../components/list/notice/NoticeView';
+import ExamView from '../../components/list/exam/ExamView';
 
 
 var {height, width} = Dimensions.get('window');
@@ -37,9 +39,31 @@ export default class CourseStruct extends Component {
             scrollY: new Animated.Value(0),
             scrollHeight: 0,
             structViewHeight: 0,
-            noticeViewHeight: 0
+            noticeViewHeight: 0,
+            scrollable: true
         }
 	}
+
+    componentWillMount(){
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onPanResponderMove: (evt, gestureState) => {
+                //console.log('dy:', gestureState.dy, this.state.scrollY._value);
+                if(gestureState.dy > 0 && this.state.scrollY._value <= 0) {
+                    this.setState({
+                        scrollable: false
+                    });
+                } else {
+                    this.setState({
+                        scrollable: true
+                    })
+                }
+            }
+        });
+    }
 
     componentDidMount(){
         this.getStructData();
@@ -117,7 +141,13 @@ export default class CourseStruct extends Component {
         });
     }
 
-
+    toArray(examData){
+        let arr = [];
+        for(let i in examData) {
+            arr.push(examData[i]);
+        }
+        return arr;
+    }
 
     scrollPage = (event)=> {
         //console.log('scrollPage');
@@ -227,7 +257,8 @@ export default class CourseStruct extends Component {
                 </TouchableOpacity>          
 
                 <ScrollView
-                    onScroll={this.scrollPage}>
+                    onScroll={this.scrollPage}
+                    scrollEnabled={this.state.scrollable}>
 
                     <Image style={styles.image} resizeMode={'cover'} source={{uri: this.imgSrc}}/>
 
@@ -247,7 +278,8 @@ export default class CourseStruct extends Component {
                         ref={'pageScroll'}
                         pagingEnabled={true}
                         horizontal={true}
-                        onMomentumScrollEnd={this.scrollEnd}>
+                        onMomentumScrollEnd={this.scrollEnd}
+                        {...this._panResponder.panHandlers}>
 
                         <StructView 
                             navigation={this.props.navigation}
@@ -285,10 +317,11 @@ export default class CourseStruct extends Component {
                             courseId={this.courseId} 
                         />
 
-                        <View style={{width: width, alignItems:'center'}}>
-                            <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
-                            <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>
-                        </View>
+                        <ExamView 
+                            navigation={this.props.navigation}
+                            courseId={this.courseId}
+                        />
+                        
                         <View style={{width: width, alignItems: 'center'}}>
                             <Image resizeMode={'contain'} source={require('../../../assets/img/pending.png')} style={styles.pendingImage} />
                             <Text style={styles.pendingText}>{'此栏目正在开发中'}</Text>                        

@@ -26,6 +26,8 @@ const course_load = url_prefix + 'resources/resource/load/';
 
 const course_notice = url_prefix + 'course/notice/list';
 
+const course_exam = url_prefix + 'course/struct/exam-list';
+
 const my_course_list = url_prefix + 'course/course/my-list';
 const my_learn_list = url_prefix + 'course/struct/learn-list';
 const my_avatar = url_prefix + 'user/user/avatar';
@@ -69,6 +71,7 @@ export default {
 	course_load,
 
 	course_notice,
+	course_exam,
 	
 	my_course_list,
 	my_learn_list,
