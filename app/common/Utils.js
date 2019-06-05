@@ -358,4 +358,50 @@ export default class Utils {
 		//console.log(data);
 		this.formDataFetchRoutine(api, data, respProc);
 	}
+
+	getExamView(examId, respProc) {
+		let api = global_.exam_view;
+		let data = {
+			id: examId
+		};
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	getQuesList(examId, mode, page, pageSize, respProc){
+		let api = global_.exam_questions
+				+ '?page=' 
+				+ page 
+				+ '&pagesize=' 
+				+ pageSize;
+				
+		let data = {
+			id: examId,
+			mode: mode
+		};
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	getLastRecord(examId, respProc) {
+		let api = global_.exam_last;
+		let data = {
+			exam_id: examId
+		};
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	getPastExam(recordId, respProc) {
+		let api = global_.paper_card_view;
+		let data = {
+			record_id: recordId
+		};
+		this.fetchRoutine(api, data, respProc);
+	}
+
+	joinExam(examId, respProc){
+		let api = global_.exam_join;
+		let data = {
+			exam_id: examId
+		};
+		this.fetchRoutine(api, data, respProc);
+	}
 }

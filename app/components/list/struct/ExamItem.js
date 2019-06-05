@@ -53,11 +53,11 @@ export default class ExamItem extends PureComponent {
 	// }
 
 	layout=(e)=>{
-		//console.log('ExamItem ' + this.props.exam.exam_name, e.layout.height);
 		this.props.addHeight(e.layout.height);
 	};
 
 	render(){
+		//console.log('exam item:', this.props.data);
 		return(
 			<View 
 				style={styles.rootView} 
@@ -78,7 +78,7 @@ export default class ExamItem extends PureComponent {
 
 				<Animated.View style={[styles.examNameBar, {height: this.secHeight}]}>
 					<TouchableOpacity 
-						onPress={()=>{this.props.navigation.navigate('ExamDetail', {title: this.props.data.name, exam: this.props.exam});}}
+						onPress={()=>{this.props.navigation.navigate('ExamDetail', {course_id: this.props.data.course_id, title: this.props.data.name, exam: this.props.exam});}}
 					>
 						<View style={styles.examName}>
 							<View style={[styles.iconBg, {backgroundColor: '#00caba'}]}>

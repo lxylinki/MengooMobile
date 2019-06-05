@@ -17,12 +17,13 @@ export default class ExamDetailItem extends PureComponent {
 
 
 	currStatus(item) {
+		//console.log(item.exam_status, item.ended_at);
+		//console.log(~~item.exam_status, ~~item.ended_at);
 		return item.exam_status==1 && item.ended_at>new Date().getTime()/1000 ? "进行阶段" : (item.exam_status==3 ? "成绩公示阶段" : "已结束");
 	}
 
 
 	render(){
-		//console.log('exam detail item:', this.props.data);
 		return(
 			<View style={styles.rootView}>
 
@@ -58,7 +59,7 @@ export default class ExamDetailItem extends PureComponent {
 						text={'前往考试'}
 						if_active={true}
 						action={()=>{
-							this.props.navigation.navigate('ExamDetail', {title: this.props.data.name, exam: this.props.exam});
+							this.props.navigation.navigate('ExamDetail', {course_id: this.props.data.course_id, title: this.props.data.name, exam: this.props.exam});
 						}}
 					/>
 				</View>

@@ -229,6 +229,9 @@ export default class CourseStruct extends Component {
                         ref={'examBtn'}
                         if_active={false}
                         action={()=>{
+                            this.setState({
+                                scrollHeight: this.state.examViewHeight
+                            });
                             this.refs.docBtn.setState({active: false});
                             this.refs.announceBtn.setState({active: false});
                             this.refs.examBtn.setState({active: true});

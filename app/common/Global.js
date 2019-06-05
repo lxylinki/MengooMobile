@@ -27,6 +27,11 @@ const course_load = url_prefix + 'resources/resource/load/';
 const course_notice = url_prefix + 'course/notice/list';
 
 const course_exam = url_prefix + 'course/struct/exam-list';
+const exam_view = url_prefix + 'exam/exam/view';
+const exam_last = url_prefix + 'exam/exam-record/last';
+const exam_join = url_prefix + 'exam/exam-record/join';
+const paper_card_view = url_prefix + 'exam/paper-card/view';
+const exam_questions = url_prefix + 'exam/exam/questions';
 
 const my_course_list = url_prefix + 'course/course/my-list';
 const my_learn_list = url_prefix + 'course/struct/learn-list';
@@ -72,6 +77,11 @@ export default {
 
 	course_notice,
 	course_exam,
+	exam_view,
+	exam_last,
+	exam_join,
+	exam_questions,
+	paper_card_view,
 	
 	my_course_list,
 	my_learn_list,

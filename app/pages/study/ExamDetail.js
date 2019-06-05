@@ -17,6 +17,7 @@ var {height, width} = Dimensions.get('window');
 export default class ExamDetails extends Component {
 	constructor(props) {
 		super(props);
+		this.course_id = this.props.navigation.getParam('course_id', null);
 		this.exam = this.props.navigation.getParam('exam', null);
 		this.title = this.props.navigation.getParam('title', null);
 	}
@@ -37,7 +38,6 @@ export default class ExamDetails extends Component {
 	render(){
 		let stime = this.getTime(this.exam.suggested_time),
 			ltime = this.getTime(this.exam.limited_time);
-		console.log(stime, ltime);
 		return(
 			<View style={styles.rootView}>
 				<TitleHeader style={styles.headerView} title={this.title}/>
@@ -96,6 +96,7 @@ export default class ExamDetails extends Component {
 						ref={'studyBtn'}
 						if_active={true}
 						action={()=>{
+							this.props.navigation.navigate('ExamContent', {course_id: this.course_id, exam: this.exam});
 						}}/>
 				</View>
 
