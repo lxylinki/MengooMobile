@@ -12,6 +12,7 @@ import TitleHeader from '../../components/head/TitleHeader';
 import Entypo from 'react-native-vector-icons/Entypo';
 import RegularBtn from '../../components/button/RegularBtn';
 import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
+import A1Temp from '../../components/question/A1Temp';
 
 
 
@@ -44,6 +45,7 @@ export default class ExamContent extends Component {
 			pastTime: 0,
 			curr: 0,
 			total: 0,
+			totalPage: 0,
 			choosePrev: false,
 			chooseNext: true,
 			chooseSub: true
@@ -107,9 +109,12 @@ export default class ExamContent extends Component {
 
     	this.utils.getQuesList(this.exam.exam_id, mode, this.page, this.pageSize, (resp)=>{
     		console.log('getExam:', resp);
-    		this.setState({
-    			total: resp.total
-    		});
+    		if(this.state.total === 0 || this.state.totalPage === 0) {
+	    		this.setState({
+	    			total: resp.total,
+	    			totalPage: resp.total_page
+	    		});    			
+    		}
     		this.storages.dataMain = resp._list;
     	});
     }
@@ -178,8 +183,123 @@ export default class ExamContent extends Component {
 	}
 
 
+	toNext = ()=> {
+		if(this.state.curr === this.pageSize-1 && this.page < this.state.totalPage) {
+			this.page += 1;
+			this.getExam();
+		}	
+
+		this.setState({
+			curr: (this.state.curr + 1)%this.pageSize,
+			choosePrev: false,
+			chooseNext: true
+		});	
+	};
+
+
+	toPrev = ()=> {
+		if(this.state.curr === 0 && this.page > 1) {
+			this.page -= 1;
+			this.getExam();
+		}
+		if(this.state.curr === 0) {
+			this.setState({
+				curr: this.pageSize - 1,
+				choosePrev: true,
+				chooseNext: false
+			});			
+		} else {
+			this.setState({
+				curr: (this.state.curr - 1)%this.pageSize,
+				choosePrev: true,
+				chooseNext: false
+			});
+		}
+	};
+
+
+	showQues(i){
+		if(JSON.stringify(this.storages.dataMain) !== '{}') {
+			switch(this.storages.dataMain.main[i].type){
+				case '1':
+					return(
+						<A1Temp 
+							score={this.storages.dataMain.main[i].score}
+							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
+						/>		
+					);
+					break;
+				case '2':
+					return(
+			            <View>
+			            	<Text>{'A2题型'}</Text>
+			            </View>			
+					);
+					break;				
+				case '3':
+					return(
+			            <View>
+			            	<Text>{'判断题'}</Text>
+			            </View>			
+					);
+					break;
+				case '4':
+					return(
+			            <View>
+			            	<Text>{'多选题'}</Text>
+			            </View>			
+					);
+					break;
+				case '5':
+					return(
+			            <View>
+			            	<Text>{'A3题型'}</Text>
+			            </View>			
+					);
+					break;
+				case '6':
+					return(
+			            <View>
+			            	<Text>{'A4题型'}</Text>
+			            </View>			
+					);
+					break;
+				case '7':
+					return(
+			            <View>
+			            	<Text>{'B1题型'}</Text>
+			            </View>			
+					);
+					break;
+				case '8':
+					return(
+			            <View>
+			            	<Text>{'填空题'}</Text>
+			            </View>			
+					);
+					break;
+				case '9':
+					return(
+			            <View>
+			            	<Text>{'简答题'}</Text>
+			            </View>			
+					);
+					break;
+				case '10':
+					return(
+			            <View>
+			            	<Text>{'实验题'}</Text>
+			            </View>			
+					);
+					break;
+			}
+		}
+	} 
+
+
 	setCtrlBtn(curr){
-		if(curr === 0) {
+		if((this.pageSize*(this.page-1) + this.state.curr + 1) === 1) {
 			return(
 				<View style={styles.ctrlBtnView}>
 					<RegularBtn 
@@ -187,16 +307,11 @@ export default class ExamContent extends Component {
 						textStyle={styles.ctrlBtnText}
 						text={'下一题'}
 						if_active={true}
-						action={()=>{
-							this.setState({
-								curr: Number(this.state.curr) + 1,
-								choosePrev: false,
-								chooseNext: true
-							})
-						}}/>
+						action={this.toNext}
+					/>
 				</View>
 			);
-		} else if(curr === this.state.total-1) {
+		} else if((this.pageSize*(this.page-1) + this.state.curr + 1) === this.state.total) {
 			return(
 				<View style={styles.ctrlBtnView}>
 					<ShallowRegularBtn 
@@ -205,13 +320,7 @@ export default class ExamContent extends Component {
 						textStyle={styles.ctrlBtnText}
 						text={'上一题'}
 						if_active={this.state.choosePrev?true:false}
-						action={()=>{
-							this.setState({
-								curr: Number(this.state.curr) - 1,
-								choosePrev: true,
-								chooseNext: false
-							})
-						}}/>
+						action={this.toPrev}/>
 					<ShallowRegularBtn 
 						style={styles.nextBtn}
 						inactStyle={styles.nextBtnFade}
@@ -219,10 +328,7 @@ export default class ExamContent extends Component {
 						text={'提交'}
 						if_active={this.state.chooseSub?true:false}
 						action={()=>{
-							this.setState({
-								choosePrev: false,
-								chooseSub: true
-							})
+
 						}}/>					
 				</View>
 			);			
@@ -235,26 +341,14 @@ export default class ExamContent extends Component {
 						textStyle={styles.ctrlBtnText}
 						text={'上一题'}
 						if_active={this.state.choosePrev?true:false}
-						action={()=>{
-							this.setState({
-								curr: Number(this.state.curr) - 1,
-								choosePrev: true,
-								chooseNext: false
-							})
-						}}/>
+						action={this.toPrev}/>
 					<ShallowRegularBtn 
 						style={styles.nextBtn}
 						inactStyle={styles.nextBtnFade}
 						textStyle={styles.ctrlBtnText}
 						text={'下一题'}
 						if_active={this.state.chooseNext?true:false}
-						action={()=>{
-							this.setState({
-								curr: Number(this.state.curr) + 1,
-								choosePrev: false,
-								chooseNext: true
-							})
-						}}/>					
+						action={this.toNext}/>					
 				</View>			
 			);	
 		}
@@ -281,9 +375,9 @@ export default class ExamContent extends Component {
                         color={'white'}/>
                 </TouchableOpacity>
                 <View style={styles.indexing}>
-                	<Text style={styles.indexingText}>{'题目 ' + (this.state.curr + 1) + '/' + this.state.total}</Text>
+                	<Text style={styles.indexingText}>{'题目 ' + (this.pageSize*(this.page-1) + this.state.curr + 1) + '/' + this.state.total}</Text>
                 </View>
-
+                {this.showQues(this.state.curr)}
                 {this.setCtrlBtn(this.state.curr)}
 			</View>
 		);
