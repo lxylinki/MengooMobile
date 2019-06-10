@@ -13,7 +13,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import RegularBtn from '../../components/button/RegularBtn';
 import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
 import A1Temp from '../../components/question/A1Temp';
-
+import A2Temp from '../../components/question/A2Temp';
 
 
 var {height, width} = Dimensions.get('window');
@@ -30,7 +30,8 @@ export default class ExamContent extends Component {
 		this.pageSize = 5;
 		this.totalPage = 0;
 		this.isEdit = true;
-		this.isShowAnswer = false;
+		this.isShowAnswer = true;
+		this.isShowReview = true;
 
 
 		this.storages = {
@@ -129,7 +130,7 @@ export default class ExamContent extends Component {
     }
 
     getExamResults(){
-    	this.utils.getPastExam(this.recordId, (resp)=> {
+    	this.utils.getPastExam(this.recordId, this.isShowReview, (resp)=> {
     		console.log('getExamResults:', resp);
     		this.storages.examResults = resp;
     		this.getExam();
@@ -227,14 +228,22 @@ export default class ExamContent extends Component {
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
 							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
+							type_order={this.storages.dataMain.main[i].type_order}
+							order={this.storages.dataMain.main[i].order}
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
 						/>		
 					);
 					break;
 				case '2':
 					return(
-			            <View>
-			            	<Text>{'A2题型'}</Text>
-			            </View>			
+						<A2Temp 
+							score={this.storages.dataMain.main[i].score}
+							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
+							type_order={this.storages.dataMain.main[i].type_order}
+							order={this.storages.dataMain.main[i].order}							
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
+						/>			
 					);
 					break;				
 				case '3':

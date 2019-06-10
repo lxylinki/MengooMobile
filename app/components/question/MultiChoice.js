@@ -14,7 +14,7 @@ var {height, width} = Dimensions.get('window');
 import global_ from '../../common/Global';
 
 
-export default class A1Temp extends Component {
+export default class MultiChoice extends Component {
 	constructor(props) {
 		super(props);
 		this.answer = null;
@@ -45,7 +45,7 @@ export default class A1Temp extends Component {
 	        <View style={styles.rootView}>
 	        	<ScrollView>
 			        <View style={styles.quesView}>
-			        	<Text style={styles.quesText}>{'[A1题型] ' + this.props.question + ' (' + this.props.score + '分)'}</Text>
+			        	<Text style={styles.quesText}>{'[多选题] ' + this.props.question + ' (' + this.props.score + '分)'}</Text>
 			        </View>
 			        {this.genOpts()}
 		        </ScrollView>       	

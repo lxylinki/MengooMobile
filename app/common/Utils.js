@@ -389,11 +389,16 @@ export default class Utils {
 		this.fetchRoutine(api, data, respProc);
 	}
 
-	getPastExam(recordId, respProc) {
+	getPastExam(recordId, isShowReview, respProc) {
 		let api = global_.paper_card_view;
 		let data = {
 			record_id: recordId
 		};
+
+		if(isShowReview) {
+			data.with_score = 1;
+		}
+		
 		this.fetchRoutine(api, data, respProc);
 	}
 

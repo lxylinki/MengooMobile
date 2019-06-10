@@ -72,7 +72,7 @@ export default class ExamDetails extends Component {
 						<View style={styles.repeat}>
 							<Text style={styles.text}>{'重复考试:  '}</Text>
 							<Text style={styles.text}>
-								{this.exam.repeat>0? '允许重复'+this.exam.repeat+'次': '不允许重复考试'}
+								{this.exam.repeat>0? '允许重复'+this.exam.repeat+'次': (this.exam.repeat === 0?'不允许重复考试':'无限制')}
 							</Text>
 						</View>
 						<View style={styles.already}>
