@@ -17,6 +17,7 @@ import A1Temp from '../../components/question/A1Temp';
 import A2Temp from '../../components/question/A2Temp';
 import A3Temp from '../../components/question/A3Temp';
 import A4Temp from '../../components/question/A4Temp';
+import B1Temp from '../../components/question/B1Temp';
 import MultiChoice from '../../components/question/MultiChoice';
 
 
@@ -181,6 +182,7 @@ export default class ExamContent extends Component {
 
     getExam(){
     	return new Promise((resolve, reject)=>{
+    		this.storages.dataMain = {};
 	    	let mode;
 	    	if(this.isShowAnswer) {
 	    		mode = 3;
@@ -253,15 +255,6 @@ export default class ExamContent extends Component {
 		this.utils.getExamView(this.exam.exam_id, (resp)=>{
 			console.log('getExamInfo:', resp);
 			this.storages.examInfo = resp[0];
-
-			// if(this.storages.examInfo.status==1 && this.storages.examInfo.ended_at>new Date().getTime()/1000) {
-			// 	if(this.storages.examInfo.limited_time > 0) {
-			// 		this.countDown(this.storages.examInfo.limited_time);
-			// 	} else {
-			// 		this.countUp();
-			// 	}
-			// }
-
 			if(this.record_id) {
 				//this.getEnterRecord();
 			} else {
@@ -376,9 +369,12 @@ export default class ExamContent extends Component {
 					break;
 				case '7':
 					return(
-			            <View>
-			            	<Text>{'B1题型'}</Text>
-			            </View>			
+						<B1Temp
+							score={this.storages.dataMain.main[i].score}
+							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
+							options={this.storages.dataMain.options_b1[this.storages.dataMain.main[i].option_id]}						
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
+						/>		
 					);
 					break;
 				case '8':

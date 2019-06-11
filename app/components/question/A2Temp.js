@@ -64,7 +64,8 @@ let styles = StyleSheet.create({
 
 	quesText: {
 		fontSize: 16,
-		color: 'black'
+		color: 'black',
+		marginBottom: 10
 	},
 
 	optAnsView: {

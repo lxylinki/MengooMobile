@@ -14,7 +14,7 @@ var {height, width} = Dimensions.get('window');
 import global_ from '../../common/Global';
 
 
-export default class MultiChoice extends Component {
+export default class B1Temp extends Component {
 	genOpts(){
 		let opts = [], opt_names = ['A', 'B', 'C', 'D', 'E'];
 		for(let i=0; i<opt_names.length; i++) {
@@ -23,12 +23,12 @@ export default class MultiChoice extends Component {
 	        	<TouchableOpacity 
 	        		key={i}
 	        		style={this.props.options[opt_name.toLowerCase() + '_txt'] && this.props.options[opt_name.toLowerCase() + '_txt'].length>0? 
-	        		(this.props.answer && this.props.answer.includes(opt_name)?
+	        		(this.props.answer && this.props.answer===opt_name?
 	        			[styles.optAnsView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 70}]:
 	        			[styles.optView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 50}]): 
 	        		{display: 'none'}}
 	        	>
-	        		<Text style={this.props.answer && this.props.answer.includes(opt_name)?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>
+	        		<Text style={this.props.answer && this.props.answer===opt_name?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>
 	        		<Image 
 	        			style={this.props.options[opt_name.toLowerCase() + '_img']? styles.optImg: {display: 'none'}} 
 	        			resizeMode='contain'
@@ -39,12 +39,15 @@ export default class MultiChoice extends Component {
 		return opts;
 	}
 
+
+	
+
 	render(){
 		return(
 	        <View style={styles.rootView}>
 	        	<ScrollView>
 			        <View style={styles.quesView}>
-			        	<Text style={styles.quesText}>{'[多选题] ' + this.props.question + ' (' + this.props.score + '分)'}</Text>
+			        	<Text style={styles.quesText}>{'[B1题型] ' + this.props.question + ' (' + this.props.score + '分)'}</Text>
 			        </View>
 			        {this.genOpts()}
 		        </ScrollView>       	
