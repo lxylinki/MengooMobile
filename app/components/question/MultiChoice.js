@@ -22,11 +22,16 @@ export default class MultiChoice extends Component {
 			opts.push(
 	        	<TouchableOpacity 
 	        		key={i}
-	        		style={this.props.options[opt_name.toLowerCase() + '_txt'] && this.props.options[opt_name.toLowerCase() + '_txt'].length>0? (this.props.answer && this.props.answer.includes(opt_name)?styles.optAnsView:styles.optView): {display: 'none'}}>
+	        		style={this.props.options[opt_name.toLowerCase() + '_txt'] && this.props.options[opt_name.toLowerCase() + '_txt'].length>0? 
+	        		(this.props.answer && this.props.answer.includes(opt_name)?
+	        			[styles.optAnsView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 70}]:
+	        			[styles.optView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 50}]): 
+	        		{display: 'none'}}
+	        	>
 	        		<Text style={this.props.answer && this.props.answer.includes(opt_name)?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>
 	        		<Image 
 	        			style={this.props.options[opt_name.toLowerCase() + '_img']? styles.optImg: {display: 'none'}} 
-	        			resizeMode='contain' 
+	        			resizeMode='contain'
 	        			source={{uri: global_.url_prefix + this.props.options[opt_name.toLowerCase() + '_img']}}/>
 	        	</TouchableOpacity>
 			);

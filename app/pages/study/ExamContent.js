@@ -4,7 +4,8 @@ import {
 	View,
 	Text,
 	TouchableOpacity,
-	Dimensions
+	Dimensions,
+	Alert
 } from 'react-native';
 
 import Utils from '../../common/Utils';
@@ -14,6 +15,7 @@ import RegularBtn from '../../components/button/RegularBtn';
 import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
 import A1Temp from '../../components/question/A1Temp';
 import A2Temp from '../../components/question/A2Temp';
+import A3Temp from '../../components/question/A3Temp';
 import MultiChoice from '../../components/question/MultiChoice';
 
 
@@ -102,6 +104,80 @@ export default class ExamContent extends Component {
         };
     }
     
+    isShowSwitch(){
+    	console.log('isShowSwitch');
+    	this.storages.examResults = [];
+    	if(this.storages.submitData.student && this.storages.submitData.class){
+    		this.setState({
+    			remainingTime: this.storages.examInfo.limited_time?(this.storages.examInfo.limited_time-this.storages.submitData.time):this.storages.submitData.time 
+    		}, ()=>{
+    			this.countDown(this.state.remainingTime);
+    		});
+    	} else {
+	        if(this.storages.examInfo.started_at>new Date().getTime()/1000){//未开始
+	            Alert.alert("考试未开始，请耐心等待");
+	        }else if(this.storages.examInfo.ended_at<new Date().getTime()/1000){//已经结束
+	            Alert.alert("考试已结束");
+	        }else{
+	            Alert.alert("无法答题");
+	        }
+    	}
+
+        if(this.storages.examInfo.status === 3){//考试已经发布
+            this.isEdit = false;
+            this.isShowAnswer = true;
+            this.isShowDoneAnswer = true;
+            this.isShowReview = false;
+            return;
+        }
+
+        if(this.storages.examInfo.status === 2){//考试已经结束
+            this.isEdit = false;
+            this.isShowAnswer = false;
+            this.isShowDoneAnswer = false;
+            this.isShowReview = false;
+            return;
+        }
+
+        if(this.storages.examInfo.ended_at<=parseInt(""+(new Date().getTime()/1000),10)){//考试超过日期，且未发布
+            this.isEdit = false;
+            this.isShowAnswer = true;
+            this.isShowDoneAnswer = true;
+            this.isShowReview = false;
+            return;
+        }
+
+        if(this.storages.submitData.id){//有记录信息
+            if((this.storages.examInfo.limited_time && this.storages.submitData.time >= this.storages.examInfo.limited_time) || this.storages.submitData.submitted_at){//考试超时或者提交，但未发布，也没超过日期
+                this.isEdit = false;
+                this.isShowAnswer = false;
+                this.isShowDoneAnswer = false;
+                this.isShowReview = false;
+                return false;
+            }
+
+            if(this.storages.examInfo.repeat<0){
+                this.isEdit = true;
+            }else{
+                if(this.storages.examInfo.repeat>this.storages.submitData.repeat){
+                    this.isEdit = true;
+                }else if(this.storages.examInfo.repeat===this.storages.submitData.repeat){
+                    this.isEdit = true;
+                }else{
+                    this.isEdit = false;
+                }
+            }
+            this.isShowAnswer = false;
+            this.isShowDoneAnswer = false;
+            this.isShowReview = false;
+        }else{
+            this.isEdit = false;
+            this.isShowAnswer = false;
+            this.isShowDoneAnswer = false;
+            this.isShowReview = false;
+        }
+    }
+
     getExam(){
     	return new Promise((resolve, reject)=>{
 	    	let mode;
@@ -130,6 +206,7 @@ export default class ExamContent extends Component {
     		console.log('setRecord:', resp);
     		this.recordId = resp.id;
     		this.storages.submitData = resp.record;
+    		this.isShowSwitch();
     		this.getExamResults();
     	});
     }
@@ -148,17 +225,21 @@ export default class ExamContent extends Component {
 			if(resp.id) {
 				this.recordId = resp.id;
 				this.storages.submitData = resp;
+				this.isShowSwitch();
 				this.getExamResults();
 
 			} else {
 	            if(this.storages.examInfo.status !== 1){//如果考试已经停止
+	            	this.isShowSwitch();
 	                this.getExam();
 	                return false;
 	            }
 	            if(this.storages.examInfo.started_at>new Date().getTime()/1000){//如果考试还没有开始
+	            	this.isShowSwitch();
 	                return false;
 	            }
 	            if(this.storages.examInfo.ended_at<new Date().getTime()/1000){//如果考试超时了
+	            	this.isShowSwitch();
 	                this.getExam();
 	                return false;
 	            }
@@ -172,13 +253,13 @@ export default class ExamContent extends Component {
 			console.log('getExamInfo:', resp);
 			this.storages.examInfo = resp[0];
 
-			if(this.storages.examInfo.status==1 && this.storages.examInfo.ended_at>new Date().getTime()/1000) {
-				if(this.storages.examInfo.limited_time > 0) {
-					this.countDown(this.storages.examInfo.limited_time);
-				} else {
-					this.countUp();
-				}
-			}
+			// if(this.storages.examInfo.status==1 && this.storages.examInfo.ended_at>new Date().getTime()/1000) {
+			// 	if(this.storages.examInfo.limited_time > 0) {
+			// 		this.countDown(this.storages.examInfo.limited_time);
+			// 	} else {
+			// 		this.countUp();
+			// 	}
+			// }
 
 			if(this.record_id) {
 				//this.getEnterRecord();
@@ -236,12 +317,9 @@ export default class ExamContent extends Component {
 				case '1':
 					return(
 						<A1Temp 
-							isEdit={this.isEdit}
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
 							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
-							type_order={this.storages.dataMain.main[i].type_order}
-							order={this.storages.dataMain.main[i].order}
 							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
 						/>		
 					);
@@ -249,12 +327,9 @@ export default class ExamContent extends Component {
 				case '2':
 					return(
 						<A2Temp 
-							isEdit={this.isEdit}
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
-							type_order={this.storages.dataMain.main[i].type_order}
-							order={this.storages.dataMain.main[i].order}							
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}							
 							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
 						/>			
 					);
@@ -269,21 +344,22 @@ export default class ExamContent extends Component {
 				case '4':
 					return(
 						<MultiChoice
-							isEdit={this.isEdit}
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
-							type_order={this.storages.dataMain.main[i].type_order}
-							order={this.storages.dataMain.main[i].order}							
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}						
 							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
 						/>		
 					);
 					break;
 				case '5':
 					return(
-			            <View>
-			            	<Text>{'A3题型'}</Text>
-			            </View>			
+						<A3Temp
+							score={this.storages.dataMain.main[i].score}
+							case={this.storages.dataMain.cases[this.storages.dataMain.main[i].case_id].content}
+							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}						
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
+						/>		
 					);
 					break;
 				case '6':
@@ -405,7 +481,7 @@ export default class ExamContent extends Component {
                 <View style={styles.indexing}>
                 	<Text style={styles.indexingText}>{'题目 ' + (this.pageSize*(this.page-1) + this.state.curr + 1) + '/' + this.state.total}</Text>
                 </View>
-                {this.showQues(this.state.curr)}
+                {this.isEdit? this.showQues(this.state.curr) :this.showQues(this.state.curr)}
                 {this.setCtrlBtn(this.state.curr)}
 			</View>
 		);

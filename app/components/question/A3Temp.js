@@ -14,7 +14,7 @@ var {height, width} = Dimensions.get('window');
 import global_ from '../../common/Global';
 
 
-export default class A1Temp extends Component {
+export default class A3Temp extends Component {
 	genOpts(){
 		let opts = [], opt_names = ['A', 'B', 'C', 'D', 'E'];
 		for(let i=0; i<opt_names.length; i++) {
@@ -47,7 +47,8 @@ export default class A1Temp extends Component {
 	        <View style={styles.rootView}>
 	        	<ScrollView>
 			        <View style={styles.quesView}>
-			        	<Text style={styles.quesText}>{'[A1题型] ' + this.props.question + ' (' + this.props.score + '分)'}</Text>
+			        	<Text style={styles.quesText}>{this.props.case}</Text>
+			        	<Text style={styles.quesText}>{'[A3题型] ' + this.props.question + ' (' + this.props.score + '分)'}</Text>
 			        </View>
 			        {this.genOpts()}
 		        </ScrollView>       	
@@ -67,7 +68,8 @@ let styles = StyleSheet.create({
 
 	quesText: {
 		fontSize: 16,
-		color: 'black'
+		color: 'black',
+		marginBottom: 10
 	},
 
 	optAnsView: {
