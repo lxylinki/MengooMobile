@@ -13,6 +13,7 @@ import TitleHeader from '../../components/head/TitleHeader';
 import Entypo from 'react-native-vector-icons/Entypo';
 import RegularBtn from '../../components/button/RegularBtn';
 import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
+
 import A1Temp from '../../components/question/A1Temp';
 import A2Temp from '../../components/question/A2Temp';
 import A3Temp from '../../components/question/A3Temp';
@@ -28,7 +29,7 @@ export default class ExamContent extends Component {
 		super(props);
 		this.exam = this.props.navigation.getParam('exam', null);
 		this.course_id = this.props.navigation.getParam('course_id', null);
-		this.record_id = this.props.navigation.getParam('record_id', null);
+		//this.record_id = this.props.navigation.getParam('record_id', null);
 		this.utils = new Utils();
 
 		this.page = 1;
