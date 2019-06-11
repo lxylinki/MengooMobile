@@ -16,6 +16,7 @@ import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
 import A1Temp from '../../components/question/A1Temp';
 import A2Temp from '../../components/question/A2Temp';
 import A3Temp from '../../components/question/A3Temp';
+import A4Temp from '../../components/question/A4Temp';
 import MultiChoice from '../../components/question/MultiChoice';
 
 
@@ -364,9 +365,13 @@ export default class ExamContent extends Component {
 					break;
 				case '6':
 					return(
-			            <View>
-			            	<Text>{'A4题型'}</Text>
-			            </View>			
+						<A4Temp
+							score={this.storages.dataMain.main[i].score}
+							case={this.storages.dataMain.cases[this.storages.dataMain.main[i].case_id].content}
+							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}						
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
+						/>			
 					);
 					break;
 				case '7':
