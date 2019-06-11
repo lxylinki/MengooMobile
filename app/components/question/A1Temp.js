@@ -15,11 +15,6 @@ import global_ from '../../common/Global';
 
 
 export default class A1Temp extends Component {
-	constructor(props) {
-		super(props);
-		this.answer = null;
-	}
-
 	genOpts(){
 		let opts = [], opt_names = ['A', 'B', 'C', 'D', 'E'];
 		for(let i=0; i<opt_names.length; i++) {
@@ -27,11 +22,12 @@ export default class A1Temp extends Component {
 			opts.push(
 	        	<TouchableOpacity 
 	        		key={i}
-	        		style={this.props.options[opt_name.toLowerCase() + '_txt'].length>0? (this.answer===opt_name?styles.optAnsView:styles.optView): {display: 'none'}}>
-	        		<Text style={this.answer===opt_name?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>
+	        		style={this.props.options[opt_name.toLowerCase() + '_txt'] && this.props.options[opt_name.toLowerCase() + '_txt'].length>0? (this.props.answer && this.props.answer===opt_name?styles.optAnsView:styles.optView): {display: 'none'}}
+	        	>
+	        		<Text style={this.props.answer && this.props.answer===opt_name?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>
 	        		<Image 
 	        			style={this.props.options[opt_name.toLowerCase() + '_img']? styles.optImg: {display: 'none'}} 
-	        			resizeMode='contain' 
+	        			resizeMode='contain'
 	        			source={{uri: global_.url_prefix + this.props.options[opt_name.toLowerCase() + '_img']}}/>
 	        	</TouchableOpacity>
 			);
@@ -40,7 +36,6 @@ export default class A1Temp extends Component {
 	}
 
 	render(){
-		this.answer = this.props.answer;
 		return(
 	        <View style={styles.rootView}>
 	        	<ScrollView>

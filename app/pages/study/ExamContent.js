@@ -14,6 +14,7 @@ import RegularBtn from '../../components/button/RegularBtn';
 import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
 import A1Temp from '../../components/question/A1Temp';
 import A2Temp from '../../components/question/A2Temp';
+import MultiChoice from '../../components/question/MultiChoice';
 
 
 var {height, width} = Dimensions.get('window');
@@ -30,8 +31,9 @@ export default class ExamContent extends Component {
 		this.pageSize = 5;
 		this.totalPage = 0;
 		this.isEdit = true;
-		this.isShowAnswer = true;
-		this.isShowReview = true;
+		this.isShowAnswer = false;
+		this.isShowDoneAnswer = false;
+		this.isShowReview = false;
 
 
 		this.storages = {
@@ -234,6 +236,7 @@ export default class ExamContent extends Component {
 				case '1':
 					return(
 						<A1Temp 
+							isEdit={this.isEdit}
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
 							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
@@ -246,6 +249,7 @@ export default class ExamContent extends Component {
 				case '2':
 					return(
 						<A2Temp 
+							isEdit={this.isEdit}
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
 							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
@@ -264,9 +268,15 @@ export default class ExamContent extends Component {
 					break;
 				case '4':
 					return(
-			            <View>
-			            	<Text>{'多选题'}</Text>
-			            </View>			
+						<MultiChoice
+							isEdit={this.isEdit}
+							score={this.storages.dataMain.main[i].score}
+							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
+							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
+							type_order={this.storages.dataMain.main[i].type_order}
+							order={this.storages.dataMain.main[i].order}							
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : null}
+						/>		
 					);
 					break;
 				case '5':
