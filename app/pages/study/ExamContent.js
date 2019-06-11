@@ -101,22 +101,25 @@ export default class ExamContent extends Component {
     }
     
     getExam(){
-    	let mode;
-    	if(this.isShowAnswer) {
-    		mode = 3;
-    	} else {
-    		mode = 2;
-    	}
+    	return new Promise((resolve, reject)=>{
+	    	let mode;
+	    	if(this.isShowAnswer) {
+	    		mode = 3;
+	    	} else {
+	    		mode = 2;
+	    	}
 
-    	this.utils.getQuesList(this.exam.exam_id, mode, this.page, this.pageSize, (resp)=>{
-    		console.log('getExam:', resp);
-    		if(this.state.total === 0 || this.state.totalPage === 0) {
-	    		this.setState({
-	    			total: resp.total,
-	    			totalPage: resp.total_page
-	    		});    			
-    		}
-    		this.storages.dataMain = resp._list;
+	    	this.utils.getQuesList(this.exam.exam_id, mode, this.page, this.pageSize, (resp)=>{
+	    		console.log('getExam:', resp);
+	    		if(this.state.total === 0 || this.state.totalPage === 0) {
+		    		this.setState({
+		    			total: resp.total,
+		    			totalPage: resp.total_page
+		    		});    			
+	    		}
+	    		this.storages.dataMain = resp._list;
+	    		resolve(resp._list);
+	    	});
     	});
     }
 
@@ -201,15 +204,16 @@ export default class ExamContent extends Component {
 	toPrev = ()=> {
 		if(this.state.curr === 0 && this.page > 1) {
 			this.page -= 1;
-			this.getExam();
+			this.getExam().then(()=>{
+				this.setState({
+					curr: this.pageSize - 1,
+					choosePrev: true,
+					chooseNext: false
+				});					
+			});
 		}
-		if(this.state.curr === 0) {
-			this.setState({
-				curr: this.pageSize - 1,
-				choosePrev: true,
-				chooseNext: false
-			});			
-		} else {
+		
+		if(this.state.curr > 0) {
 			this.setState({
 				curr: (this.state.curr - 1)%this.pageSize,
 				choosePrev: true,
@@ -221,6 +225,11 @@ export default class ExamContent extends Component {
 
 	showQues(i){
 		if(JSON.stringify(this.storages.dataMain) !== '{}') {
+			// if(!this.storages.dataMain.main[i]) {
+			// 	console.log('i:', i);
+			// 	console.log('dataMain:', this.storages.dataMain);
+			// 	return;
+			// }
 			switch(this.storages.dataMain.main[i].type){
 				case '1':
 					return(
