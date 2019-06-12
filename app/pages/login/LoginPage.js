@@ -20,8 +20,8 @@ import Orientation from 'react-native-orientation';
 class LoginPage extends Component {
 	constructor(props) {
 		super(props);
-		this.username = '';
-		this.password = '';
+		this.username = 'xs1';
+		this.password = '123456';
 		this.epassword = '';
 		this.utils = new Utils();
 		this.login = this.login.bind(this);

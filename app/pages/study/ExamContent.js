@@ -77,7 +77,8 @@ export default class ExamContent extends Component {
 				remainingTime: s
 			});
 		}
-		timer = setInterval(count, 1000);
+		timer = count();
+		// timer = setInterval(count, 1000);
 	};
 
 	countUp() {
@@ -89,7 +90,8 @@ export default class ExamContent extends Component {
 				pastTime: s
 			});
 		}
-		timer = setInterval(count, 1000);
+		timer = count();
+		// timer = setInterval(count, 1000);
 	};
 
     getTime(time){
@@ -314,7 +316,7 @@ export default class ExamContent extends Component {
 			switch(this.storages.dataMain.main[i].type){
 				case '1':
 					return(
-						<A1Temp 
+						<A1Temp						
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
 							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
@@ -417,9 +419,13 @@ export default class ExamContent extends Component {
 				case '1':
 					return(
 						<EditableA1Temp 
+							setAnswer={(ans)=>{								
+								this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer = ans;
+							}}
 							score={this.storages.dataMain.main[i].score}
 							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
 							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
+							answer={this.storages.examResults.length>0? this.storages.examResults[this.storages.dataMain.main[i].type_order][this.storages.dataMain.main[i].order].answer : "123"}
 						/>		
 					);
 					break;
@@ -576,6 +582,7 @@ export default class ExamContent extends Component {
 		return(
 			<View style={styles.rootView}>
 				<TitleHeader style={styles.headerView} title={time.h + ':' + time.m + ':' + time.s}/>
+                
                 <TouchableOpacity 
                     style={styles.backBtn}
                     onPress={()=>{this.props.navigation.goBack()}}>
@@ -584,10 +591,13 @@ export default class ExamContent extends Component {
                         size={25}
                         color={'white'}/>
                 </TouchableOpacity>
+                
                 <View style={styles.indexing}>
                 	<Text style={styles.indexingText}>{'题目 ' + (this.pageSize*(this.page-1) + this.state.curr + 1) + '/' + this.state.total}</Text>
                 </View>
-                {this.isEdit? this.showEditableQues(this.state.curr) :this.showQues(this.state.curr)}
+
+                {this.showEditableQues(this.state.curr)}
+                
                 {this.setCtrlBtn(this.state.curr)}
 			</View>
 		);

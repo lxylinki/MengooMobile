@@ -22,6 +22,12 @@ export default class EditableA1Temp extends Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			myAnswer: nextProps.answer
+		});
+	}
+
 	genOpts(){
 		let opts = [], opt_names = ['A', 'B', 'C', 'D', 'E'];
 		for(let i=0; i<opt_names.length; i++) {
@@ -29,6 +35,7 @@ export default class EditableA1Temp extends Component {
 			opts.push(
 	        	<TouchableOpacity 
 	        		key={i}
+
 	        		style={this.props.options[opt_name.toLowerCase() + '_txt'] && this.props.options[opt_name.toLowerCase() + '_txt'].length>0? 
 	        		(this.state.myAnswer && this.state.myAnswer===opt_name?
 	        			[styles.optAnsView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 70}]:
@@ -38,6 +45,7 @@ export default class EditableA1Temp extends Component {
 	        			this.setState({
 	        				myAnswer: opt_name
 	        			});
+	        			this.props.setAnswer(opt_name);
 	        		}}
 	        	>
 	        		<Text style={this.state.myAnswer && this.state.myAnswer===opt_name?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>

@@ -27,6 +27,9 @@ export default class A1Temp extends Component {
 	        			[styles.optAnsView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 70}]:
 	        			[styles.optView, this.props.options[opt_name.toLowerCase() + '_img']? {height: 160}: {height: 50}]): 
 	        		{display: 'none'}}
+	        		onPress={()=>{
+	        			this.props.setAnswer(opt_name);
+	        		}}
 	        	>
 	        		<Text style={this.props.answer && this.props.answer===opt_name?styles.optAnsText:styles.optText}>{opt_name + '. ' + this.props.options[opt_name.toLowerCase() + '_txt']}</Text>
 	        		<Image 
