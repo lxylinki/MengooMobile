@@ -15,7 +15,6 @@ import RegularBtn from '../../components/button/RegularBtn';
 import ShallowRegularBtn from '../../components/button/ShallowRegularBtn';
 
 import A1Temp from '../../components/question/A1Temp';
-import EditableA1Temp from '../../components/question/EditableA1Temp';
 import A2Temp from '../../components/question/A2Temp';
 import A3Temp from '../../components/question/A3Temp';
 import A4Temp from '../../components/question/A4Temp';
@@ -227,7 +226,6 @@ export default class ExamContent extends Component {
     getLastInfo(){
 		this.utils.getLastRecord(this.exam.exam_id, (resp)=>{
 			console.log('getLastInfo:', resp);
-			//有记录
 			if(resp.id) {
 				this.recordId = resp.id;
 				this.storages.submitData = resp;
@@ -235,7 +233,6 @@ export default class ExamContent extends Component {
 				this.getExamResults();
 
 			} else {
-				//无记录
 	            if(this.storages.examInfo.status !== 1){//如果考试已经停止
 	            	this.isShowSwitch();
 	                this.getExam();
@@ -406,109 +403,6 @@ export default class ExamContent extends Component {
 		}
 	} 
 
-	showEditableQues(i){
-		if(JSON.stringify(this.storages.dataMain) !== '{}') {
-			// if(!this.storages.dataMain.main[i]) {
-			// 	console.log('i:', i);
-			// 	console.log('dataMain:', this.storages.dataMain);
-			// 	return;
-			// }
-			switch(this.storages.dataMain.main[i].type){
-				case '1':
-					return(
-						<EditableA1Temp 
-							score={this.storages.dataMain.main[i].score}
-							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}
-						/>		
-					);
-					break;
-				case '2':
-					return(
-						<A2Temp 
-							score={this.storages.dataMain.main[i].score}
-							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}							
-						/>			
-					);
-					break;				
-				case '3':
-					return(
-			            <View>
-			            	<Text>{'判断题'}</Text>
-			            </View>			
-					);
-					break;
-				case '4':
-					return(
-						<MultiChoice
-							score={this.storages.dataMain.main[i].score}
-							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}						
-						/>		
-					);
-					break;
-				case '5':
-					return(
-						<A3Temp
-							score={this.storages.dataMain.main[i].score}
-							case={this.storages.dataMain.cases[this.storages.dataMain.main[i].case_id].content}
-							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}						
-						/>		
-					);
-					break;
-				case '6':
-					return(
-						<A4Temp
-							score={this.storages.dataMain.main[i].score}
-							case={this.storages.dataMain.cases[this.storages.dataMain.main[i].case_id].content}
-							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options[this.storages.dataMain.main[i].option_id]}						
-						/>			
-					);
-					break;
-				case '7':
-					return(
-						<B1Temp
-							score={this.storages.dataMain.main[i].score}
-							question={this.storages.dataMain.questions[this.storages.dataMain.main[i].type][this.storages.dataMain.main[i].question_id].question}
-							options={this.storages.dataMain.options_b1[this.storages.dataMain.main[i].option_id]}						
-						/>		
-					);
-					break;
-				case '8':
-					return(
-			            <View>
-			            	<Text>{'填空题'}</Text>
-			            </View>			
-					);
-					break;
-				case '9':
-					return(
-			            <View>
-			            	<Text>{'简答题'}</Text>
-			            </View>			
-					);
-					break;
-				case '10':
-					return(
-			            <View>
-			            	<Text>{'实验题'}</Text>
-			            </View>			
-					);
-					break;
-			}
-		}
-	} 
-
-	reInit = ()=>{
-		this.page = 1;
-		this.setRecord();
-		this.setState({
-			curr: 0
-		});
-	};
 
 	setCtrlBtn(curr){
 		if((this.pageSize*(this.page-1) + this.state.curr + 1) === 1) {
@@ -539,7 +433,9 @@ export default class ExamContent extends Component {
 						textStyle={styles.ctrlBtnText}
 						text={'提交'}
 						if_active={this.state.chooseSub?true:false}
-						action={this.reInit}/>					
+						action={()=>{
+
+						}}/>					
 				</View>
 			);			
 		} else {
@@ -587,7 +483,7 @@ export default class ExamContent extends Component {
                 <View style={styles.indexing}>
                 	<Text style={styles.indexingText}>{'题目 ' + (this.pageSize*(this.page-1) + this.state.curr + 1) + '/' + this.state.total}</Text>
                 </View>
-                {this.isEdit? this.showEditableQues(this.state.curr) :this.showQues(this.state.curr)}
+                {this.isEdit? this.showQues(this.state.curr) :this.showQues(this.state.curr)}
                 {this.setCtrlBtn(this.state.curr)}
 			</View>
 		);

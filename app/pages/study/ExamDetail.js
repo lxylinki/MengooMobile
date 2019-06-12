@@ -75,11 +75,12 @@ export default class ExamDetails extends Component {
 								{this.exam.repeat>0? '允许重复'+this.exam.repeat+'次': (this.exam.repeat === 0?'不允许重复考试':'无限制')}
 							</Text>
 						</View>
+						{/*
 						<View style={styles.already}>
 							<Text style={styles.alreadyText}>
 								{'已参加： ' + this.exam.is_count + '次'}
 							</Text>
-						</View>
+						</View>*/}
 					</View>
 					<View>
 						<Text style={styles.text}>{'考试备注:'}</Text>

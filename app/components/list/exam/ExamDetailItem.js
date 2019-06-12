@@ -19,7 +19,7 @@ export default class ExamDetailItem extends PureComponent {
 	currStatus(item) {
 		//console.log(item.exam_status, item.ended_at);
 		//console.log(~~item.exam_status, ~~item.ended_at);
-		return item.exam_status==1 && item.ended_at>new Date().getTime()/1000 ? "进行阶段" : (item.exam_status==3 ? "成绩公示阶段" : "已结束");
+		return item.exam_status==1 && item.ended_at>new Date().getTime()/1000 ? "进行阶段" : (item.exam_status==3 ? "成绩公示" : "已结束");
 	}
 
 
